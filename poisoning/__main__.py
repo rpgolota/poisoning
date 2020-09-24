@@ -1,2 +1,7 @@
 if __name__ == "__main__":
-    print("__main__.py")
+    print('''
+A dataset poisoning library.
+
+Based on algorithm provided in "Is Feature Selection Secure against Training Data Poisoning?" Xiao et al. 2018
+'''
+    )

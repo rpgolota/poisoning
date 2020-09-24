@@ -1,4 +1,3 @@
-__all__ = ()
+from .xiao2018 import xiao2018
 
-if __name__ == "__main__":
-    print("__init__.py")
+__all__ = ('xiao2018')
