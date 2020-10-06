@@ -5,30 +5,76 @@ import sklearn.linear_model
 # sklearn.linear_model.Lasso
 # sklearn.linear_model.ElasticNet
 
-def classifier(weights, biases, x):
-    """Linear classifier 
+"""
+:: Notes for equation2 ::
 
-    Args:
-        weights (column vector): self-explanatory
-        biases (column vector): self-explanatory
-        x (column vector): column vector of features of data point
+- equation3 seems to be very similar, just maximizing, and before doing anything further I think it is worthwile
+  to read fully and compile all next steps needed to start implementing more of the features from the paper
+
+- obj provides a way to directly set the algorithm, and it is returned to provide a way to use it again
+  a better way to do this would to make this a class, but that is when we decide how we will be
+  integrating this with all the other components
+  This might not be needed in the future
+
+- might be good to implement a parameter input to directly pass onto the algorithms
+
+- might need to specify solver type
+- coef_ seems to get weights
+- intercept_ seems to get the bias term
+
+"""
+def equation2(X, Y, **kwargs):
+    
+    """Equation 2 in paper. Implements LASSO, Ridge Regression, or Elastic Net
+
+    Parameters:
+        X: Data
+        Y: Results
+        Arguments:
+            type : (str) : type of algorithm to use ::: {'lasso', 'ridge', 'elastic'}
+                default => 'lasso'
+            lambda : (number) : alpha to be used in linear model by sklearn
+                default => 1.0
+            object : (sklearn linear model) : use this already created object for fitting
+                default => None
+            return_object : (bool) : return the used object for fitting
+                default => False unless object parameter is not None
+
+    Raises:
+        TypeError: Unknown parameters
+        TypeError: Invalid algorithm type
 
     Returns:
-        column vector: weighted data point
+        (W,B): Returns a 2 size tuple of the weights and biases as found by the algorithm
+        (W,B,O): returns a 3 size tuple of the weights and biases and linear model as last member
     """
-    return np.transpose(weights)*x - biases
-
-def loss(classified, expected):
-    """Quadratic loss function
-
-    Args:
-        classified (column vector): optput of linear classifier function
-        y (column vector): expected input
-
-    Returns:
-        column vector: loss between classified result and expected
-    """
-    return (1/2) * np.square(classified - y)
-
-def xiao2018():
+    
+    algorithm = kwargs.pop('type', 'lasso')
+    lamb = kwargs.pop('lambda', 1.0)
+    obj = kwargs.pop('object', None)
+    ret_obj = kwargs.pop('return_object', obj is not None)
+    
+    if len(kwargs):
+        raise TypeError('Unknows parameters: ' + ', '.join(kwargs.keys()))
+    
+    if algorithm == 'lasso':
+        algorithm = sklearn.linear_model.Lasso()
+    elif algorithm == 'ridge':
+        algorithm = sklearn.linear_model.Ridge()
+    elif algorithm == 'elastic':
+        algorithm = sklearn.linear_model.ElasticNet()
+    else:
+        raise TypeError(f'Invalid algorithm type provided: {algorithm}')
+    
+    if obj is not None:
+        algorithm = obj
+    
+    algorithm.fit(X, Y)
+    
+    if ret_obj:
+        return algorithm.coef_, algorithm.intercept_, algorithm
+    else:
+        return algorithm.coef_, algorithm.intercept_
+    
+def xiao2018(*args, **kwargs):
     return 'Not implemented'
