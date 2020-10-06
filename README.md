@@ -6,9 +6,9 @@
 - [ ] Full algorithm implemented
   - [ ] Feature selection algorithms
     - In sklearn.linear_model
-    - [ ] Lasso
-    - [ ] Ridge
-    - [ ] Elastic Net
+    - [x] Lasso
+    - [x] Ridge
+    - [x] Elastic Net
   - [ ] Attack stratagy
     - Referring to equation 3 
   - [ ] Attack stratagy gradient
