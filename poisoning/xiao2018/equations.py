@@ -28,7 +28,7 @@ def equation2(X, Y, **kwargs):
         Arguments:
             type : (str) : type of algorithm to use ::: {'lasso', 'ridge', 'elastic'}
                 default => 'lasso'
-            lambda : (number) : alpha to be used in linear model by sklearn
+            alpha : (number) : alpha to be used in linear model by sklearn
                 default => 1.0
             object : (sklearn linear model) : use this already created object for fitting
                 default => None
@@ -45,7 +45,7 @@ def equation2(X, Y, **kwargs):
     """
     
     algorithm = kwargs.pop('type', 'lasso')
-    lamb = kwargs.pop('lambda', 1.0)
+    aplh = kwargs.pop('alpha', 1.0)
     obj = kwargs.pop('object', None)
     ret_obj = kwargs.pop('return_object', obj is not None)
     
@@ -53,11 +53,11 @@ def equation2(X, Y, **kwargs):
         raise TypeError('Unknows parameters: ' + ', '.join(kwargs.keys()))
     
     if algorithm == 'lasso':
-        algorithm = linear_model.Lasso()
+        algorithm = linear_model.Lasso(alpha=aplh)
     elif algorithm == 'ridge':
-        algorithm = linear_model.Ridge()
+        algorithm = linear_model.Ridge(alpha=aplh)
     elif algorithm == 'elastic':
-        algorithm = linear_model.ElasticNet()
+        algorithm = linear_model.ElasticNet(alpha=aplh)
     else:
         raise TypeError(f'Invalid algorithm type provided: {algorithm}')
     
