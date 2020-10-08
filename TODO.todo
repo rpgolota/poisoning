@@ -1,0 +1,19 @@
+Total Progress:
+    Algorithm:
+        ✔ Linear model (Equation 2) @done(20-10-07 17:01)
+        ☐ Gradient
+            ✔ R term @done(20-10-07 15:40)
+                ✔ Sub-Gradient @done(20-10-07 15:10)
+            ☐ Equation 7
+        ☐ Projection Operator Support
+        ☐ Line Search
+        ☐ Bounds (Equation 3)
+    Tests:
+        ☐ Equation 4
+        ☐ R term
+            ☐ Sub-Gradient
+        ☐ Equation 7
+    Library Progress:
+        ☐ Making all __init__ and __main__
+        ☐ Documentation
+        
