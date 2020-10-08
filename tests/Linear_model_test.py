@@ -8,7 +8,7 @@ class Test_Equation_2:
     okay_Y = [1, 2]
     okay_lambda = 0.23
     
-    def test_invalid_input(self):
+    def test_invalid_parameters(self):
         
         with pytest.raises(TypeError) as info:
             equation2(Test_Equation_2.okay_X, Test_Equation_2.okay_Y, this=3)        
