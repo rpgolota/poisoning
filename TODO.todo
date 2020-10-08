@@ -1,6 +1,7 @@
 Total Progress:
     Algorithm:
         ✔ Linear model (Equation 2) @done(20-10-07 17:01)
+            ☐ Add dimensionality checks for x and y
         ☐ Gradient
             ✔ R term @done(20-10-07 15:40)
                 ✔ Sub-Gradient @done(20-10-07 15:10)
@@ -9,11 +10,12 @@ Total Progress:
         ☐ Line Search
         ☐ Bounds (Equation 3)
     Tests:
-        ☐ Equation 4
-        ☐ R term
-            ☐ Sub-Gradient
+        ✔ Equation 2 @done(20-10-07 20:26)
+            ☐ Finish dimensionality test
+        ✔ R term @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m26s)
+            ✔ Sub-Gradient @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m28s)
         ☐ Equation 7
     Library Progress:
         ☐ Making all __init__ and __main__
         ☐ Documentation
-        
+        ☐ Make better readme
