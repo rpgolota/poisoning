@@ -1,4 +1,5 @@
 from sklearn import linear_model
+import numpy as np
 
 """
 :: Notes for equation2 ::
@@ -70,6 +71,53 @@ def equation2(X, Y, **kwargs):
         return algorithm.coef_, algorithm.intercept_, algorithm
     else:
         return algorithm.coef_, algorithm.intercept_
+
+def equation7(X, Y, weights, biases, **kwargs):
     
+    algorithm = kwargs.pop('type', 'lasso')
+    aplh = kwargs.pop('alpha', 1.0)
+    rho = kwargs.pop('rho', 0.5)
+    
+    X = np.array(X)
+    Y = np.array(Y)
+    weights = np.array(weights)
+    biases = np.array(biases)
+    
+    n = len(X)
+    v = None
+    
+    if algorithm == 'lasso':
+        v = 0
+    elif algorithm == 'ridge':
+        v = np.identity(n)
+    elif algorithm == 'elastic':
+        v = (1 - rho) * np.identity(n)
+    else:
+        raise TypeError(f'Invalid algorithm type provided: {algorithm}')
+
+    epsilon = sum([np.dot(i, i) for i in X]) / n
+    mu = sum(X) / n
+    M = np.dot(X, weights) + ((np.dot(weights, X) + biases) - Y) * np.identity(n)
+
+    print(f'Epsilon: {epsilon}')
+    print(f'mu: {mu}')
+    print(f'M: {M}')
+
+    r_matrix = np.array([M, weights.T]).T
+    r_matrix *= -1/n
+    
+    print(f'r_matrix: {r_matrix}')
+    
+    l_matrix = np.array([[epsilon + alpha*v, mu],[mu.T, 1]])
+
+    det = np.linalg.det(l_matrix)
+    print(det)
+    if det == 0:
+        print("Determinant is zero")
+    else:
+        result = np.linalg.inv(l_matrix) * r_matrix
+
+    return result[0], result[1]
+
 def equation3(X, Y, **kwargs):
     pass
