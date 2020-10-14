@@ -75,15 +75,17 @@ def equation2(X, Y, **kwargs):
 def equation7(X, Y, weights, biases, **kwargs):
     
     algorithm = kwargs.pop('type', 'lasso')
-    aplh = kwargs.pop('alpha', 1.0)
+    alph = kwargs.pop('alpha', 1.0)
     rho = kwargs.pop('rho', 0.5)
+    
+    if len(kwargs):
+        raise TypeError('Unknows parameters: ' + ', '.join(kwargs.keys()))
     
     X = np.array(X)
     Y = np.array(Y)
     weights = np.array(weights)
-    biases = np.array(biases)
     
-    n = len(X)
+    n = X.shape[1]
     v = None
     
     if algorithm == 'lasso':
@@ -95,29 +97,35 @@ def equation7(X, Y, weights, biases, **kwargs):
     else:
         raise TypeError(f'Invalid algorithm type provided: {algorithm}')
 
-    epsilon = sum([np.dot(i, i) for i in X]) / n
-    mu = sum(X) / n
-    M = np.dot(X, weights) + ((np.dot(weights, X) + biases) - Y) * np.identity(n)
+    sigma = sum([np.outer(i, i) for i in X.T]) / n
+    sigma_term = sigma + alph * v
+    mu = np.mean(X, axis=0)
+    M = np.outer(X, weights) + ((np.dot(weights, X) + biases) - Y) * np.identity(n)
 
-    print(f'Epsilon: {epsilon}')
+    # X = np.array([[1,2],[3,4]])
+    # Y = np.array([7,8])
+    # w = np.array([0.2, 3.2])
+    # b = 0.11
+    # equation7(X, Y, w, b)
+
+    print(f'sigma: {sigma}')
     print(f'mu: {mu}')
-    print(f'M: {M}')
+    # print(f'M: {M}')
 
-    r_matrix = np.array([M, weights.T]).T
-    r_matrix *= -1/n
+    l_matrix = np.vstack((sigma_term, mu))
+    mu_append = np.append(mu, 1)
+    l_matrix = np.hstack((l_matrix, np.array([mu_append]).T))
     
+    r_matrix = np.concatenate((M, weights), axis=0) * (-1/n)
+    
+    print(f'l_matrix: {l_matrix}')
     print(f'r_matrix: {r_matrix}')
-    
-    l_matrix = np.array([[epsilon + alpha*v, mu],[mu.T, 1]])
 
     det = np.linalg.det(l_matrix)
     print(det)
-    if det == 0:
-        print("Determinant is zero")
-    else:
-        result = np.linalg.inv(l_matrix) * r_matrix
-
-    return result[0], result[1]
+    result = np.matmul(np.linalg.inv(l_matrix), r_matrix)
+    
+    return result
 
 def equation3(X, Y, **kwargs):
     pass
