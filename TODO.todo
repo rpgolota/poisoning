@@ -22,3 +22,4 @@ Total Progress:
         ☐ Making all __init__ and __main__
         ☐ Documentation
         ☐ Make better readme
+        ☐ Add more python version testing into testing matrix? What versions to support
