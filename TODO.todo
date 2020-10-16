@@ -1,20 +1,23 @@
 Total Progress:
     Algorithm:
         ✔ Linear model (Equation 2) @done(20-10-07 17:01)
-            ☐ Add dimensionality checks for x and y
+            ✔ Add dimensionality checks for x and y @done(20-10-15 17:26)
         ☐ Gradient
             ✔ R term @done(20-10-07 15:40)
                 ✔ Sub-Gradient @done(20-10-07 15:10)
-            ☐ Equation 7
-        ☐ Projection Operator Support
+            ☐ Equation 7 @started(20-10-15 17:26)
+        ☐ Projection Operator Support (As input to function)
         ☐ Line Search
         ☐ Bounds (Equation 3)
+    Utilities:
+        ☐ Logging functionality
     Tests:
         ✔ Equation 2 @done(20-10-07 20:26)
-            ☐ Finish dimensionality test
+            ✔ Finish dimensionality test @done(20-10-15 17:26)
         ✔ R term @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m26s)
             ✔ Sub-Gradient @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m28s)
-        ☐ Equation 7
+        ☐ Equation 7 @started(20-10-15 17:27)
+        ☐ Equation 3
     Library Progress:
         ☐ Making all __init__ and __main__
         ☐ Documentation
