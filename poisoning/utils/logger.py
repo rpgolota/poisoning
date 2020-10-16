@@ -3,9 +3,9 @@ import logging
 class PoisonLogger:
     
     GENERAL_LOGGER = logging.getLogger('PoisonLog')
-    GENERAL_LOGGER.setLevel(logging.INFO)
+    GENERAL_LOGGER.setLevel(logging.DEBUG)
     GENERAL_HANDLER = logging.StreamHandler()
-    FILE_HANDLER = logging.FileHandler('poison.log')    
+    FILE_HANDLER = logging.FileHandler('poison.log', mode='w')    
     
     GENERAL_FMT = ('[%(asctime)s.%(msecs)03d][%(name)s][%(levelname)-8s][%(filename)s][%(funcName)s][%(lineno)d] : %(message)s', '%Y/%m/%d][%H:%M:%S')
     GENERAL_FOMATTER = logging.Formatter(*GENERAL_FMT)
