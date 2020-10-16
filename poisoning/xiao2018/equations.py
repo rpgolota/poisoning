@@ -1,4 +1,5 @@
 from sklearn import linear_model
+from sys import float_info
 import numpy as np
 
 """
@@ -37,6 +38,7 @@ def equation2(X, Y, **kwargs):
                 default => False unless object parameter is not None
 
     Raises:
+        ValueError: Invalid X and Y dimensions
         TypeError: Unknown parameters
         TypeError: Invalid algorithm type
 
@@ -51,7 +53,13 @@ def equation2(X, Y, **kwargs):
     ret_obj = kwargs.pop('return_object', obj is not None)
     
     if len(kwargs):
-        raise TypeError('Unknows parameters: ' + ', '.join(kwargs.keys()))
+        raise TypeError('Unknown parameters: ' + ', '.join(kwargs.keys()))
+    
+    X = np.array(X)
+    Y = np.array(Y)
+    
+    if (X.shape[0] != Y.shape[0]):
+        raise ValueError('X and Y must be of the same dimension.')
     
     if algorithm == 'lasso':
         algorithm = linear_model.Lasso(alpha=aplh)
@@ -74,19 +82,42 @@ def equation2(X, Y, **kwargs):
 
 def equation7(X, Y, weights, biases, **kwargs):
     
+    """Equation 7 in paper. Returns the partial derivatives of the weights and biases with respect to the attack point.
+
+    Parameters:
+        X: Data
+        Y: Results
+        weights: weights
+        biases: biases
+        Arguments:
+            type : (str) : type of algorithm to use ::: {'lasso', 'ridge', 'elastic'}
+                default => 'lasso'
+            alpha : (number) : alpha to be used in linear model by sklearn
+                default => 1.0
+            rho : (number) : rho used in sklearn for elastic net. Same as l1_ratio
+                default => 0.5
+                
+    Raises:
+        ValueError: Invalid X and Y dimensions
+        TypeError: Unknown parameters
+        TypeError: Invalid algorithm type
+
+    Returns:
+        Tuple: partial derivatives with respect to weights for (weights, biases)
+    """
+    
     algorithm = kwargs.pop('type', 'lasso')
     alph = kwargs.pop('alpha', 1.0)
     rho = kwargs.pop('rho', 0.5)
     
     if len(kwargs):
-        raise TypeError('Unknows parameters: ' + ', '.join(kwargs.keys()))
+        raise TypeError('Unknown parameters: ' + ', '.join(kwargs.keys()))
     
     X = np.array(X)
     Y = np.array(Y)
     weights = np.array(weights)
     
     n = X.shape[1]
-    v = None
     
     if algorithm == 'lasso':
         v = 0
@@ -97,10 +128,10 @@ def equation7(X, Y, weights, biases, **kwargs):
     else:
         raise TypeError(f'Invalid algorithm type provided: {algorithm}')
 
-    sigma = sum([np.outer(i, i) for i in X.T]) / n
+    sigma = sum([np.outer(i, i) for i in X.T]) / n # covariance does not give this
     sigma_term = sigma + alph * v
     mu = np.mean(X, axis=0)
-    M = np.outer(X, weights) + ((np.dot(weights, X) + biases) - Y) * np.identity(n)
+    M = np.outer(X, weights) + ((np.dot(weights, X) + biases) - Y) * np.identity(n) # Problem here
 
     # X = np.array([[1,2],[3,4]])
     # Y = np.array([7,8])
@@ -121,11 +152,9 @@ def equation7(X, Y, weights, biases, **kwargs):
     print(f'l_matrix: {l_matrix}')
     print(f'r_matrix: {r_matrix}')
 
-    det = np.linalg.det(l_matrix)
-    print(det)
-    result = np.matmul(np.linalg.inv(l_matrix), r_matrix)
+    if np.linalg.cond(l_matrix) < 1/float_info.epsilon:
+        result = np.matmul(np.linalg.inv(l_matrix), r_matrix)
+    else:
+        result = np.matmul(np.linalg.pinv(l_matrix), r_matrix) # is using pseudo-inverse acceptible?
     
     return result
-
-def equation3(X, Y, **kwargs):
-    pass
