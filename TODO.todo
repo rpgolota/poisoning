@@ -10,7 +10,7 @@ Total Progress:
         ☐ Line Search
         ☐ Bounds (Equation 3)
     Utilities:
-        ☐ Logging functionality
+        ✔ Logging functionality @done(20-10-16 01:32)
     Tests:
         ✔ Equation 2 @done(20-10-07 20:26)
             ✔ Finish dimensionality test @done(20-10-15 17:26)
@@ -22,4 +22,9 @@ Total Progress:
         ☐ Making all __init__ and __main__
         ☐ Documentation
         ☐ Make better readme
-        ☐ Add more python version testing into testing matrix? What versions to support
+    Open Topics:
+        ☐ Adding more versions of python to action matrix
+        ☐ Internal importing structure, especially relative imports
+        ☐ covariance question
+        ☐ Equation 7 issue calculating M
+        ☐ Equation 7 pinv to calculate inverse of singular matrices
