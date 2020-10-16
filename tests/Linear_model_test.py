@@ -85,4 +85,33 @@ class Test_Equation_2:
 
         
 class Test_Equation_7:
-    pass
+    
+    okay_X = [[1, 2], [3, 4]]
+    okay_Y = [1, 2]
+    okay_weights = [0.2, 1.3]
+    okay_biases = 0.1
+    okay_lambda = 0.23
+    
+    def test_invalid_parameters(self):
+        
+        with pytest.raises(TypeError) as info:
+            equation7(Test_Equation_7.okay_X, Test_Equation_7.okay_Y, Test_Equation_7.okay_weights, Test_Equation_7.okay_biases, this=3)        
+    
+        with pytest.raises(TypeError) as info:
+            equation7(Test_Equation_7.okay_X, Test_Equation_7.okay_Y, Test_Equation_7.okay_weights, Test_Equation_7.okay_biases, other='haha')
+    
+    def test_invalid_type(self):
+        
+        with pytest.raises(TypeError) as info:
+            equation7(Test_Equation_7.okay_X, Test_Equation_7.okay_Y, Test_Equation_7.okay_weights, Test_Equation_7.okay_biases, type='not allowed')
+    
+        with pytest.raises(TypeError) as info:
+            equation7(Test_Equation_7.okay_X, Test_Equation_7.okay_Y, Test_Equation_7.okay_weights, Test_Equation_7.okay_biases, other='elastic net')
+            
+    def test_invalid_dimensions(self):
+        
+        with pytest.raises(ValueError) as info:
+            equation7(Test_Equation_7.okay_X, Test_Equation_7.okay_Y  + [3], Test_Equation_7.okay_weights, Test_Equation_7.okay_biases)
+            
+        with pytest.raises(ValueError) as info:
+            equation7(Test_Equation_7.okay_X, Test_Equation_7.okay_Y  + [3], Test_Equation_7.okay_weights + [3], Test_Equation_7.okay_biases)
