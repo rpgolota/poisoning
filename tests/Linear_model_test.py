@@ -1,4 +1,4 @@
-from poisoning.xiao2018.equations import equation2
+from poisoning.xiao2018.equations import equation2, equation7
 import sklearn.linear_model as LM
 import pytest
 
@@ -23,6 +23,11 @@ class Test_Equation_2:
     
         with pytest.raises(TypeError) as info:
             equation2(Test_Equation_2.okay_X, Test_Equation_2.okay_Y, other='elastic net')
+            
+    def test_invalid_dimensions(self):
+        
+        with pytest.raises(ValueError) as info:
+            equation2(Test_Equation_2.okay_X, Test_Equation_2.okay_Y + [3])
             
     def test_lasso(self):
         
@@ -78,9 +83,6 @@ class Test_Equation_2:
         assert all([r == a for (r, a) in zip(res[0], accurate[0])])
         assert res[1], accurate[1]
 
-    @pytest.mark.skip(reason='Functionality not yet implemented')
-    def test_X_Y_dimensions(self):
-        equation2(Test_Equation_2.okay_X, Test_Equation_2.okay_Y + [3])
         
-class Test_Equation_3:
+class Test_Equation_7:
     pass
