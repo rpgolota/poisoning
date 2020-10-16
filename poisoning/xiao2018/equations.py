@@ -48,6 +48,7 @@ def equation2(X, Y, **kwargs):
     aplh = kwargs.pop('alpha', 1.0)
     obj = kwargs.pop('object', None)
     ret_obj = kwargs.pop('return_object', obj is not None)
+    # add rho to the options available
     
     if kwargs:
         raise TypeError('Unknown parameters: ' + ', '.join(kwargs.keys()))
@@ -78,13 +79,14 @@ def equation2(X, Y, **kwargs):
     else:
         return algorithm.coef_, algorithm.intercept_
 
-def equation7(X, Y, weights, biases, **kwargs):
+def equation7(X, Y, A, weights, biases, **kwargs):
     
     """Equation 7 in paper. Returns the partial derivatives of the weights and biases with respect to the attack point.
 
     Parameters:
         X: Data
         Y: Results
+        A: Attack point
         weights: weights
         biases: biases
         Arguments:
@@ -116,10 +118,11 @@ def equation7(X, Y, weights, biases, **kwargs):
     
     X = np.array(X)
     Y = np.array(Y)
+    A = np.array(A)
     weights = np.array(weights)
     
-    if (X.shape[0] != Y.shape[0] or X.shape[0] != weights.shape[0]):
-        raise ValueError('X and Y must be of the same dimension.')
+    if (X.shape[0] != Y.shape[0] or X.shape[0] != A.shape[0] or X.shape[0] != weights.shape[0]):
+        raise ValueError('X,Y,A,weights must be of the same dimension.')
     
     n = X.shape[1]
     PoisonLogger.info(f'Got second dimension of X:{n}.')
@@ -141,7 +144,7 @@ def equation7(X, Y, weights, biases, **kwargs):
     PoisonLogger.info('Trying to find mu.')
     mu = np.mean(X, axis=0)
     PoisonLogger.info('Trying to find M.')
-    M = np.outer(X, weights) + ((np.dot(weights, X) + biases) - Y) * np.identity(n) # Problem here
+    M = np.outer(A, weights) + ((np.dot(weights, A) + biases) - Y) * np.identity(n)
 
     # X = np.array([[1,2],[3,4]])
     # Y = np.array([7,8])
@@ -153,14 +156,21 @@ def equation7(X, Y, weights, biases, **kwargs):
     l_matrix = np.vstack((sigma_term, mu))
     mu_append = np.append(mu, 1)
     l_matrix = np.hstack((l_matrix, np.array([mu_append]).T))
-    r_matrix = np.concatenate((M, weights), axis=0) * (-1/n)
+    r_matrix = np.vstack((M, weights)) * (-1/n)
 
+    PoisonLogger.debug(f'\nWeights:\n{weights}')
+    PoisonLogger.debug(f'\nM:\n{M}')
+    PoisonLogger.debug(f'\nl_matrix:\n{l_matrix}')
+    PoisonLogger.debug(f'\nr_matrix\n{r_matrix}')
+    
     PoisonLogger.info('Checking left_matrix for singulartiy.')
     if np.linalg.cond(l_matrix) < 1/float_info.epsilon:
         PoisonLogger.info(f'Inverting left matrix.')
         result = np.matmul(np.linalg.inv(l_matrix), r_matrix)
+        PoisonLogger.debug(f'\nresult inv:\n{result}')
     else:
         PoisonLogger.info(f'Left matrix is singular, trying pinv instead.')
-        result = np.matmul(np.linalg.pinv(l_matrix), r_matrix) # is using pseudo-inverse acceptible?
+        result = np.matmul(np.linalg.pinv(l_matrix), r_matrix)
+        PoisonLogger.debug(f'\nresult pinv:\n{result}')
     
     return result
