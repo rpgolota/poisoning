@@ -117,6 +117,9 @@ def equation7(X, Y, weights, biases, **kwargs):
     Y = np.array(Y)
     weights = np.array(weights)
     
+    if (X.shape[0] != Y.shape[0] or X.shape[0] != weights.shape[0]):
+        raise ValueError('X and Y must be of the same dimension.')
+    
     n = X.shape[1]
     
     if algorithm == 'lasso':
