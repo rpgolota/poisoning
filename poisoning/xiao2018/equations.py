@@ -135,12 +135,12 @@ def equation7(X, Y, weights, biases, **kwargs):
 
     PoisonLogger.info(f'Found identiy matrix.')
 
-    PoisonLogger.debug('Trying to find sigma.')
+    PoisonLogger.info('Trying to find sigma.')
     sigma = sum([np.outer(i, i) for i in X.T]) / n # covariance does not give this
     sigma_term = sigma + alph * v
-    PoisonLogger.debug('Trying to find mu.')
+    PoisonLogger.info('Trying to find mu.')
     mu = np.mean(X, axis=0)
-    PoisonLogger.debug('Trying to find M.')
+    PoisonLogger.info('Trying to find M.')
     M = np.outer(X, weights) + ((np.dot(weights, X) + biases) - Y) * np.identity(n) # Problem here
 
     # X = np.array([[1,2],[3,4]])
@@ -149,13 +149,13 @@ def equation7(X, Y, weights, biases, **kwargs):
     # b = 0.11
     # equation7(X, Y, w, b)
 
-    PoisonLogger.debug('Concatenating matrices for final left matrix and right matrix.')
+    PoisonLogger.info('Concatenating matrices for final left matrix and right matrix.')
     l_matrix = np.vstack((sigma_term, mu))
     mu_append = np.append(mu, 1)
     l_matrix = np.hstack((l_matrix, np.array([mu_append]).T))
     r_matrix = np.concatenate((M, weights), axis=0) * (-1/n)
 
-    PoisonLogger.debug('Checking left_matrix for singulartiy.')
+    PoisonLogger.info('Checking left_matrix for singulartiy.')
     if np.linalg.cond(l_matrix) < 1/float_info.epsilon:
         PoisonLogger.info(f'Inverting left matrix.')
         result = np.matmul(np.linalg.inv(l_matrix), r_matrix)
