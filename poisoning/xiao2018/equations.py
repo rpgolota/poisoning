@@ -2,24 +2,18 @@ from sklearn import linear_model
 from sys import float_info
 import numpy as np
 
-"""
-:: Notes for equation2 ::
+import sys, os
 
-- equation3 seems to be very similar, just maximizing, and before doing anything further I think it is worthwile
-  to read fully and compile all next steps needed to start implementing more of the features from the paper
+# current workaround to support imports from top level for things above the scope of this package
+# don't remember if there is a better way
 
-- obj provides a way to directly set the algorithm, and it is returned to provide a way to use it again
-  a better way to do this would to make this a class, but that is when we decide how we will be
-  integrating this with all the other components
-  This might not be needed in the future
+if __name__ == "__main__":
+    sys.path.extend([f'../../../{name}' for name in os.listdir("../..") if os.path.isdir("../../" + name)])
+else:
+    sys.path.extend([f'../{name}' for name in os.listdir(".") if os.path.isdir(name)])
 
-- might be good to implement a parameter input to directly pass onto the algorithms
+from poisoning.utils import PoisonLogger
 
-- might need to specify solver type
-- coef_ seems to get weights
-- intercept_ seems to get the bias term
-
-"""
 def equation2(X, Y, **kwargs):
     
     """Equation 2 in paper. Implements LASSO, Ridge Regression, or Elastic Net
@@ -47,12 +41,15 @@ def equation2(X, Y, **kwargs):
         (W,B,O): returns a 3 size tuple of the weights and biases and linear model as last member
     """
     
+    if kwargs:
+        PoisonLogger.info(f'Got arguments: {kwargs}.')
+    
     algorithm = kwargs.pop('type', 'lasso')
     aplh = kwargs.pop('alpha', 1.0)
     obj = kwargs.pop('object', None)
     ret_obj = kwargs.pop('return_object', obj is not None)
     
-    if len(kwargs):
+    if kwargs:
         raise TypeError('Unknown parameters: ' + ', '.join(kwargs.keys()))
     
     X = np.array(X)
@@ -73,6 +70,7 @@ def equation2(X, Y, **kwargs):
     if obj is not None:
         algorithm = obj
     
+    PoisonLogger.info('Calling sklearn fit on data.')
     algorithm.fit(X, Y)
     
     if ret_obj:
@@ -106,11 +104,14 @@ def equation7(X, Y, weights, biases, **kwargs):
         Tuple: partial derivatives with respect to weights for (weights, biases)
     """
     
+    if kwargs:
+        PoisonLogger.info(f'Got arguments: {kwargs}')
+    
     algorithm = kwargs.pop('type', 'lasso')
     alph = kwargs.pop('alpha', 1.0)
     rho = kwargs.pop('rho', 0.5)
     
-    if len(kwargs):
+    if kwargs:
         raise TypeError('Unknown parameters: ' + ', '.join(kwargs.keys()))
     
     X = np.array(X)
@@ -121,6 +122,7 @@ def equation7(X, Y, weights, biases, **kwargs):
         raise ValueError('X and Y must be of the same dimension.')
     
     n = X.shape[1]
+    PoisonLogger.info(f'Got second dimension of X:{n}.')
     
     if algorithm == 'lasso':
         v = 0
@@ -131,9 +133,14 @@ def equation7(X, Y, weights, biases, **kwargs):
     else:
         raise TypeError(f'Invalid algorithm type provided: {algorithm}')
 
+    PoisonLogger.info(f'Found identiy matrix.')
+
+    PoisonLogger.debug('Trying to find sigma.')
     sigma = sum([np.outer(i, i) for i in X.T]) / n # covariance does not give this
     sigma_term = sigma + alph * v
+    PoisonLogger.debug('Trying to find mu.')
     mu = np.mean(X, axis=0)
+    PoisonLogger.debug('Trying to find M.')
     M = np.outer(X, weights) + ((np.dot(weights, X) + biases) - Y) * np.identity(n) # Problem here
 
     # X = np.array([[1,2],[3,4]])
@@ -142,22 +149,18 @@ def equation7(X, Y, weights, biases, **kwargs):
     # b = 0.11
     # equation7(X, Y, w, b)
 
-    print(f'sigma: {sigma}')
-    print(f'mu: {mu}')
-    # print(f'M: {M}')
-
+    PoisonLogger.debug('Concatenating matrices for final left matrix and right matrix.')
     l_matrix = np.vstack((sigma_term, mu))
     mu_append = np.append(mu, 1)
     l_matrix = np.hstack((l_matrix, np.array([mu_append]).T))
-    
     r_matrix = np.concatenate((M, weights), axis=0) * (-1/n)
-    
-    print(f'l_matrix: {l_matrix}')
-    print(f'r_matrix: {r_matrix}')
 
+    PoisonLogger.debug('Checking left_matrix for singulartiy.')
     if np.linalg.cond(l_matrix) < 1/float_info.epsilon:
+        PoisonLogger.info(f'Inverting left matrix.')
         result = np.matmul(np.linalg.inv(l_matrix), r_matrix)
     else:
+        PoisonLogger.info(f'Left matrix is singular, trying pinv instead.')
         result = np.matmul(np.linalg.pinv(l_matrix), r_matrix) # is using pseudo-inverse acceptible?
     
     return result

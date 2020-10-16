@@ -23,7 +23,8 @@ def r_term(weights, **kwargs):
         Vector of the same size as the weights: The derivative of Omega term with respect to the weights
     """
     
-    weights = np.array(weights)
+    if kwargs:
+        PoisonLogger.info(f'Got arguments: {kwargs}')
     
     algorithm = kwargs.pop('type', 'lasso')
     rho = kwargs.pop('rho', 0.5)
@@ -32,9 +33,13 @@ def r_term(weights, **kwargs):
     if range_value < -1 or range_value > 1:
         raise TypeError('range_value cannot be greater than 1 or less than -1')
     
-    if len(kwargs):
+    if kwargs:
         raise TypeError('Unknows parameters: ' + ', '.join(kwargs.keys()))
     
+    weights = np.array(weights)
+
+    PoisonLogger.info('Finding subgradient.')
+
     if algorithm == 'lasso':
         return subgradient(weights, range_value)
     elif algorithm == 'ridge':
@@ -54,4 +59,7 @@ def subgradient(weights, range_value=0.0):
     Returns:
         [type]: [description]
     """
+    
+    PoisonLogger.info(f'Got argument for range_value:{range_value}.')
+    
     return np.array([-1 if i < 0 else 1 if i > 0 else range_value for i in weights])
