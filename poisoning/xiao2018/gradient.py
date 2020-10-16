@@ -1,5 +1,17 @@
 import numpy as np
 
+import sys, os
+
+# current workaround to support imports from top level for things above the scope of this package
+# don't remember if there is a better way
+
+if __name__ == "__main__":
+    sys.path.extend([f'../../../{name}' for name in os.listdir("../..") if os.path.isdir("../../" + name)])
+else:
+    sys.path.extend([f'../{name}' for name in os.listdir(".") if os.path.isdir(name)])
+
+from poisoning.utils import PoisonLogger
+
 def r_term(weights, **kwargs):
     
     """The r-term as described in the paper in equation 4 and 5
@@ -60,6 +72,6 @@ def subgradient(weights, range_value=0.0):
         [type]: [description]
     """
     
-    PoisonLogger.info(f'Got argument for range_value:{range_value}.')
+    PoisonLogger.info(f'Got argument for range_value::{range_value}.')
     
     return np.array([-1 if i < 0 else 1 if i > 0 else range_value for i in weights])
