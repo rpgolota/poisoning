@@ -2,6 +2,7 @@ from poisoning.xiao2018.gradient import r_term, subgradient
 from poisoning.xiao2018.equations import equation7
 import numpy as np
 import pytest
+from tests.shared import find_inputs
 
 class Test_r_term_fail:
     
@@ -25,7 +26,6 @@ class Test_r_term_fail:
 class Test_r_term:
     
     okay_weights = np.array([11, 9.2, -1.1, 3.2, -2.3, 0.2, 0.0, -2.3, 0, 23])
-    
     
     def test_lasso(self):
         assert all([a == b for a, b in zip(subgradient(Test_r_term.okay_weights), r_term(Test_r_term.okay_weights, type='lasso'))])
@@ -84,12 +84,13 @@ class Test_Equation_7_fail:
             
 class Test_Equation_7:
     
-    okay_X = [[1, 2], [3, 4]]
-    okay_Y = [1, 2]
-    okay_A = [3, 1]
-    okay_weights = [0.2, 1.3]
-    okay_biases = 0.1
-    okay_lambda = 0.23
-    
-    def test_run(self):
-        equation7(Test_Equation_7.okay_X, Test_Equation_7.okay_Y, Test_Equation_7.okay_A, Test_Equation_7.okay_weights, Test_Equation_7.okay_biases)
+    @pytest.mark.parametrize('inputs', find_inputs('eq7'))
+    @pytest.mark.parametrize('tp', ['lasso', 'ridge', 'elastic'])
+    @pytest.mark.parametrize('const', [(0.7,0.7),(0.3,0.4)])
+    def test_inputs(self, tp, inputs, const):
+        X = inputs[0]
+        Y = inputs[1]
+        A = inputs[2]
+        weights = inputs[3]
+        biases = inputs[4]
+        res = equation7(X, Y, A, weights, biases, type=tp, alpha=const[0], rho=const[1])
