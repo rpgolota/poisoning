@@ -79,14 +79,15 @@ def equation2(X, Y, **kwargs):
     else:
         return algorithm.coef_, algorithm.intercept_
 
-def equation7(X, Y, A, weights, biases, **kwargs):
+def equation7(X, Y, ax, ay, weights, biases, **kwargs):
     
     """Equation 7 in paper. Returns the partial derivatives of the weights and biases with respect to the attack point.
 
     Parameters:
         X: Data
         Y: Results
-        A: Attack point
+        ax: Attack point
+        ay: Attack point y value
         weights: weights
         biases: biases
         Arguments:
@@ -118,11 +119,11 @@ def equation7(X, Y, A, weights, biases, **kwargs):
     
     X = np.array(X)
     Y = np.array(Y)
-    A = np.array(A)
+    ax = np.array(ax)
     weights = np.array(weights)
     
-    if (X.shape[0] != Y.shape[0] or X.shape[0] != A.shape[0] or X.shape[0] != weights.shape[0]):
-        raise ValueError('X,Y,A,weights must be of the same dimension.')
+    if (X.shape[0] != Y.shape[0] or X.shape[1] != ax.shape[0] or X.shape[1] != weights.shape[0]):
+        raise ValueError('X and Y must have the same dimensions. ax and weights must have same dimensions. X second dimension must equal ax dimension.')
     
     n = X.shape[1]
     PoisonLogger.info(f'Got second dimension of X:{n}.')
@@ -139,18 +140,12 @@ def equation7(X, Y, A, weights, biases, **kwargs):
     PoisonLogger.info(f'Found identiy matrix.')
 
     PoisonLogger.info('Trying to find sigma.')
-    sigma = sum([np.outer(i, i) for i in X.T]) / n # covariance does not give this
+    sigma = sum([np.outer(i, i) for i in X]) / n
     sigma_term = sigma + alph * v
     PoisonLogger.info('Trying to find mu.')
     mu = np.mean(X, axis=0)
     PoisonLogger.info('Trying to find M.')
-    M = np.outer(A, weights) + ((np.dot(weights, A) + biases) - Y) * np.identity(n)
-
-    # X = np.array([[1,2],[3,4]])
-    # Y = np.array([7,8])
-    # w = np.array([0.2, 3.2])
-    # b = 0.11
-    # equation7(X, Y, w, b)
+    M = np.outer(ax, weights) + ((np.dot(weights, ax) + biases) - ay) * np.identity(n)
 
     PoisonLogger.info('Concatenating matrices for final left matrix and right matrix.')
     l_matrix = np.vstack((sigma_term, mu))
@@ -172,5 +167,5 @@ def equation7(X, Y, A, weights, biases, **kwargs):
         PoisonLogger.info(f'Left matrix is singular, trying pinv instead.')
         result = np.matmul(np.linalg.pinv(l_matrix), r_matrix)
         PoisonLogger.debug(f'\nresult pinv:\n{result}')
-    
-    return result
+
+    return result[:-1], result[-1]
