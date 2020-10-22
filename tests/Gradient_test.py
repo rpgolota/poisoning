@@ -123,7 +123,7 @@ class Test_Equation_4_fail:
             
 class Test_Equation_4:
     
-    @pytest.mark.parametrize('inputs', find_inputs('eq8'))
+    @pytest.mark.parametrize('inputs', find_inputs('eq4'))
     @pytest.mark.parametrize('tp', ['lasso', 'ridge', 'elastic'])
     @pytest.mark.parametrize('const', [(0.7,0.7),(0.3,0.4)])
     def test_inputs(self, tp, inputs, const):
