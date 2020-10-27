@@ -1,39 +1,46 @@
 Total Progress:
     Algorithm:
-        ☐ Add all inputs to the kwargs, and think of better way to pass on arguments to functions
+        ✔ Add all inputs to the kwargs, and think of better way to pass on arguments to functions @done(20-10-23 12:13)
         ✔ Linear model (Equation 2) @done(20-10-07 17:01)
             ✔ Add dimensionality checks for x and y @done(20-10-15 17:26)
         ✔ Gradient (equation 4) @started(20-10-21 21:56) @done(20-10-21 22:39) @lasted(43m26s)
             ✔ R term @done(20-10-07 15:40)
                 ✔ Sub-Gradient @done(20-10-07 15:10)
             ✔ Equation 7 @started(20-10-15 17:26) @done(20-10-21 14:57) @lasted(5d21h31m32s)
-        ☐ Line Search
-        ☐ Projection Operator Support (As input to function)
         ☐ Equation 3 (bounds)
+        ☐ Line Search
+        ✔ Projection Operator Support (As input to function) @done(20-10-23 12:09)
     Utilities:
         ✔ Logging functionality @done(20-10-16 01:32)
-        ☐ Rethink logging for speed
-            - Maybe use async logger
-            - Add way to completley remove the logger
-        ☐ Add option to enable and disable logging as a parameter to a function
     Tests:
-        ☐ Rework all tests to test all possible inputs and kwargs
+        ✔ Rework all tests to test the class @done(20-10-26 23:33)
         ✔ Equation 2 @done(20-10-07 20:26)
             ✔ Finish dimensionality test @done(20-10-15 17:26)
         ✔ R term @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m26s)
             ✔ Sub-Gradient @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m28s)
         ✔ Equation 7 @started(20-10-15 17:27) @done(20-10-21 14:57) @lasted(5d21h30m36s)
-        ☐ Equation 3
+        ☐ Equation 3 (bounds)
     Library Progress:
         ☐ Making all __init__ and __main__
         ☐ Documentation
         ☐ Make better readme
     Open Topics:
-        ☐ Changing the structure to be a class
-            - Easier to pass parameters, and no need to keep passing them to functions
-            - No need to keep passing the same dataset into the separate funcitons
-            - Probably will increase the speed due to fewer arguments
-        ☐ Internal importing structure, especially relative imports @started(20-10-22 17:49)
+        ☐ Equation 3 (bounds)
+        ☐ Projection operator
+        ☐ Best way to store previous attack points
+            - p loop in algorithm
+        ☐ Moving projection range from __init__ into run
+        ☐ Where to find line search, is scipy good
+        ☐ Attack point selection
+        ☐ Do we need range_value or is it just zero?
+        ☐ Adding custom exceptions for better error handling
+        ☐ Rethink logging for speed
+            ☐ Maybe use async logger
+            ☐ Add way to completley remove the logger
+        ☐ Add option to enable and disable logging as a parameter to a function
+        ✔ Internal importing structure, especially relative imports @done(20-10-26 23:36)
+        ✔ Changing the structure to be a class @done(20-10-23 11:44)
+        ✘ Changing error raises to asserts @cancelled(20-10-23 12:12)
         ✘ Adding more versions of python to action matrix @cancelled(20-10-21 21:57)
         ✘ covariance question @cancelled(20-10-21 21:57)
         ✔ Equation 7 issue calculating M @done(20-10-21 21:57)
