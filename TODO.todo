@@ -7,8 +7,8 @@ Total Progress:
             ✔ R term @done(20-10-07 15:40)
                 ✔ Sub-Gradient @done(20-10-07 15:10)
             ✔ Equation 7 @started(20-10-15 17:26) @done(20-10-21 14:57) @lasted(5d21h31m32s)
-        ☐ Equation 3 (bounds)
-        ☐ Line Search
+        ✔ Equation 3 (bounds) @done(20-10-27 21:05)
+        ✔ Line Search @done(20-10-27 21:05)
         ✔ Projection Operator Support (As input to function) @done(20-10-23 12:09)
     Utilities:
         ✔ Logging functionality @done(20-10-16 01:32)
@@ -19,21 +19,22 @@ Total Progress:
         ✔ R term @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m26s)
             ✔ Sub-Gradient @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m28s)
         ✔ Equation 7 @started(20-10-15 17:27) @done(20-10-21 14:57) @lasted(5d21h30m36s)
-        ☐ Equation 3 (bounds)
+        ☐ Bounds equations
     Library Progress:
         ☐ Making all __init__ and __main__
         ☐ Documentation
         ☐ Make better readme
     Open Topics:
-        ☐ Equation 3 (bounds)
-        ☐ Projection operator
-        ☐ Best way to store previous attack points
-            - p loop in algorithm
-        ☐ Moving projection range from __init__ into run
-        ☐ Where to find line search, is scipy good
-        ☐ Attack point selection
-        ☐ Do we need range_value or is it just zero?
-        ☐ Adding custom exceptions for better error handling
+        ✔ Equation 3 (bounds) @started(20-10-27 19:52) @done(20-10-27 20:59) @lasted(1h7m54s)
+        ✔ Projection operator @done(20-10-27 19:51)
+        ✔ Best way to store previous attack points @started(20-10-27 19:52) @done(20-10-27 20:59) @lasted(1h7m55s)
+        ✔ Moving projection range from __init__ into run @started(20-10-27 19:52) @done(20-10-27 21:05) @lasted(1h13m16s)
+        ✘ Where to find line search, is scipy good @cancelled(20-10-27 19:52)
+        ✔ Attack point selection @started(20-10-27 19:52) @done(20-10-27 21:00) @lasted(1h8m)
+        ✔ Lambda selection @started(20-10-27 19:52) @done(20-10-27 21:05) @lasted(1h13m20s)
+        ☐ Way to find the correct lambda
+        ✔ Do we need range_value or is it just zero? @done(20-10-27 19:52)
+        ✘ Adding custom exceptions for better error handling @cancelled(20-10-27 19:52)
         ☐ Rethink logging for speed
             ☐ Maybe use async logger
             ☐ Add way to completley remove the logger
