@@ -7,22 +7,23 @@ class xiao2018:
     
     def __init__(self, **kwargs):
         
-        self.projection_range = kwargs.pop('projection', 1)
-        self.alpha = kwargs.pop('alpha', 1.0)
+        self.beta = kwargs.pop('beta', 0.99)
         self.rho = kwargs.pop('rho', 0.5)
-        self.max_iter = kwargs.pop('max_iter', None)
-        self.range_value = kwargs.pop('range_value', 0.0)
+        self.sigma = kwargs.pop('sigma', 0.5)
+        self.epsilon = kwargs.pop('epsilon', 0.5)
+        self.max_iter = kwargs.pop('max_iter', float('inf'))
+        self.max_line_search_iter = kwargs.pop('max_line_search_iter', 10)
         self.algorithm_type = kwargs.pop('type', 'lasso').lower()
         
         if kwargs:
             raise TypeError('Unknown parameters: ' + ', '.join(kwargs.keys()))
     
     @property
-    def projection_range(self):
-        return self._projection_range
+    def projection(self):
+        return self._projection
     
-    @projection_range.setter
-    def projection_range(self, value):
+    @projection.setter
+    def projection(self, value):
         
         # add check for size
         # 1 => (-1, 1)
@@ -48,7 +49,7 @@ class xiao2018:
             self._projection_type = 'range'
             value = (-1 * value, value) if value > 0 else (value, -1 * value)
         
-        self._projection_range = value
+        self._projection = value
     
     @property
     def algorithm_type(self):
@@ -57,13 +58,13 @@ class xiao2018:
     @algorithm_type.setter
     def algorithm_type(self, alg_type):
         if alg_type in ['lasso', 'l1']:
-            self._linear_algorithm = linear_model.Lasso(alpha=self.alpha)
+            self._linear_algorithm = linear_model.Lasso()
             self._algorithm_type = 'lasso'
         elif alg_type in ['ridge', 'l2', 'ridgeregression', 'ridge-regression', 'ridge regression']:
-            self._linear_algorithm = linear_model.Ridge(alpha=self.alpha)
+            self._linear_algorithm = linear_model.Ridge()
             self._algorithm_type = 'ridge'
         elif alg_type in ['elastic', 'elasticnet', 'elastic-net', 'elastic net']:
-            self._linear_algorithm = linear_model.ElasticNet(alpha=self.alpha)
+            self._linear_algorithm = linear_model.ElasticNet()
             self._algorithm_type = 'elastic'
         else:
             raise TypeError(f'Invalid linear algorithm type: {alg_type}')
@@ -112,18 +113,39 @@ class xiao2018:
     def _gradient_r_term(self, weights):
         
         if self.algorithm_type == 'lasso':
-            return np.array([-1 if i < 0 else 1 if i > 0 else self.range_value for i in weights])
+            return np.array([-1 if i < 0 else 1 if i > 0 else 0 for i in weights])
         elif self.algorithm_type == 'ridge':
             return weights
         else:
-            return self.rho * np.array([-1 if i < 0 else 1 if i > 0 else self.range_value for i in weights]) + (1 - self.rho) * weights
+            return self.rho * np.array([-1 if i < 0 else 1 if i > 0 else 0 for i in weights]) + (1 - self.rho) * weights
     
     def _project(self, value):
         if self._projection_type == 'vector':
-            return np.array([v if v >= proj[0] and v <= proj[1] else min(proj, key=lambda val : abs(val - v)) for v, proj in zip(value, self._projection_range)])
+            return np.array([v if v >= proj[0] and v <= proj[1] else min(proj, key=lambda val : abs(val - v)) for v, proj in zip(value, self._projection)])
         else:
-            return np.array([v if v >= self._projection_range[0] and v <= self._projection_range[1] else min(self._projection_range, key=lambda val : abs(val - v)) for v in value])
-        
+            return np.array([v if v >= self._projection[0] and v <= self._projection[1] else min(self._projection, key=lambda val : abs(val - v)) for v in value])
+    
+    def _regularize(self, weights):
+        norm = np.linalg.norm(weights)
+        if self.algorithm_type == 'lasso':
+            return norm
+        elif self.algorithm_type == 'ridge':
+            return (1/2) * (norm**2)
+        else:
+            return (self.rho * norm) + (1 - self.rho) * ((1/2) * (norm**2))
+    
+    def _bounds(self, X, Y):
+        length = X.shape[0]
+        weights = self._linear_algorithm.coef_
+        bias = self._linear_algorithm.intercept_
+        return (1/length) * sum([(1/2) * ((np.dot(weights, x) - y) ** 2) for x, y in zip(X, Y)]) + (self.alpha * self._regularize(weights))
+    
+    def _find_alpha(self, X, Y):
+        alphas, coefs, _ = linear_model.lasso_path(X, Y, n_alphas=10)
+        minimum = min(coefs[-1]) 
+        index = [i for i, j in enumerate(coefs[-1]) if j == minimum] 
+        return alphas[index]
+    
     def _perform_checks(self, X, Y, Attacks, Labels):
         
         if X.dtype == 'object':
@@ -146,7 +168,7 @@ class xiao2018:
         if Attacks.shape[1] != X.shape[1]:
             raise ValueError('Attacks and X must have the same second dimensions.')
         
-        if self._projection_type == 'vector' and Attacks.shape[1] != len(self._projection_range):
+        if self._projection_type == 'vector' and Attacks.shape[1] != len(self._projection):
             raise ValueError('Projection range must be of the same size as feature size.')
         
     # X = [[1, 2, 3], [3, 4, 5]]
@@ -162,7 +184,9 @@ class xiao2018:
     # 
     # Labels = [1, 0]
     
-    def run(self, X, Y, Attacks, Labels):
+    def run(self, X, Y, Attacks, Labels, projection=1):
+        
+        self.projection = projection
         
         X = np.array(X)
         Y = np.array(Y)
@@ -171,17 +195,33 @@ class xiao2018:
         Labels = np.array(Labels)
 
         self._perform_checks(X, Y, Attacks, Labels)
+
+        self.alpha = self._find_alpha(X, Y)
+        self._linear_algorithm.alpha = self.alpha
         
         self.n_iter = 0
-        while self.n_iter < self.max_iter if self.max_iter is not None else True:
+        while self.n_iter < self.max_iter:
+            
+            New_attacks = []
             
             for attack, label in zip(Attacks, Labels):
                 
-                self._learn_model(np.append(X, [attack]), np.append(Y, label))
+                self._learn_model(np.vstack((X, attack)), np.append(Y, label))
                 d = self._project(attack + self._gradient(X, Y, attack, label)) - attack
             
-            # condition to break (equation 3)
-            if True:
-                pass
+                n_line_iter = 0
+                while n_line_iter < self.max_line_search_iter:
+                    eta = self.beta ** n_line_iter
+                    new_attack = attack + eta*d
+                    if self._bounds(np.array([new_attack]), np.array([label])) <= self._bounds(np.array([attack]), np.array([label])) - self.sigma * eta * (np.linalg.norm(d) ** 2):
+                        break
+                    n_line_iter += 1
+                New_attacks.append(new_attack)
+            
+            Attacks = np.array(New_attacks)
+            if self._bounds(Attacks, Labels) - self._bounds(Prev_Attacks, Labels) < self.epsilon:
+                break
             Prev_Attacks = np.array(Attacks)
             self.n_iter += 1
+        
+        return Attacks
