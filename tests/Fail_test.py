@@ -4,7 +4,7 @@ import pytest
 from tests.shared import get_inputs, find_inputs, read_json
 
 def test_passing():
-    xiao2018(type='lasso', projection=(-3,4), alpha=0.7, rho=0.5, max_iter=None, range_value=0)
+    xiao2018(type='lasso', rho=0.5, max_iter=None)
 
 def test_unknown_parameters():
     
@@ -24,13 +24,13 @@ def test_unknown_parameters():
 def test_projection_invalid_input():
     
     with pytest.raises(TypeError, match='Invalid input for projection range') as err:
-        xiao2018(projection='string')
+        xiao2018().projection = 'string'
         
     with pytest.raises(TypeError, match='Invalid input for projection range') as err:
-        xiao2018(projection='string')
+        xiao2018().projection = (1,2,3)
     
     with pytest.raises(TypeError, match='Invalid input for projection range') as err:
-        xiao2018(projection=[1, [2,3], 4, [3,5,6]])
+        xiao2018().projection = [1, [2,3], 4, [3,5,6]]
 
 @pytest.mark.parametrize('type', ['l-1', 'l-2', 'other', 'unknown', 'thingy', 'elastik', 'l1l2'])
 def test_algorithm_invalid_type(type):
@@ -134,7 +134,8 @@ def test_X_Attacks_dim2():
 
 def test_Attacks_projection_size():
     file_contents = read_json('Fail_test_1.json')
-    algo = xiao2018(projection=[1,2,3])
+    algo = xiao2018()
+    algo.projection = [1,2,3]
 
     inputs = [np.array(inp) for inp in file_contents]
     
