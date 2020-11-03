@@ -25,6 +25,11 @@ Total Progress:
         ☐ Documentation
         ☐ Make better readme
     Open Topics:
+        ☐ How to find the correct lambda (alpha)
+        ☐ How to choose sigma, and epsilon, best value for rho
+        ☐ Max iterations for big datasets
+        ☐ Line search iterations capped at 10
+        ☐ Convergence warnings for linear models
         ✔ Equation 3 (bounds) @started(20-10-27 19:52) @done(20-10-27 20:59) @lasted(1h7m54s)
         ✔ Projection operator @done(20-10-27 19:51)
         ✔ Best way to store previous attack points @started(20-10-27 19:52) @done(20-10-27 20:59) @lasted(1h7m55s)
@@ -32,13 +37,12 @@ Total Progress:
         ✘ Where to find line search, is scipy good @cancelled(20-10-27 19:52)
         ✔ Attack point selection @started(20-10-27 19:52) @done(20-10-27 21:00) @lasted(1h8m)
         ✔ Lambda selection @started(20-10-27 19:52) @done(20-10-27 21:05) @lasted(1h13m20s)
-        ☐ Way to find the correct lambda
         ✔ Do we need range_value or is it just zero? @done(20-10-27 19:52)
         ✘ Adding custom exceptions for better error handling @cancelled(20-10-27 19:52)
-        ☐ Rethink logging for speed
-            ☐ Maybe use async logger
-            ☐ Add way to completley remove the logger
-        ☐ Add option to enable and disable logging as a parameter to a function
+        ✘ Rethink logging for speed @cancelled(20-11-02 19:16)
+            ✘ Maybe use async logger @cancelled(20-11-02 19:16)
+            ✘ Add way to completley remove the logger @cancelled(20-11-02 19:16)
+        ✘ Add option to enable and disable logging as a parameter to a function @cancelled(20-11-02 19:16)
         ✔ Internal importing structure, especially relative imports @done(20-10-26 23:36)
         ✔ Changing the structure to be a class @done(20-10-23 11:44)
         ✘ Changing error raises to asserts @cancelled(20-10-23 12:12)
