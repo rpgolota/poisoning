@@ -25,12 +25,6 @@ class xiao2018:
     @projection.setter
     def projection(self, value):
         
-        # add check for size
-        # 1 => (-1, 1)
-        # (-3, 4) => (-3, 4)
-        # [1, 2, 3] => [(-1, 1), (-2, 2), (-3, 3)]
-        # [(3,11), (-11,-3)] => [(3,11), (-11,-3)]
-        
         if np.array(value).dtype == 'object':
                 raise TypeError('Invalid input for projection range')
         if type(value) is tuple and len(value) == 2:
@@ -144,7 +138,7 @@ class xiao2018:
         alphas, coefs, _ = linear_model.lasso_path(X, Y, n_alphas=10)
         minimum = min(coefs[-1]) 
         index = [i for i, j in enumerate(coefs[-1]) if j == minimum] 
-        return alphas[index]
+        return alphas[0]
     
     def _perform_checks(self, X, Y, Attacks, Labels):
         
@@ -170,19 +164,6 @@ class xiao2018:
         
         if self._projection_type == 'vector' and Attacks.shape[1] != len(self._projection):
             raise ValueError('Projection range must be of the same size as feature size.')
-        
-    # X = [[1, 2, 3], [3, 4, 5]]
-    # Y = [1, 2]
-    # Attacks = [[3,2,1],
-    #            [8,2,3]]
-    # Attacks.shape[0] = 2
-    # Attacks.shape[1] = 3
-    # 
-    # project_range = [1,2] = [(-1,1), (-2,2)]
-    # 
-    # _project(Attacks[0]) = [3,2,1] => [1, 1, 1]
-    # 
-    # Labels = [1, 0]
     
     def run(self, X, Y, Attacks, Labels, projection=1):
         
