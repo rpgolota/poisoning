@@ -51,7 +51,6 @@ def test_project(proj_type, size):
     res = test._project(vec)
     assert len(res) == len(vec)
 
-# @pytest.mark.xfail(reason='Not finished implementing.')
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
 @pytest.mark.parametrize('file', find_inputs('Input_test'))
 def test_manual(file, type):
@@ -60,7 +59,7 @@ def test_manual(file, type):
     res = test.run(*inp)
     print(res - np.array(inp[2]))
     assert res.shape[0] == len(inp[2]) and res.shape[1] == len(inp[2][0])
-    
+
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
 @pytest.mark.parametrize('file', find_inputs('Input_dataset'))
 def test_dataset(file, type):
@@ -69,7 +68,6 @@ def test_dataset(file, type):
     res = test.run(*inp)
     print(res - np.array(inp[2]))
     assert res.shape[0] == len(inp[2]) and res.shape[1] == len(inp[2][0])
-    
 
 @pytest.mark.skip(reason='Too large to run.')
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
