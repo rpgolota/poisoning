@@ -10,26 +10,35 @@ Total Progress:
         ✔ Equation 3 (bounds) @done(20-10-27 21:05)
         ✔ Line Search @done(20-10-27 21:05)
         ✔ Projection Operator Support (As input to function) @done(20-10-23 12:09)
-    Utilities:
-        ✔ Logging functionality @done(20-10-16 01:32)
     Tests:
+        ☐ Bounds equations
+        ☐ Add tests for new inputs to class
         ✔ Rework all tests to test the class @done(20-10-26 23:33)
         ✔ Equation 2 @done(20-10-07 20:26)
-            ✔ Finish dimensionality test @done(20-10-15 17:26)
+        ✔ Finish dimensionality test @done(20-10-15 17:26)
         ✔ R term @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m26s)
-            ✔ Sub-Gradient @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m28s)
+        ✔ Sub-Gradient @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m28s)
         ✔ Equation 7 @started(20-10-15 17:27) @done(20-10-21 14:57) @lasted(5d21h30m36s)
-        ☐ Bounds equations
-    Library Progress:
+        Library Progress:
         ☐ Making all __init__ and __main__
         ☐ Documentation
         ☐ Make better readme
+        ☐ Packaging project with setuptools
+        ☐ Make examples
+        - Recreate data from paper
     Open Topics:
-        ☐ How to find the correct lambda (alpha)
-        ☐ How to choose sigma, and epsilon, best value for rho
-        ☐ Max iterations for big datasets
-        ☐ Line search iterations capped at 10
+        ☐ Automatically make N number of initial attacks and run
+        ☐ Think about decreasing the amount of tests
         ☐ Convergence warnings for linear models
+        ☐ R^2 warning for ridge CV
+            - Using different CV's
+        ☐ Moving on to testing actual outputs
+        ☐ set entire linear model in set_model()
+        ☐ Reduce number of inputs available to initialize object with
+        ✔ How to find the correct lambda (alpha) @done(20-11-03 17:12)
+        ✔ How to choose sigma, and epsilon, best value for rho @done(20-11-03 23:35)
+        ✔ Max iterations for big datasets @done(20-11-03 23:35)
+        ✔ Line search iterations capped at 10 @done(20-11-03 23:35)
         ✔ Equation 3 (bounds) @started(20-10-27 19:52) @done(20-10-27 20:59) @lasted(1h7m54s)
         ✔ Projection operator @done(20-10-27 19:51)
         ✔ Best way to store previous attack points @started(20-10-27 19:52) @done(20-10-27 20:59) @lasted(1h7m55s)
