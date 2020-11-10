@@ -146,6 +146,7 @@ dmypy.json
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+**/tempCodeRunnerFile.py
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
