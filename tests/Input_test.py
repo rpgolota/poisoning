@@ -60,6 +60,14 @@ def test_manual(file, type):
     print(res - np.array(inp[2]))
     assert res.shape[0] == len(inp[2]) and res.shape[1] == len(inp[2][0])
 
+@pytest.mark.parametrize('num', [1, 2])
+@pytest.mark.parametrize('file', find_inputs('Input_test'))
+def test_autorun(file, num):
+    inp = read_json(file)
+    test = xiao2018()
+    res = test.autorun(inp[0], inp[1], num)
+    assert len(res) == num
+
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
 @pytest.mark.parametrize('file', find_inputs('Input_dataset'))
 def test_dataset(file, type):
