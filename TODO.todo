@@ -23,18 +23,16 @@ Total Progress:
         ☐ Making all __init__ and __main__
         ☐ Documentation
         ☐ Make better readme
-        ☐ Packaging project with setuptools
-        ☐ Make examples
-        - Recreate data from paper
+        ✔ Packaging project with setuptools @done(20-11-09 20:58)
+        ✔ Make examples @done(20-11-09 20:58)
     Open Topics:
-        ☐ Automatically make N number of initial attacks and run
-        ☐ Think about decreasing the amount of tests
-        ☐ Convergence warnings for linear models
-        ☐ R^2 warning for ridge CV
-            - Using different CV's
-        ☐ Moving on to testing actual outputs
         ☐ set entire linear model in set_model()
+        ☐ Think about decreasing the amount of tests
         ☐ Reduce number of inputs available to initialize object with
+        ☐ Add extra checks for constant inputs (zeros especially for iterations)
+        ✔ Automatically make N number of initial attacks and run @done(20-11-09 20:58)
+        ✘ Convergence warnings for linear models @cancelled(20-11-09 20:58)
+        ✔ Moving on to testing actual outputs @done(20-11-06 09:00)
         ✔ How to find the correct lambda (alpha) @done(20-11-03 17:12)
         ✔ How to choose sigma, and epsilon, best value for rho @done(20-11-03 23:35)
         ✔ Max iterations for big datasets @done(20-11-03 23:35)
