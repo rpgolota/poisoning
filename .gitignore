@@ -152,3 +152,6 @@ dmypy.json
 .history
 
 scripts/*/*.csv
+
+**/.ignore*
+**/.ignore*.*
