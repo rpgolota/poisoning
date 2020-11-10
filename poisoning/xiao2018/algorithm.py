@@ -2,6 +2,7 @@ from sklearn import linear_model
 from sys import float_info
 import numpy as np
 import scipy as sp
+import random
 
 class xiao2018:
     
@@ -174,7 +175,7 @@ class xiao2018:
     
         return reg.alpha_
     
-    def _perform_checks(self, X, Y, Attacks, Labels):
+    def _check_dataset(self, X, Y):
         
         if X.dtype == 'object':
             raise ValueError('Inconsistent element sizes for X')
@@ -184,6 +185,10 @@ class xiao2018:
             raise ValueError('X and Y must have the same first dimensions.')
         if Y.ndim != 1:
             raise ValueError('Y must be one dimensional')
+    
+    def _perform_checks(self, X, Y, Attacks, Labels):
+        
+        self._check_dataset(X, Y)
         
         if Labels.dtype == 'object':
             raise ValueError('Inconsistent element sizes for Labels')
@@ -250,3 +255,29 @@ class xiao2018:
             self.n_iter += 1
         
         return Attacks
+    
+    def autorun(self, X, Y, num_attacks, projection=1, **kwargs):
+
+        return_initial = kwargs.pop('initial', False)
+        
+        if kwargs:
+            raise TypeError('Unknown parameters: ' + ', '.join(kwargs.keys()))
+        
+        if not num_attacks:
+            raise ValueError('Must have more than zero attack points.')
+                
+        self.projection = projection
+        X_np = np.array(X)
+        Y_np = np.array(Y)
+        self._check_dataset(X_np, Y_np)
+        
+        Attacks = random.sample([x + [y] for x, y in zip(X, Y)], num_attacks)
+        Labels = [row[-1] for row in Attacks]
+        Attacks = [row[:-1] for row in Attacks]
+        
+        Result = self.run(X, Y, Attacks, Labels, projection)
+        
+        if return_initial:
+            return Result, np.array(Attacks)
+        else:
+            return Result
