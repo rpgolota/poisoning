@@ -152,7 +152,10 @@ dmypy.json
 # Ignore all local history of files
 .history
 
-scripts/*/*.csv
+datasets/*/*.csv
 
 **/.ignore*
 **/.ignore*.*
+scripts/
+# !docs/build
+pyvenv.cfg
