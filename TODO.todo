@@ -12,7 +12,6 @@ Total Progress:
         ✔ Projection Operator Support (As input to function) @done(20-10-23 12:09)
     Tests:
         ☐ Bounds equations
-        ☐ Add tests for new inputs to class
         ✔ Rework all tests to test the class @done(20-10-26 23:33)
         ✔ Equation 2 @done(20-10-07 20:26)
         ✔ Finish dimensionality test @done(20-10-15 17:26)
@@ -21,16 +20,16 @@ Total Progress:
         ✔ Equation 7 @started(20-10-15 17:27) @done(20-10-21 14:57) @lasted(5d21h30m36s)
         Library Progress:
         ☐ Making all __init__ and __main__
-        ☐ Documentation
         ☐ Make better readme
+        ✔ Documentation @done(20-11-11 00:02)
         ✔ Packaging project with setuptools @done(20-11-09 20:58)
         ✔ Make examples @done(20-11-09 20:58)
     Open Topics:
-        ☐ set entire linear model in set_model()
-        ☐ Think about decreasing the amount of tests
-        ☐ Reduce number of inputs available to initialize object with
-        ☐ Add extra checks for constant inputs (zeros especially for iterations)
+        ☐ set entire linear model in set_model() @started(20-11-11 00:02)
+        ☐ Fix warnings with documentation
+        ☐ Decrease amount of tests @started(20-11-11 00:02)
         ✔ Automatically make N number of initial attacks and run @done(20-11-09 20:58)
+        ✘ Reduce number of inputs available to initialize object with @cancelled(20-11-10 17:10)
         ✘ Convergence warnings for linear models @cancelled(20-11-09 20:58)
         ✔ Moving on to testing actual outputs @done(20-11-06 09:00)
         ✔ How to find the correct lambda (alpha) @done(20-11-03 17:12)
