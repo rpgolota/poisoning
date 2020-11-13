@@ -24,7 +24,7 @@ def test_learn_model(file):
 def test_gradient(file, type):
     inp = read_json(file)
     test = xiao2018(type=type)
-    test.alpha = 1.0
+    test._set_model(inp[0], inp[1])
     test._learn_model(inp[0], inp[1])
     res = test._gradient(np.array(inp[0]), inp[1], inp[2][0], inp[3][0])
     assert res.shape[0] == len(inp[0][0])
