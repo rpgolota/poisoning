@@ -184,7 +184,6 @@ class xiao2018:
             raise ValueError('X and Y must have the same first dimensions.')
         if Y.ndim != 1:
             raise ValueError('Y must be one dimensional')
-        
         if Labels.dtype == 'object':
             raise ValueError('Inconsistent element sizes for Labels')
         if Labels.ndim != 1:
@@ -195,7 +194,6 @@ class xiao2018:
             raise ValueError('Attacks and Labels must have the same first dimensions.')
         if Attacks.shape[1] != X.shape[1]:
             raise ValueError('Attacks and X must have the same second dimensions.')
-        
         if self._projection_type == 'vector' and Attacks.shape[1] != len(self._projection):
             raise ValueError('Projection range must be of the same size as feature size.')
     
@@ -250,3 +248,48 @@ class xiao2018:
             self.n_iter += 1
         
         return Attacks
+
+from sklearn import neighbors 
+
+class frederickson2018(xiao2018):
+    
+    def __init__(self, **kwargs):
+        self.d_att = kwargs.pop('attack_distance', 1)
+        self.power = kwargs.pop('power', 2)
+        self.k_th = kwargs.pop('k', 3)
+        super().__init__(self, **kwargs)
+        self._Knearest_neighbor = neighbors.KNeighborsClassifier(**args)
+
+    def _distance_threshold(self, ax, ay):
+        k_nearest_model = self._Knearest_neighbor.fit(ax, ay)
+        distance, _ = k_nearest_model.kneighbors(ax, n_neighbors= 1)
+        
+        return float('inf') if distance > self.d_att else 0
+        
+    def _outlier_term(self, ax, ay):
+        k_nearest_model = self._Knearest_neighbor.fit(ax, ay)
+        k_nearest = k_nearest_model.kneighbors(ax, n_neighbors= self.k_th, return_distance = false)
+        outlier = (np.linalg.norm(ax - k_nearest)**self.power)
+
+        return outlier
+    
+    def _k_partial(self, ax, ay):
+        k_nearest_model = self._Knearest_neighbor.fit(ax, ay)
+        k_nearest = k_nearest_model.kneighbors(ax, n_neighbors= self.k_th, return_distance = false)
+
+        return self.power * (self._outlier_term(ax, ay)**(self.power - 2)) * (ax - k_nearest)
+    
+    def _bounds(self, X, Y, ax, ay):
+        length = X.shape[0]
+        weights = self._linear_algorithm.coef_
+        bias = self._linear_algorithm.intercept_
+        return (1/length) * sum([(1/2) * ((np.dot(weights, x) - y) ** 2) for x, y in zip(X, Y)]) + (self.alpha * self._regularize(weights)) - (self.d_att * self._distance_threshold(ax, ay))
+
+    def _gradient(self, X, Y, ax, ay):
+        weights = np.array(self._linear_algorithm.coef_)
+        biases = self._linear_algorithm.intercept_
+        partial_weights, partial_biases = self._partial_derivatives(X, Y, ax, ay, weights, biases)
+        last_term = self.alpha * (np.matmul(self._gradient_r_term(weights), partial_weights))
+        result = [((np.dot(item[0], ax) + biases) - item[1]) * (np.matmul(item[0], partial_weights) + partial_biases) for item in zip(X, Y)]
+
+        return ((sum(result) / X.shape[0]) + last_term) - (self.d_att * self._distance_threshold(ax, ay))
