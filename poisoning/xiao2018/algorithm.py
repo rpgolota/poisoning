@@ -33,7 +33,7 @@ class xiao2018:
     max_model_iter : int, default=1000
         Parameter that is passed into the linear model to bound iterations.
         
-    model_tol : float, default=1e-3
+    model_tol : float, default=1e-4
         Paramter that is passed into the linear model as the tolerance.
     
     Attributes
@@ -51,7 +51,7 @@ class xiao2018:
     def __init__(self, *, type='lasso', beta=0.99,
                  rho=0.5, sigma=1e-3, epsilon=1e-3,
                  max_iter=1000, max_lsearch_iter=10,
-                 max_model_iter=1000, model_tol=1e-3):
+                 max_model_iter=1000, model_tol=1e-4):
 
         self.beta = beta
         self.rho = rho
@@ -135,25 +135,32 @@ class xiao2018:
         else:
             raise TypeError(f'Invalid linear algorithm type: {alg_type}')
     
-    @property
-    def _linear_algorithm(self):
-        if self.__linear_algorithm:
-            return self.__linear_algorithm
-        else:
-            self._set_model()
-            return self.__linear_algorithm
+    # @property
+    # def _linear_algorithm(self):
+    #     if self.__linear_algorithm:
+    #         return self.__linear_algorithm
+    #     else:
+    #         self._set_model()
+    #         return self.__linear_algorithm
             
-    @_linear_algorithm.setter
-    def _linear_algorithm(self, data):
-        self.__linear_algorithm = data
+    # @_linear_algorithm.setter
+    # def _linear_algorithm(self, data):
+    #     self.__linear_algorithm = data
     
-    def _set_model(self, **args):
+    def _set_model(self, X, Y):
+        
+        self.alpha = self._find_alpha(X, Y)
+        
+        model_args = {'alpha': self.alpha, 'max_iter': self.max_model_iter, 'tol':self.model_tol}
+        if self.algorithm_type == 'elastic':
+            model_args['l1_ratio'] = self.rho
+        
         if self.algorithm_type == "lasso":
-            self._linear_algorithm = linear_model.Lasso(**args)
+            self._linear_algorithm = linear_model.Lasso(**model_args)
         elif self.algorithm_type == "ridge":
-            self._linear_algorithm = linear_model.Ridge(**args)
+            self._linear_algorithm = linear_model.Ridge(**model_args)
         else:
-            self._linear_algorithm = linear_model.ElasticNet(**args)
+            self._linear_algorithm = linear_model.ElasticNet(**model_args)
 
     def _partial_derivatives(self, X, Y, ax, ay, weights, biases):
         
@@ -318,12 +325,7 @@ class xiao2018:
 
         self._perform_checks(X, Y, Attacks, Labels)
 
-        self.alpha = self._find_alpha(X, Y)
-        model_args = {'alpha': self.alpha, 'max_iter': self.max_model_iter}
-        if self.algorithm_type == 'elastic':
-            model_args['l1_ratio'] = self.rho
-        
-        self._set_model(**model_args)
+        self._set_model(X, Y)
         
         self.n_iter = 0
         while self.n_iter < self.max_iter:
