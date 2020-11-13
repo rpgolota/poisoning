@@ -48,7 +48,6 @@ class xiao2018:
         If invalid type is given.
     
     """
-    # def __init__(self, **kwargs):
     def __init__(self, *, type='lasso', beta=0.99,
                  rho=0.5, sigma=1e-3, epsilon=1e-3,
                  max_iter=1000, max_lsearch_iter=10,
@@ -387,7 +386,6 @@ class xiao2018:
         TypeError
             Same as xiao2018.run()
         """
-             
         self.projection = projection
         X_np = np.array(X)
         Y_np = np.array(Y)
