@@ -29,6 +29,14 @@ def test_gradient(file, type):
     res = test._gradient(np.array(inp[0]), inp[1], inp[2][0], inp[3][0])
     assert res.shape[0] == len(inp[0][0])
 
+@pytest.mark.parametrize('file', find_inputs('Input_test'))
+def test_bounds(file):
+    inp = read_json(file)
+    test = xiao2018()
+    test._set_model(inp[0], inp[1])
+    test._learn_model(inp[0], inp[1])
+    res = test._bounds(np.array(inp[0]), np.array(inp[1]))
+    
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
 @pytest.mark.parametrize('size', [1,5,10,20])
 def test_gradient_r_term(size, type):
@@ -57,7 +65,6 @@ def test_manual(file, type):
     inp = read_json(file)
     test = xiao2018(type=type)
     res = test.run(*inp, 1)
-    print(res - np.array(inp[2]))
     assert res.shape[0] == len(inp[2]) and res.shape[1] == len(inp[2][0])
 
 @pytest.mark.parametrize('num', [1, 2])
@@ -74,5 +81,4 @@ def test_dataset(file, type):
     inp = read_json(file)
     test = xiao2018(type=type, max_iter=10)
     res = test.run(*inp, 1)
-    print(res - np.array(inp[2]))
     assert res.shape[0] == len(inp[2]) and res.shape[1] == len(inp[2][0])
