@@ -56,25 +56,23 @@ def test_project(proj_type, size):
 def test_manual(file, type):
     inp = read_json(file)
     test = xiao2018(type=type)
-    res = test.run(*inp)
+    res = test.run(*inp, 1)
     print(res - np.array(inp[2]))
     assert res.shape[0] == len(inp[2]) and res.shape[1] == len(inp[2][0])
+
+@pytest.mark.parametrize('num', [1, 2])
+@pytest.mark.parametrize('file', find_inputs('Input_test'))
+def test_autorun(file, num):
+    inp = read_json(file)
+    test = xiao2018()
+    res = test.autorun(inp[0], inp[1], num, 1)
+    assert len(res) == num
 
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
 @pytest.mark.parametrize('file', find_inputs('Input_dataset'))
 def test_dataset(file, type):
     inp = read_json(file)
     test = xiao2018(type=type, max_iter=10)
-    res = test.run(*inp)
-    print(res - np.array(inp[2]))
-    assert res.shape[0] == len(inp[2]) and res.shape[1] == len(inp[2][0])
-
-@pytest.mark.skip(reason='Too large to run.')
-@pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
-@pytest.mark.parametrize('file', find_inputs('Input_large_dataset'))
-def test_large_dataset(file, type):
-    inp = read_json(file)
-    test = xiao2018(type=type, max_iter=10)
-    res = test.run(*inp)
+    res = test.run(*inp, 1)
     print(res - np.array(inp[2]))
     assert res.shape[0] == len(inp[2]) and res.shape[1] == len(inp[2][0])

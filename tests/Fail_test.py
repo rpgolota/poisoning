@@ -6,19 +6,19 @@ from tests.shared import get_inputs, find_inputs, read_json
 def test_passing():
     xiao2018(type='lasso', rho=0.5, max_iter=None)
 
-def test_unknown_parameters():
+# def test_unknown_parameters():
     
-    with pytest.raises(TypeError, match='Unknown parameters:') as err:
-        xiao2018(iterations=1000)
+#     with pytest.raises(TypeError, match='Unknown parameters:') as err:
+#         xiao2018(iterations=1000)
 
-    with pytest.raises(TypeError, match='Unknown parameters:') as err:
-        xiao2018(other='haha')
+#     with pytest.raises(TypeError, match='Unknown parameters:') as err:
+#         xiao2018(other='haha')
 
-    with pytest.raises(TypeError, match='Unknown parameters:') as err:
-        xiao2018(lasso='3')
+#     with pytest.raises(TypeError, match='Unknown parameters:') as err:
+#         xiao2018(lasso='3')
 
-    with pytest.raises(TypeError, match='Unknown parameters:') as err:
-        xiao2018(name='name')
+#     with pytest.raises(TypeError, match='Unknown parameters:') as err:
+#         xiao2018(name='name')
 
 @pytest.mark.filterwarnings("ignore:Creating an ndarray")
 def test_projection_invalid_input():

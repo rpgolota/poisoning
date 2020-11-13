@@ -2,28 +2,86 @@ from sklearn import linear_model
 from sys import float_info
 import numpy as np
 import scipy as sp
+import random
 
 class xiao2018:
+    """Dataset poisoning algorithm from 'Is Feature Selection Secure against Training Data Poisoning? H.Xiao et al. 2018'
     
-    def __init__(self, **kwargs):
+    Parameters
+    ----------
+    type : {'lasso', 'l1', 'ridge', 'l2', 'ridgeregression', 'ridge-regression', 'ridge regression', 'elastic', 'elasticnet', 'elastic-net', 'elastic net'}, default='lasso'
+        Type of linear model that will be used in the algorithm.
         
-        self.beta = kwargs.pop('beta', 0.99)
-        self.rho = kwargs.pop('rho', 0.5)
-        self.sigma = kwargs.pop('sigma', 1e-03)
-        self.epsilon = kwargs.pop('epsilon', 1e-03)
-        self.max_iter = kwargs.pop('max_iter', 1000)
-        self.max_inner_iter = kwargs.pop('max_inner_iter', 1000)
-        self.max_lsearch_iter = kwargs.pop('max_lsearch_iter', 10)
-        self.algorithm_type = kwargs.pop('type', 'lasso').lower()
-        self.max_model_iter = kwargs.pop('max_model_iter', 1000)
-        self.model_tol = kwargs.pop('model_tol', 1e-4)
+    beta : float, default=0.99
+        Number that is raised to i-th power in line search, where i is the current line search iteration.
+        
+    rho : float, default=0.5
+        Convex constant that describes the elastic-nex mixing parameter.
+        
+    sigma : float, default=1e-3
+        Small positive constant used in bounding the line search.
+        
+    elsilon : float, default=1e-3
+        Small positive consant used in bounding the algorithm.
+        
+    max_iter : int, default=1000
+        Maximum iterations that the algorithm will go up to.
+        
+    max_lsearch_iter : int, default=10
+        Maximum iterations that the line search will go up to.
+        
+    max_model_iter : int, default=1000
+        Parameter that is passed into the linear model to bound iterations.
+        
+    model_tol : float, default=1e-3
+        Paramter that is passed into the linear model as the tolerance.
+    
+    Attributes
+    ----------
+    
+    n_iter : int
+        Number of iterations completed.
+    
+    Raises
+    ------
+    TypeError
+        If invalid type is given.
+    
+    """
+    # def __init__(self, **kwargs):
+    def __init__(self, *, type='lasso', beta=0.99,
+                 rho=0.5, sigma=1e-3, epsilon=1e-3,
+                 max_iter=1000, max_lsearch_iter=10,
+                 max_model_iter=1000, model_tol=1e-3):
+
+        self.beta = beta
+        self.rho = rho
+        self.sigma = sigma
+        self.epsilon = epsilon
+        self.max_iter = max_iter
+        self.max_lsearch_iter = max_lsearch_iter
+        self.algorithm_type = type
+        self.max_model_iter = max_model_iter
+        self.model_tol = model_tol
         self._linear_algorithm = None
-        
-        if kwargs:
-            raise TypeError('Unknown parameters: ' + ', '.join(kwargs.keys()))
-    
+            
     @property
     def projection(self):
+        """Returns the currently used projection.
+
+        The setter will normalize the four possible inputs into either a tuple or a list of tuples,
+        depending on the type of input that was given as input.
+        
+        Returns
+        -------
+        tuple or list of tuple
+            Currently used projection.
+            
+        Raises
+        ------
+        TypeError
+            If not the correct type of input for projection.
+        """
         return self._projection
     
     @projection.setter
@@ -51,6 +109,20 @@ class xiao2018:
     
     @property
     def algorithm_type(self):
+        """The currently used algorithm type.
+        
+        The setter will normalize the type into one of the three possible outputs.
+
+        Returns
+        -------
+        {'lasso', 'ridge', 'elastic'}
+            One of three types for the linear model.
+            
+        Raises
+        ------
+        TypeError
+            If not set to one of the vailid inputs.
+        """
         return self._algorithm_type
     
     @algorithm_type.setter
@@ -69,14 +141,14 @@ class xiao2018:
         if self.__linear_algorithm:
             return self.__linear_algorithm
         else:
-            self.set_model()
+            self._set_model()
             return self.__linear_algorithm
             
     @_linear_algorithm.setter
     def _linear_algorithm(self, data):
         self.__linear_algorithm = data
     
-    def set_model(self, **args):
+    def _set_model(self, **args):
         if self.algorithm_type == "lasso":
             self._linear_algorithm = linear_model.Lasso(**args)
         elif self.algorithm_type == "ridge":
@@ -174,7 +246,7 @@ class xiao2018:
     
         return reg.alpha_
     
-    def _perform_checks(self, X, Y, Attacks, Labels):
+    def _check_dataset(self, X, Y):
         
         if X.dtype == 'object':
             raise ValueError('Inconsistent element sizes for X')
@@ -184,6 +256,11 @@ class xiao2018:
             raise ValueError('X and Y must have the same first dimensions.')
         if Y.ndim != 1:
             raise ValueError('Y must be one dimensional')
+    
+    def _perform_checks(self, X, Y, Attacks, Labels):
+        
+        self._check_dataset(X, Y)
+        
         if Labels.dtype == 'object':
             raise ValueError('Inconsistent element sizes for Labels')
         if Labels.ndim != 1:
@@ -197,8 +274,40 @@ class xiao2018:
         if self._projection_type == 'vector' and Attacks.shape[1] != len(self._projection):
             raise ValueError('Projection range must be of the same size as feature size.')
     
-    def run(self, X, Y, Attacks, Labels, projection=1):
+    def run(self, X, Y, Attacks, Labels, projection):
+        """Runs the algorithm.
+
+        Parameters
+        ----------
+        X : array_like
+            Dataset with no labels.
+            
+        Y : array_like 
+            Labels to dataset.
+            
+        Attacks : array_like
+            Initial attack points.
+            
+        Labels : array_like 
+            Labels to attack points.
+            
+        projection : float or tuple or list of float or list of tuple
+            If float or tuple, the projection will be the same for all features,
+            otherwise if a list, the projection will be described feature by feature.
+
+        Returns
+        -------
+        array_like
+            Final attack points, optimized by the algorithm.
+            
+        Raises
+        ------
+        TypeError
+            When invalid projection is passed.
         
+        ValueError
+            When incorrect dimensions of X, Y, Attacks, Labels, or projection is passed.
+        """
         self.projection = projection
         
         X = np.array(X)
@@ -214,18 +323,14 @@ class xiao2018:
         if self.algorithm_type == 'elastic':
             model_args['l1_ratio'] = self.rho
         
-        self.set_model(**model_args)
+        self._set_model(**model_args)
         
         self.n_iter = 0
         while self.n_iter < self.max_iter:
             
             New_attacks = []
             
-            self.n_inner_iter = 0
             for attack, label in zip(Attacks, Labels):
-                
-                if self.n_inner_iter >= self.max_inner_iter:
-                    break
                 
                 self._learn_model(np.vstack((X, attack)), np.append(Y, label))
                 d = self._project(attack + self._gradient(X, Y, attack, label)) - attack
@@ -237,9 +342,8 @@ class xiao2018:
                     if self._bounds(np.array([new_attack]), np.array([label])) <= self._bounds(np.array([attack]), np.array([label])) - self.sigma * eta * (np.linalg.norm(d) ** 2):
                         break
                     n_line_iter += 1
+                
                 New_attacks.append(new_attack)
-            
-                self.n_inner_iter += 1
             
             Attacks = np.array(New_attacks)
             if abs(self._bounds(Attacks, Labels) - self._bounds(Prev_Attacks, Labels)) < self.epsilon:
@@ -248,6 +352,56 @@ class xiao2018:
             self.n_iter += 1
         
         return Attacks
+   
+    def autorun(self, X, Y, num_attacks, projection, rInitial=False):    
+        """Runs the algorithm with a certain number of initial attack points randomly chosen.
+
+        Parameters
+        ----------
+        X : array_like
+            Dataset with no labels.
+            
+        Y : array_like 
+            Labels to dataset.
+        num_attacks : int
+            Number of attack points to randomly choose from dataset.
+            
+        projection : float or tuple or list of float or list of tuple
+            If float or tuple, the projection will be the same for all features,
+            otherwise if a list, the projection will be described feature by feature.
+            
+        rInitial : bool, default=False
+            If true will also return the randomly chosen attack points.
+            
+        Returns
+        -------
+        array_like or tuple of array_like
+            Either returns the optimized atack points, or a tuple of the optimized attack points and the original.
+
+        Raises
+        ------
+        ValueError
+            Same as xiao2018.run()
+            
+        TypeError
+            Same as xiao2018.run()
+        """
+             
+        self.projection = projection
+        X_np = np.array(X)
+        Y_np = np.array(Y)
+        self._check_dataset(X_np, Y_np)
+        
+        Attacks = random.sample([x + [y] for x, y in zip(X, Y)], num_attacks)
+        Labels = [row[-1] for row in Attacks]
+        Attacks = [row[:-1] for row in Attacks]
+        
+        Result = self.run(X, Y, Attacks, Labels, projection)
+        
+        if rInitial:
+            return Result, np.array(Attacks)
+        else:
+            return Result
 
 from sklearn import neighbors 
 

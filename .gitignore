@@ -146,9 +146,16 @@ dmypy.json
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+**/tempCodeRunnerFile.py
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
 
-scripts/*/*.csv
+datasets/*/*.csv
+
+**/.ignore*
+**/.ignore*.*
+scripts/
+# !docs/build
+pyvenv.cfg
