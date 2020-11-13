@@ -69,7 +69,7 @@ def test_autorun(file, num):
     assert len(res) == num
 
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
-@pytest.mark.parametrize('file', find_inputs('Input_dataset'))
+@pytest.mark.parametrize('file', random.sample(find_inputs('Input_dataset'), 10))
 def test_dataset(file, type):
     inp = read_json(file)
     test = xiao2018(type=type, max_iter=10)
