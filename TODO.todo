@@ -19,15 +19,19 @@ Total Progress:
         ✔ Sub-Gradient @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m28s)
         ✔ Equation 7 @started(20-10-15 17:27) @done(20-10-21 14:57) @lasted(5d21h30m36s)
         Library Progress:
-        ☐ Making all __init__ and __main__
+        ✔ Making all __init__ @done(20-11-16 20:31)
+        ☐ Making all of __main__
         ☐ Make better readme
-        ☐ Rearrange the files inside the library
+        ✔ Rearrange the files inside the library @done(20-11-16 20:31)
         ✔ Documentation @done(20-11-11 00:02)
         ✔ Packaging project with setuptools @done(20-11-09 20:58)
         ✔ Make examples @done(20-11-09 20:58)
     Open Topics:
         ☐ Warnings when max_iter is hit
+        ☐ Find where exactly where warnings are coming from
         ☐ Fix warnings with documentation
+        ☐ Find a place to put the documentation
+        ✔ Frederickson kinda working @done(20-11-16 20:30)
         ✔ set entire linear model in set_model() @started(20-11-11 00:02) @done(20-11-12 21:17) @lasted(1d21h15m42s)
         ✔ Decrease amount of tests @started(20-11-11 00:02) @done(20-11-12 21:07) @lasted(1d21h5m40s)
         ✔ Automatically make N number of initial attacks and run @done(20-11-09 20:58)
