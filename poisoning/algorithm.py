@@ -1,4 +1,4 @@
-from sklearn import linear_model
+from sklearn import linear_model, neighbors
 from sys import float_info
 import numpy as np
 import scipy as sp
@@ -134,19 +134,7 @@ class xiao2018:
             self._algorithm_type = 'elastic'
         else:
             raise TypeError(f'Invalid linear algorithm type: {alg_type}')
-    
-    # @property
-    # def _linear_algorithm(self):
-    #     if self.__linear_algorithm:
-    #         return self.__linear_algorithm
-    #     else:
-    #         self._set_model()
-    #         return self.__linear_algorithm
-            
-    # @_linear_algorithm.setter
-    # def _linear_algorithm(self, data):
-    #     self.__linear_algorithm = data
-    
+
     def _set_model(self, X, Y):
         
         self.alpha = self._find_alpha(X, Y)
@@ -403,47 +391,67 @@ class xiao2018:
         else:
             return Result
 
-from sklearn import neighbors 
-
 class frederickson2018(xiao2018):
     
-    def __init__(self, **kwargs):
-        self.d_att = kwargs.pop('attack_distance', 1)
-        self.power = kwargs.pop('power', 2)
-        self.k_th = kwargs.pop('k', 3)
-        super().__init__(self, **kwargs)
-        self._Knearest_neighbor = neighbors.KNeighborsClassifier(**args)
+    def __init__(self, *, phi=1, power=2, k=3, outlier_type='distance', **kwargs):
+        self.phi = phi
+        self.power = power
+        self.k_th = k
+        self.outlier_type = outlier_type
+        super().__init__(**kwargs)
+        self._Knearest_neighbor = neighbors.KNeighborsClassifier()
+        if self.outlier_type == 'distance':
+            self._outlier_term = self._distance_threshold
+            self._useable_partials = self._partial_derivatives
+        else:
+            self._outlier_term = self._k_nearest
+            self._useable_partials = self._k_partial
 
-    def _distance_threshold(self, ax, ay):
-        k_nearest_model = self._Knearest_neighbor.fit(ax, ay)
-        distance, _ = k_nearest_model.kneighbors(ax, n_neighbors= 1)
+    @property
+    def outlier_type(self):
+        return self._outlier_type
+    
+    @outlier_type.setter
+    def outlier_type(self, tp):
+        if tp in ['distance', 'distance_threshhold', 'distance threshhold']:
+            self._outlier_type = 'distance'
+        elif tp in ['nearest', 'k_nearest', 'nearest neighbor']:
+            self._outlier_type = 'nearest'
+        else:
+            raise TypeError(f'Invalid outlier type: {tp}')
+
+    def _distance_threshold(self, X, Y):
+        k_nearest_model = self._Knearest_neighbor.fit(X, Y)
+        distances, _ = k_nearest_model.kneighbors(X, n_neighbors= 1)
         
-        return float('inf') if distance > self.d_att else 0
+        return np.array([float('inf') if distance > self.phi else 0 for distance in distances])
         
-    def _outlier_term(self, ax, ay):
-        k_nearest_model = self._Knearest_neighbor.fit(ax, ay)
-        k_nearest = k_nearest_model.kneighbors(ax, n_neighbors= self.k_th, return_distance = false)
-        outlier = (np.linalg.norm(ax - k_nearest)**self.power)
+    def _k_nearest(self, X, Y):
+        k_nearest_model = self._Knearest_neighbor.fit(X, Y)
+        k_nearest = k_nearest_model.kneighbors(X, n_neighbors=self.k_th, return_distance=False)
+        outlier = (np.linalg.norm(X - k_nearest)**self.power)
 
         return outlier
     
-    def _k_partial(self, ax, ay):
-        k_nearest_model = self._Knearest_neighbor.fit(ax, ay)
-        k_nearest = k_nearest_model.kneighbors(ax, n_neighbors= self.k_th, return_distance = false)
+    def _k_partial(self, X, Y, ax, ay, weights, biases):
+        k_nearest_model = self._Knearest_neighbor.fit(X, Y)
+        k_nearest = k_nearest_model.kneighbors(X, n_neighbors=self.k_th, return_distance=False)
 
-        return self.power * (self._outlier_term(ax, ay)**(self.power - 2)) * (ax - k_nearest)
+        res = self.power * (self._k_nearest(X, Y)**(self.power - 2)) * (ax - k_nearest)
+        
+        return self._partial_derivatives(X, Y, ax, ay, weights, biases) - res
     
-    def _bounds(self, X, Y, ax, ay):
+    def _bounds(self, X, Y):
         length = X.shape[0]
         weights = self._linear_algorithm.coef_
         bias = self._linear_algorithm.intercept_
-        return (1/length) * sum([(1/2) * ((np.dot(weights, x) - y) ** 2) for x, y in zip(X, Y)]) + (self.alpha * self._regularize(weights)) - (self.d_att * self._distance_threshold(ax, ay))
-
+        return (1/length) * sum([(1/2) * ((np.dot(weights, x) - y) ** 2) for x, y in zip(X, Y)] - (self.phi * self._outlier_term(X, Y))) + (self.alpha * self._regularize(weights))
+        
     def _gradient(self, X, Y, ax, ay):
         weights = np.array(self._linear_algorithm.coef_)
         biases = self._linear_algorithm.intercept_
-        partial_weights, partial_biases = self._partial_derivatives(X, Y, ax, ay, weights, biases)
+        partial_weights, partial_biases = self._useable_partials(X, Y, ax, ay, weights, biases)
         last_term = self.alpha * (np.matmul(self._gradient_r_term(weights), partial_weights))
-        result = [((np.dot(item[0], ax) + biases) - item[1]) * (np.matmul(item[0], partial_weights) + partial_biases) for item in zip(X, Y)]
+        result = [((np.dot(item[0], ax) + biases) - item[1]) * (np.matmul(item[0], partial_weights) + partial_biases) for item in zip(X, Y)] - self.phi * self._outlier_term([ax], [ay])
 
-        return ((sum(result) / X.shape[0]) + last_term) - (self.d_att * self._distance_threshold(ax, ay))
+        return ((sum(result) / X.shape[0]) + last_term)
