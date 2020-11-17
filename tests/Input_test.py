@@ -1,4 +1,4 @@
-from poisoning.xiao2018.algorithm import xiao2018
+from poisoning.algorithm import xiao2018
 import numpy as np
 import pytest
 import random
