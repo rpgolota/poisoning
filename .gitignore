@@ -157,5 +157,5 @@ datasets/*/*.csv
 **/.ignore*
 **/.ignore*.*
 scripts/
-# !docs/build
+!docs/build
 pyvenv.cfg
