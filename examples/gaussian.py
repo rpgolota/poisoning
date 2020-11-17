@@ -1,4 +1,4 @@
-from poisoning import xiao2018
+from poisoning import xiao2018, frederickson2018
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
@@ -88,6 +88,7 @@ def comparative_plots(json_file, **kwargs):
     folderpath = kwargs.pop('path', 'compare')
     types = kwargs.pop('types', ['l1', 'l2', 'elastic'])
     center = kwargs.pop('center', None)
+    algor = kwargs.pop('algorithm', xiao2018)
 
     with open(json_file, 'r') as infile:
         data = json.load(infile)
@@ -102,7 +103,7 @@ def comparative_plots(json_file, **kwargs):
 
     for i, arg in enumerate(arguments):
         for tp in types:
-            model = xiao2018(type=tp, **arg)
+            model = algor(type=tp, **arg)
             
             res = model.run(X, Y, Attacks, Labels, mod_proj)
             # print(res)
@@ -115,5 +116,6 @@ def comparative_plots(json_file, **kwargs):
 
 if __name__ == "__main__":
 
-    write_comparative_rand('inp.json', 200, 20, lambda X: [1 if x[0] < 10 else -1 for x in X], (10, 10), (-40, 60), distribution=True)
-    comparative_plots('inp.json')
+    # write_comparative_rand('inp.json', 200, 20, lambda X: [1 if x[0] < 10 else -1 for x in X], (10, 10), (-40, 60), distribution=True)
+    # comparative_plots('inp.json', path='compare/xiao', algorithm=xiao2018)
+    comparative_plots('inp.json', path='compare/fred', algorithm=frederickson2018)
