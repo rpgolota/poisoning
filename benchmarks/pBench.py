@@ -26,6 +26,6 @@ class pBench:
     def show(self, sort=None):
         print(self.get_stats(sort=sort))
         
-    def write(self, filename, sort=None):
-        with open(filename, 'w') as f:
+    def write(self, filename, sort=None, flag='w'):
+        with open(filename, flag) as f:
             f.write(self.get_stats(sort=sort))
