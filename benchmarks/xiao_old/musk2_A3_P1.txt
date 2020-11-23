@@ -1,0 +1,398 @@
+File: files/Input_dataset_musk-2.json
+Samples: 6598   Features: 166
+
+         311302 function calls (310629 primitive calls) in 7.060 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.006    0.006    7.060    7.060 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:357(autorun)
+        1    0.006    0.006    6.994    6.994 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:283(run)
+        1    0.000    0.000    3.714    3.714 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:150(_set_model)
+        1    0.000    0.000    3.714    3.714 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:239(_find_alpha)
+        1    0.001    0.001    3.714    3.714 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:1157(fit)
+   583/46    0.005    0.000    3.694    0.080 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:60(inner_f)
+        1    0.000    0.000    3.685    3.685 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:946(__call__)
+        6    0.000    0.000    3.685    0.614 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:784(dispatch_one_batch)
+        5    0.000    0.000    3.685    0.737 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:747(_dispatch)
+        5    0.000    0.000    3.685    0.737 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:206(apply_async)
+        5    0.000    0.000    3.685    0.737 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:569(__init__)
+        5    0.000    0.000    3.685    0.737 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:248(__call__)
+        5    0.001    0.000    3.684    0.737 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:252(<listcomp>)
+        5    0.017    0.003    3.683    0.737 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:1026(_path_residuals)
+        9    2.470    0.274    3.568    0.396 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:317(enet_path)
+        5    0.000    0.000    3.548    0.710 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:171(lasso_path)
+        3    0.001    0.000    3.183    1.061 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:193(_gradient)
+        3    0.372    0.124    2.473    0.824 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:165(_partial_derivatives)
+41559/41424    0.154    0.000    1.872    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+        3    0.021    0.007    1.679    0.560 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:176(<listcomp>)
+    19797    0.012    0.000    1.658    0.000 <__array_function__ internals>:2(outer)
+    19797    1.600    0.000    1.630    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numeric.py:824(outer)
+      253    0.001    0.000    0.986    0.004 C:\ProgramData\Anaconda3\lib\warnings.py:96(_showwarnmsg)
+      253    0.002    0.000    0.985    0.004 C:\ProgramData\Anaconda3\lib\warnings.py:20(_showwarnmsg_impl)
+      253    0.979    0.004    0.979    0.004 {method 'write' of '_io.TextIOWrapper' objects}
+        3    0.643    0.214    0.698    0.233 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:199(<listcomp>)
+       68    0.412    0.006    0.412    0.006 {built-in method builtins.sum}
+    20979    0.017    0.000    0.156    0.000 <__array_function__ internals>:2(dot)
+      550    0.009    0.000    0.139    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:398(check_array)
+    41594    0.127    0.000    0.127    0.000 {built-in method numpy.array}
+      550    0.009    0.000    0.074    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:77(_assert_all_finite)
+      594    0.069    0.000    0.069    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+      550    0.002    0.000    0.063    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\extmath.py:686(_safe_accumulator_op)
+    40778    0.010    0.000    0.062    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_asarray.py:14(asarray)
+        4    0.000    0.000    0.062    0.015 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:714(fit)
+      551    0.001    0.000    0.058    0.000 <__array_function__ internals>:2(sum)
+        6    0.000    0.000    0.057    0.010 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\extmath.py:119(safe_sparse_dot)
+      551    0.001    0.000    0.057    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:2105(sum)
+      552    0.002    0.000    0.055    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:70(_wrapreduction)
+       14    0.000    0.000    0.055    0.004 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_base.py:556(_pre_fit)
+        3    0.001    0.000    0.046    0.015 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:203(_learn_model)
+       15    0.011    0.001    0.039    0.003 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_base.py:102(_preprocess_data)
+        5    0.000    0.000    0.027    0.005 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\base.py:383(_validate_data)
+        4    0.000    0.000    0.026    0.006 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:689(check_X_y)
+        1    0.023    0.023    0.023    0.023 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:395(<listcomp>)
+        3    0.000    0.000    0.015    0.005 <__array_function__ internals>:2(cond)
+        3    0.000    0.000    0.015    0.005 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:1682(cond)
+        3    0.000    0.000    0.015    0.005 <__array_function__ internals>:2(svd)
+        3    0.014    0.005    0.015    0.005 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:1483(svd)
+       34    0.001    0.000    0.013    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_methods.py:143(_mean)
+       30    0.000    0.000    0.011    0.000 {method 'mean' of 'numpy.ndarray' objects}
+    39693    0.011    0.000    0.011    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       20    0.000    0.000    0.010    0.000 <__array_function__ internals>:2(average)
+       20    0.000    0.000    0.010    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\lib\function_base.py:280(average)
+        1    0.000    0.000    0.007    0.007 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:1268(<listcomp>)
+      570    0.003    0.000    0.007    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:181(_num_samples)
+        1    0.000    0.000    0.007    0.007 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:80(_alpha_grid)
+       18    0.000    0.000    0.006    0.000 <__array_function__ internals>:2(concatenate)
+        9    0.000    0.000    0.006    0.001 <__array_function__ internals>:2(vstack)
+        9    0.000    0.000    0.006    0.001 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\shape_base.py:223(vstack)
+      253    0.000    0.000    0.004    0.000 C:\ProgramData\Anaconda3\lib\warnings.py:117(_formatwarnmsg)
+      253    0.003    0.000    0.004    0.000 C:\ProgramData\Anaconda3\lib\warnings.py:35(_formatwarnmsg_impl)
+        4    0.000    0.000    0.004    0.001 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_methods.py:45(_sum)
+     4851    0.002    0.000    0.004    0.000 {built-in method builtins.isinstance}
+      550    0.001    0.000    0.004    0.000 C:\ProgramData\Anaconda3\lib\warnings.py:165(simplefilter)
+    20979    0.004    0.000    0.004    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\multiarray.py:706(dot)
+        3    0.000    0.000    0.003    0.001 <__array_function__ internals>:2(inv)
+        3    0.003    0.001    0.003    0.001 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:477(inv)
+    19797    0.003    0.000    0.003    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numeric.py:820(_outer_dispatcher)
+      550    0.002    0.000    0.003    0.000 C:\ProgramData\Anaconda3\lib\warnings.py:181(_add_filter)
+      551    0.001    0.000    0.002    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numerictypes.py:360(issubdtype)
+        4    0.000    0.000    0.002    0.001 <__array_function__ internals>:2(mean)
+        4    0.000    0.000    0.002    0.001 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:3269(mean)
+      595    0.000    0.000    0.002    0.000 C:\ProgramData\Anaconda3\lib\abc.py:96(__instancecheck__)
+      595    0.001    0.000    0.002    0.000 {built-in method _abc._abc_instancecheck}
+       18    0.000    0.000    0.002    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\base.py:189(get_params)
+       18    0.000    0.000    0.002    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\base.py:162(_get_param_names)
+      550    0.001    0.000    0.002    0.000 C:\ProgramData\Anaconda3\lib\warnings.py:458(__enter__)
+     1102    0.001    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numerictypes.py:286(issubclass_)
+     4800    0.001    0.000    0.001    0.000 {built-in method builtins.hasattr}
+        1    0.000    0.000    0.001    0.001 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:1326(<dictcomp>)
+       18    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:3091(signature)
+       18    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:2839(from_callable)
+       18    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:2206(_signature_from_callable)
+      253    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\linecache.py:15(getline)
+       62    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:233(_bounds)
+      555    0.001    0.000    0.001    0.000 <frozen importlib._bootstrap>:389(parent)
+       18    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:2112(_signature_from_function)
+      253    0.001    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\warnings.py:403(__init__)
+     1124    0.001    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\scipy\sparse\base.py:1188(isspmatrix)
+      550    0.001    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\warnings.py:437(__init__)
+      669    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_asarray.py:86(asanyarray)
+      550    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\_config.py:14(get_config)
+      550    0.001    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\warnings.py:477(__exit__)
+      550    0.001    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:391(_ensure_no_complex_data)
+      572    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\abc.py:100(__subclasscheck__)
+       92    0.000    0.000    0.001    0.000 <__array_function__ internals>:2(norm)
+      583    0.001    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:72(<dictcomp>)
+      253    0.001    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\linecache.py:37(getlines)
+        3    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:218(_project)
+       92    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:2363(norm)
+     2467    0.001    0.000    0.001    0.000 {built-in method builtins.len}
+      551    0.001    0.000    0.001    0.000 {method 'remove' of 'list' objects}
+       62    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:224(_regularize)
+     1923    0.001    0.000    0.001    0.000 {built-in method builtins.issubclass}
+      572    0.001    0.000    0.001    0.000 {built-in method _abc._abc_subclasscheck}
+        3    0.000    0.000    0.001    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:222(<listcomp>)
+      589    0.001    0.000    0.001    0.000 {method 'update' of 'dict' objects}
+      552    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:71(<dictcomp>)
+      224    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:2477(__init__)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:209(_gradient_r_term)
+      555    0.000    0.000    0.000    0.000 {method 'rpartition' of 'str' objects}
+      555    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\model_selection\_split.py:304(split)
+       62    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:237(<listcomp>)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:212(<listcomp>)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:242(check_consistent_length)
+     1650    0.000    0.000    0.000    0.000 {built-in method _warnings._filters_mutated}
+      556    0.000    0.000    0.000    0.000 {method 'insert' of 'list' objects}
+        3    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(hstack)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\shape_base.py:286(hstack)
+       15    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numeric.py:144(ones)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\model_selection\_split.py:54(split)
+      601    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:2845(parameters)
+       26    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numeric.py:2084(identity)
+      764    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+      108    0.000    0.000    0.000    0.000 {built-in method builtins.min}
+        6    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(unique)
+      875    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       50    0.000    0.000    0.000    0.000 {built-in method numpy.empty}
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\lib\arraysetops.py:149(unique)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\lib\twodim_base.py:152(eye)
+       34    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_methods.py:59(_count_reduce_items)
+        6    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(append)
+       18    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:2760(__init__)
+        9    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(sort)
+      253    0.000    0.000    0.000    0.000 {method 'strip' of 'str' objects}
+       18    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\base.py:176(<listcomp>)
+      555    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\lib\function_base.py:4616(append)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numerictypes.py:569(find_common_type)
+        9    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:839(sort)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\model_selection\_split.py:87(_iter_test_masks)
+      224    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\enum.py:278(__call__)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\lib\arraysetops.py:309(_unique1d)
+      216    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:222(<lambda>)
+       16    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(copyto)
+      551    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:2100(_sum_dispatcher)
+        8    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(atleast_1d)
+       10    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numerictypes.py:545(_can_coerce_all)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\base.py:221(set_params)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:213(get_nested_backend)
+      242    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:2809(<genexpr>)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:1295(<genexpr>)
+        4    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_base.py:240(_set_intercept)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:280(indexable)
+       11    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\queue.py:153(get)
+       18    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:493(unwrap)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(logspace)
+        7    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:76(get_active_backend)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\function_base.py:173(logspace)
+        9    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(atleast_2d)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:625(__init__)
+       15    0.000    0.000    0.000    0.000 {method 'sort' of 'numpy.ndarray' objects}
+        8    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\shape_base.py:24(atleast_1d)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:302(delayed)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(linspace)
+      654    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:2527(name)
+        7    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(ravel)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:253(<listcomp>)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\function_base.py:23(linspace)
+       18    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\base.py:187(<listcomp>)
+        9    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\shape_base.py:82(atleast_2d)
+      484    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_ufunc_config.py:32(seterr)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\queue.py:121(put)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_ufunc_config.py:433(__enter__)
+        7    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:1705(ravel)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:338(__call__)
+      104    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:112(isComplexType)
+        6    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(may_share_memory)
+        4    0.000    0.000    0.000    0.000 {method 'any' of 'numpy.generic' objects}
+      224    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\enum.py:557(__new__)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\functools.py:34(update_wrapper)
+      412    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:2539(kind)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\random.py:315(sample)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:86(projection)
+        7    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:280(__init__)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\model_selection\_split.py:436(_iter_test_indices)
+        4    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:33(_set_order)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(reshape)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:209(__exit__)
+        4    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_methods.py:53(_any)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:52(_wrapfunc)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:373(effective_n_jobs)
+       35    0.000    0.000    0.000    0.000 {built-in method numpy.core._multiarray_umath.normalize_axis_index}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:199(reshape)
+       36    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:513(_is_wrapper)
+        7    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+      224    0.000    0.000    0.000    0.000 {method 'isidentifier' of 'str' objects}
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:135(_commonType)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\fixes.py:65(_joblib_parallel_args)
+       10    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\threading.py:341(notify)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:39(_wrapit)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:906(retrieve)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:1010(__init__)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:212(unregister)
+       12    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\shape_base.py:219(_vhstack_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\model_selection\_split.py:1974(check_cv)
+      217    0.000    0.000    0.000    0.000 {built-in method builtins.abs}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\queue.py:33(__init__)
+        9    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_ufunc_config.py:132(geterr)
+        7    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\distutils\version.py:302(__init__)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\uuid.py:778(uuid4)
+       70    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numerictypes.py:554(<listcomp>)
+        9    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:851(check_random_state)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\distutils\version.py:307(parse)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_ufunc_config.py:438(__exit__)
+       16    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\threading.py:246(__enter__)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(any)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:107(_makearray)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:255(_check_dataset)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:174(__init__)
+       71    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:109(algorithm_type)
+      2/1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:718(_initialize_backend)
+        3    0.000    0.000    0.000    0.000 {built-in method numpy.arange}
+       18    0.000    0.000    0.000    0.000 {built-in method builtins.sorted}
+        9    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:125(_realType)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:818(column_or_1d)
+       92    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:2359(_norm_dispatcher)
+       36    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:158(isfunction)
+       12    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\shape_base.py:208(_arrays_for_stack_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:2249(any)
+       16    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\threading.py:249(__exit__)
+        9    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:34(__init__)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numerictypes.py:621(<listcomp>)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:501(effective_n_jobs)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(rollaxis)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:292(<listcomp>)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:235(__init__)
+        6    0.000    0.000    0.000    0.000 {method 'flatten' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\uuid.py:130(__init__)
+       11    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\queue.py:208(_qsize)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:266(_perform_checks)
+        1    0.000    0.000    0.000    0.000 {method 'max' of 'numpy.ndarray' objects}
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\threading.py:222(__init__)
+       10    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\threading.py:261(_is_owned)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\model_selection\_split.py:430(__init__)
+        3    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1017(_handle_fromlist)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_methods.py:37(_amax)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numeric.py:1218(rollaxis)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\utils\validation.py:260(_make_indexable)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\distutils\version.py:57(__le__)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\logger.py:39(short_format_time)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\random.py:250(_randbelow_with_getrandbits)
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.seterrobj}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:1499(__init__)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:102(get_linalg_error_extobj)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(argmin)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numeric.py:268(full)
+        4    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_asarray.py:180(asfortranarray)
+       12    0.000    0.000    0.000    0.000 {built-in method time.time}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\distutils\version.py:331(_cmp)
+       34    0.000    0.000    0.000    0.000 {built-in method builtins.setattr}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\contextlib.py:238(helper)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\functools.py:64(wraps)
+       18    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\inspect.py:2234(<lambda>)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\queue.py:216(_get)
+       18    0.000    0.000    0.000    0.000 {method 'values' of 'mappingproxy' objects}
+        2    0.000    0.000    0.000    0.000 {method 'split' of 're.Pattern' objects}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:1195(argmin)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\queue.py:212(_put)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:389(configure)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\lib\arraysetops.py:136(_unpack_tuple)
+       20    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\lib\function_base.py:276(_average_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\logger.py:23(_squeeze_time)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:185(in_main_thread)
+        7    0.000    0.000    0.000    0.000 {built-in method builtins.max}
+       16    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\multiarray.py:1043(copyto)
+        1    0.000    0.000    0.000    0.000 E:\STORAGE\UofA\Y2S1\Research\Adversarial Neural Networks\Coding\poisoning\benchmarks\pBench.py:14(__exit__)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\base.py:354(_check_n_features)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\disk.py:42(memstr_to_bytes)
+       36    0.000    0.000    0.000    0.000 {built-in method builtins.id}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:397(<listcomp>)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:200(_assert_stacked_square)
+       16    0.000    0.000    0.000    0.000 {method '__enter__' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\contextlib.py:108(__enter__)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(squeeze)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\contextlib.py:82(__init__)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:1136(__init__)
+       12    0.000    0.000    0.000    0.000 {built-in method numpy.geterrobj}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\model_selection\_split.py:272(__init__)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\sklearn\linear_model\_coordinate_descent.py:696(__init__)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:51(__init__)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:194(_assert_stacked_2d)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\getlimits.py:366(__new__)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(result_type)
+       18    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\multiarray.py:143(concatenate)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\_ufunc_config.py:429(__init__)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:863(print_progress)
+        1    0.000    0.000    0.000    0.000 {built-in method nt.urandom}
+       10    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(ndim)
+        1    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:396(<listcomp>)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(shape)
+       18    0.000    0.000    0.000    0.000 {built-in method builtins.callable}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\threading.py:1306(current_thread)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:333(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'argmin' of 'numpy.ndarray' objects}
+       18    0.000    0.000    0.000    0.000 {built-in method sys.getrecursionlimit}
+       16    0.000    0.000    0.000    0.000 {method '__exit__' of '_thread.lock' objects}
+       15    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:265(__len__)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\multiarray.py:1340(may_share_memory)
+        9    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:835(_sort_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:1428(squeeze)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:211(_is_empty_2d)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\contextlib.py:117(__exit__)
+        5    0.000    0.000    0.000    0.000 {method 'pop' of 'list' objects}
+        8    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\shape_base.py:20(_atleast_1d_dispatcher)
+        7    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:1701(_ravel_dispatcher)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\distutils\version.py:312(<listcomp>)
+        9    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\shape_base.py:78(_atleast_2d_dispatcher)
+        4    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:3265(_mean_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\threading.py:81(RLock)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\lib\function_base.py:4612(_append_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\multiprocessing\context.py:233(get_context)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\uuid.py:325(hex)
+        5    0.000    0.000    0.000    0.000 {method 'extend' of 'list' objects}
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\lib\arraysetops.py:144(_unique_dispatcher)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.next}
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:312(delayed_function)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:743(_terminate_backend)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:574(get)
+        9    0.000    0.000    0.000    0.000 {method 'partition' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\poisoning\xiao2018\algorithm.py:127(algorithm_type)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numeric.py:1816(isscalar)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\queue.py:205(_init)
+        3    0.000    0.000    0.000    0.000 {method '__array_prepare__' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:70(configure)
+        5    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\multiprocessing\process.py:198(daemon)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:93(batch_completed)
+        1    0.000    0.000    0.000    0.000 {method 'transpose' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 {method 'startswith' of 'str' objects}
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numerictypes.py:622(<listcomp>)
+        5    0.000    0.000    0.000    0.000 {method 'popleft' of 'collections.deque' objects}
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:1678(_cond_dispatcher)
+        6    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:89(compute_batch_size)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:609(__init__)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:850(_print)
+        3    0.000    0.000    0.000    0.000 {method 'bit_length' of 'int' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method from_bytes}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:194(_reshape_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:3075(ndim)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:473(_unary_dispatcher)
+        3    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\linalg\linalg.py:1479(_svd_dispatcher)
+        5    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\parallel.py:206(__enter__)
+        1    0.000    0.000    0.000    0.000 {method 'squeeze' of 'numpy.ndarray' objects}
+        3    0.000    0.000    0.000    0.000 {method 'add' of 'set' objects}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:1911(_shape_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:1915(shape)
+        2    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:137(retrieval_context)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:227(effective_n_jobs)
+        3    0.000    0.000    0.000    0.000 {method 'getrandbits' of '_random.Random' objects}
+        2    0.000    0.000    0.000    0.000 {method 'pop' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 E:\STORAGE\UofA\Y2S1\Research\Adversarial Neural Networks\Coding\poisoning\benchmarks\pBench.py:11(__enter__)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\multiprocessing\process.py:37(current_process)
+        1    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 {built-in method _thread.get_ident}
+        1    0.000    0.000    0.000    0.000 {method 'count' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\multiarray.py:634(result_type)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\function_base.py:168(_logspace_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\function_base.py:18(_linspace_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:80(start_call)
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\numeric.py:1214(_rollaxis_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:1191(_argmin_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:1424(_squeeze_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:2245(_any_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py:3071(_ndim_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:83(stop_call)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:200(effective_n_jobs)
+        1    0.000    0.000    0.000    0.000 C:\ProgramData\Anaconda3\lib\site-packages\joblib\_parallel_backends.py:86(terminate)
+
+

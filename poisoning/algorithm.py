@@ -3,6 +3,8 @@ from sys import float_info
 import numpy as np
 import scipy as sp
 import random
+import os
+import concurrent.futures
 
 class xiao2018:
     """Dataset poisoning algorithm from 'Is Feature Selection Secure against Training Data Poisoning? H.Xiao et al. 2018'
@@ -36,6 +38,10 @@ class xiao2018:
     model_tol : float, default=1e-4
         Paramter that is passed into the linear model as the tolerance.
     
+    parallel : bool, default=True
+        Parameter that will enable or disable the possible use of multiprocessing to 
+        split passed attack points into multiple chunks for faster performance
+    
     Attributes
     ----------
     
@@ -50,8 +56,9 @@ class xiao2018:
     """
     def __init__(self, *, type='lasso', beta=0.99,
                  rho=0.5, sigma=1e-3, epsilon=1e-3,
-                 max_iter=1000, max_lsearch_iter=10,
-                 max_model_iter=1000, model_tol=1e-4):
+                 max_iter=1000, max_lsearch_iter=10, 
+                 max_model_iter=1000, model_tol=1e-4,
+                 parallel=True):
 
         self.beta = beta
         self.rho = rho
@@ -63,6 +70,7 @@ class xiao2018:
         self.max_model_iter = max_model_iter
         self.model_tol = model_tol
         self._linear_algorithm = None
+        self.parallel = parallel
             
     @property
     def projection(self):
@@ -268,6 +276,52 @@ class xiao2018:
         if self._projection_type == 'vector' and Attacks.shape[1] != len(self._projection):
             raise ValueError('Projection range must be of the same size as feature size.')
     
+    def _run_implementation(self, Input):
+        
+        Attacks = Input[0]
+        Labels = Input[1]
+        
+        X = np.array(self._use_X)
+        Y = np.array(self._use_Y)
+        Attacks = np.array(Attacks)
+        Prev_Attacks = np.array(Attacks)
+        Labels = np.array(Labels)
+        
+        self.n_iter = 0
+        while self.n_iter < self.max_iter:
+            
+            New_attacks = []
+            
+            for attack, label in zip(Attacks, Labels):
+                
+                self._learn_model(np.vstack((X, attack)), np.append(Y, label))
+                d = self._project(attack + self._gradient(X, Y, attack, label)) - attack
+            
+                n_line_iter = 0
+                while n_line_iter < self.max_lsearch_iter:
+                    eta = self.beta ** n_line_iter
+                    new_attack = attack + eta*d
+                    if self._bounds(np.array([new_attack]), np.array([label])) <= self._bounds(np.array([attack]), np.array([label])) - self.sigma * eta * (np.linalg.norm(d) ** 2):
+                        break
+                    n_line_iter += 1
+                
+                New_attacks.append(new_attack)
+            
+            Attacks = np.array(New_attacks)
+            if abs(self._bounds(Attacks, Labels) - self._bounds(Prev_Attacks, Labels)) < self.epsilon:
+                break
+            Prev_Attacks = np.array(Attacks)
+            self.n_iter += 1
+        
+        return Attacks
+    
+    def _split_attacks(self, Attacks, Labels):
+
+        usable = np.hstack((Attacks, np.array([Labels]).T))
+        split = np.array_split(usable, os.cpu_count() if os.cpu_count() < len(Labels) else len(Labels))
+
+        return [([row[:-1] for row in matrix], [row[-1] for row in matrix]) for matrix in split]
+    
     def run(self, X, Y, Attacks, Labels, projection):
         """Runs the algorithm.
 
@@ -302,45 +356,24 @@ class xiao2018:
         ValueError
             When incorrect dimensions of X, Y, Attacks, Labels, or projection is passed.
         """
+        
+        self._use_X = np.array(X)
+        self._use_Y = np.array(Y)
         self.projection = projection
         
-        X = np.array(X)
-        Y = np.array(Y)
-        Attacks = np.array(Attacks)
-        Prev_Attacks = np.array(Attacks)
-        Labels = np.array(Labels)
-
-        self._perform_checks(X, Y, Attacks, Labels)
-
-        self._set_model(X, Y)
+        self._perform_checks(self._use_X, self._use_Y, np.array(Attacks), np.array(Labels))
+        self._set_model(self._use_X, self._use_Y)
         
-        self.n_iter = 0
-        while self.n_iter < self.max_iter:
-            
-            New_attacks = []
-            
-            for attack, label in zip(Attacks, Labels):
-                
-                self._learn_model(np.vstack((X, attack)), np.append(Y, label))
-                d = self._project(attack + self._gradient(X, Y, attack, label)) - attack
-            
-                n_line_iter = 0
-                while n_line_iter < self.max_lsearch_iter:
-                    eta = self.beta ** n_line_iter
-                    new_attack = attack + eta*d
-                    if self._bounds(np.array([new_attack]), np.array([label])) <= self._bounds(np.array([attack]), np.array([label])) - self.sigma * eta * (np.linalg.norm(d) ** 2):
-                        break
-                    n_line_iter += 1
-                
-                New_attacks.append(new_attack)
-            
-            Attacks = np.array(New_attacks)
-            if abs(self._bounds(Attacks, Labels) - self._bounds(Prev_Attacks, Labels)) < self.epsilon:
-                break
-            Prev_Attacks = np.array(Attacks)
-            self.n_iter += 1
-        
-        return Attacks
+        if self.parallel:
+                        
+            split = self._split_attacks(Attacks, Labels)
+
+            with concurrent.futures.ProcessPoolExecutor() as executor:
+                results = executor.map(self._run_implementation, split)
+                return np.vstack(list(results))
+
+        else:
+            return self._run_implementation((Attacks, Labels))
    
     def autorun(self, X, Y, num_attacks, projection, rInitial=False):    
         """Runs the algorithm with a certain number of initial attack points randomly chosen.

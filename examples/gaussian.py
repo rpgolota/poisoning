@@ -106,7 +106,6 @@ def comparative_plots(json_file, **kwargs):
             model = algor(type=tp, **arg)
             
             res = model.run(X, Y, Attacks, Labels, mod_proj)
-            # print(res)
             fmt_kwargs = [f'{first}: {second}' for first, second in zip(arg.keys(), [str(a) for a in arg.values()])]
             draw_plot(separate_by_label(X, Y), Attacks, res, projection, center=center,
                         filename=f'{folderpath}/compare_{json_file.rstrip(".json")}_{model.algorithm_type}_{i}.png',
@@ -117,5 +116,5 @@ def comparative_plots(json_file, **kwargs):
 if __name__ == "__main__":
 
     # write_comparative_rand('inp.json', 200, 20, lambda X: [1 if x[0] < 10 else -1 for x in X], (10, 10), (-40, 60), distribution=True)
-    # comparative_plots('inp.json', path='compare/xiao', algorithm=xiao2018)
-    comparative_plots('inp.json', path='compare/fred', algorithm=frederickson2018)
+    comparative_plots('inp.json', path='compare2/xiao', algorithm=xiao2018, args=[{}, {'parallel': False}])
+    comparative_plots('inp.json', path='compare2/fred', algorithm=frederickson2018, args=[{}, {'parallel': False}])
