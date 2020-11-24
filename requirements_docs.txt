@@ -1,0 +1,2 @@
+Sphinx>=3.3.0
+numpydoc>=1.1.0
