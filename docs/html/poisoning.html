@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>poisoning package &#8212; poisoning 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to poisoning’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to poisoning’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">poisoning 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">poisoning package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="poisoning-package">
+<h1>poisoning package<a class="headerlink" href="#poisoning-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-poisoning.algorithm">
+<span id="poisoning-algorithm-module"></span><h2>poisoning.algorithm module<a class="headerlink" href="#module-poisoning.algorithm" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="poisoning.algorithm.frederickson2018">
+<em class="property">class </em><code class="sig-prename descclassname">poisoning.algorithm.</code><code class="sig-name descname">frederickson2018</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">phi</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">power</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">outlier_type</span><span class="o">=</span><span class="default_value">'distance'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#poisoning.algorithm.frederickson2018" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#poisoning.algorithm.xiao2018" title="poisoning.algorithm.xiao2018"><code class="xref py py-class docutils literal notranslate"><span class="pre">poisoning.algorithm.xiao2018</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">algorithm_type</span></code></dt><dd><p>The currently used algorithm type.</p>
+</dd>
+<dt><strong>outlier_type</strong></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">projection</span></code></dt><dd><p>Returns the currently used projection.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">autorun</span></code>(X, Y, num_attacks, projection[, …])</p></td>
+<td><p>Runs the algorithm with a certain number of initial attack points randomly chosen.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code>(X, Y, Attacks, Labels, projection)</p></td>
+<td><p>Runs the algorithm.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="poisoning.algorithm.frederickson2018.outlier_type">
+<em class="property">property </em><code class="sig-name descname">outlier_type</code><a class="headerlink" href="#poisoning.algorithm.frederickson2018.outlier_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="poisoning.algorithm.xiao2018">
+<em class="property">class </em><code class="sig-prename descclassname">poisoning.algorithm.</code><code class="sig-name descname">xiao2018</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">'lasso'</span></em>, <em class="sig-param"><span class="n">beta</span><span class="o">=</span><span class="default_value">0.99</span></em>, <em class="sig-param"><span class="n">rho</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">max_iter</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">max_lsearch_iter</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">max_model_iter</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">model_tol</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">parallel</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#poisoning.algorithm.xiao2018" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Dataset poisoning algorithm from ‘Is Feature Selection Secure against Training Data Poisoning? H.Xiao et al. 2018’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>type</strong><span class="classifier">{‘lasso’, ‘l1’, ‘ridge’, ‘l2’, ‘ridgeregression’, ‘ridge-regression’, ‘ridge regression’, ‘elastic’, ‘elasticnet’, ‘elastic-net’, ‘elastic net’}, default=’lasso’</span></dt><dd><p>Type of linear model that will be used in the algorithm.</p>
+</dd>
+<dt><strong>beta</strong><span class="classifier">float, default=0.99</span></dt><dd><p>Number that is raised to i-th power in line search, where i is the current line search iteration.</p>
+</dd>
+<dt><strong>rho</strong><span class="classifier">float, default=0.5</span></dt><dd><p>Convex constant that describes the elastic-nex mixing parameter.</p>
+</dd>
+<dt><strong>sigma</strong><span class="classifier">float, default=1e-3</span></dt><dd><p>Small positive constant used in bounding the line search.</p>
+</dd>
+<dt><strong>elsilon</strong><span class="classifier">float, default=1e-3</span></dt><dd><p>Small positive consant used in bounding the algorithm.</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=1000</span></dt><dd><p>Maximum iterations that the algorithm will go up to.</p>
+</dd>
+<dt><strong>max_lsearch_iter</strong><span class="classifier">int, default=10</span></dt><dd><p>Maximum iterations that the line search will go up to.</p>
+</dd>
+<dt><strong>max_model_iter</strong><span class="classifier">int, default=1000</span></dt><dd><p>Parameter that is passed into the linear model to bound iterations.</p>
+</dd>
+<dt><strong>model_tol</strong><span class="classifier">float, default=1e-4</span></dt><dd><p>Paramter that is passed into the linear model as the tolerance.</p>
+</dd>
+<dt><strong>parallel</strong><span class="classifier">bool, default=True</span></dt><dd><p>Parameter that will enable or disable the possible use of multiprocessing to 
+split passed attack points into multiple chunks for faster performance</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If invalid type is given.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_iter</strong><span class="classifier">int</span></dt><dd><p>Number of iterations completed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#poisoning.algorithm.xiao2018.autorun" title="poisoning.algorithm.xiao2018.autorun"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autorun</span></code></a>(X, Y, num_attacks, projection[, …])</p></td>
+<td><p>Runs the algorithm with a certain number of initial attack points randomly chosen.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#poisoning.algorithm.xiao2018.run" title="poisoning.algorithm.xiao2018.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>(X, Y, Attacks, Labels, projection)</p></td>
+<td><p>Runs the algorithm.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="poisoning.algorithm.xiao2018.algorithm_type">
+<em class="property">property </em><code class="sig-name descname">algorithm_type</code><a class="headerlink" href="#poisoning.algorithm.xiao2018.algorithm_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The currently used algorithm type.</p>
+<p>The setter will normalize the type into one of the three possible outputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>{‘lasso’, ‘ridge’, ‘elastic’}</dt><dd><p>One of three types for the linear model.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If not set to one of the vailid inputs.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="poisoning.algorithm.xiao2018.autorun">
+<code class="sig-name descname">autorun</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">num_attacks</span></em>, <em class="sig-param"><span class="n">projection</span></em>, <em class="sig-param"><span class="n">rInitial</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#poisoning.algorithm.xiao2018.autorun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the algorithm with a certain number of initial attack points randomly chosen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array_like</span></dt><dd><p>Dataset with no labels.</p>
+</dd>
+<dt><strong>Y</strong><span class="classifier">array_like</span></dt><dd><p>Labels to dataset.</p>
+</dd>
+<dt><strong>num_attacks</strong><span class="classifier">int</span></dt><dd><p>Number of attack points to randomly choose from dataset.</p>
+</dd>
+<dt><strong>projection</strong><span class="classifier">float or tuple or list of float or list of tuple</span></dt><dd><p>If float or tuple, the projection will be the same for all features,
+otherwise if a list, the projection will be described feature by feature.</p>
+</dd>
+<dt><strong>rInitial</strong><span class="classifier">bool, default=False</span></dt><dd><p>If true will also return the randomly chosen attack points.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>array_like or tuple of array_like</dt><dd><p>Either returns the optimized atack points, or a tuple of the optimized attack points and the original.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>Same as xiao2018.run()</p>
+</dd>
+<dt>TypeError</dt><dd><p>Same as xiao2018.run()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="poisoning.algorithm.xiao2018.projection">
+<em class="property">property </em><code class="sig-name descname">projection</code><a class="headerlink" href="#poisoning.algorithm.xiao2018.projection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the currently used projection.</p>
+<p>The setter will normalize the four possible inputs into either a tuple or a list of tuples,
+depending on the type of input that was given as input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>tuple or list of tuple</dt><dd><p>Currently used projection.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If not the correct type of input for projection.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="poisoning.algorithm.xiao2018.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">Attacks</span></em>, <em class="sig-param"><span class="n">Labels</span></em>, <em class="sig-param"><span class="n">projection</span></em><span class="sig-paren">)</span><a class="headerlink" href="#poisoning.algorithm.xiao2018.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array_like</span></dt><dd><p>Dataset with no labels.</p>
+</dd>
+<dt><strong>Y</strong><span class="classifier">array_like</span></dt><dd><p>Labels to dataset.</p>
+</dd>
+<dt><strong>Attacks</strong><span class="classifier">array_like</span></dt><dd><p>Initial attack points.</p>
+</dd>
+<dt><strong>Labels</strong><span class="classifier">array_like</span></dt><dd><p>Labels to attack points.</p>
+</dd>
+<dt><strong>projection</strong><span class="classifier">float or tuple or list of float or list of tuple</span></dt><dd><p>If float or tuple, the projection will be the same for all features,
+otherwise if a list, the projection will be described feature by feature.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>array_like</dt><dd><p>Final attack points, optimized by the algorithm.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>TypeError</dt><dd><p>When invalid projection is passed.</p>
+</dd>
+<dt>ValueError</dt><dd><p>When incorrect dimensions of X, Y, Attacks, Labels, or projection is passed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-poisoning">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-poisoning" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="poisoning.frederickson2018">
+<em class="property">class </em><code class="sig-prename descclassname">poisoning.</code><code class="sig-name descname">frederickson2018</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">phi</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">power</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">outlier_type</span><span class="o">=</span><span class="default_value">'distance'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#poisoning.frederickson2018" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#poisoning.algorithm.xiao2018" title="poisoning.algorithm.xiao2018"><code class="xref py py-class docutils literal notranslate"><span class="pre">poisoning.algorithm.xiao2018</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">algorithm_type</span></code></dt><dd><p>The currently used algorithm type.</p>
+</dd>
+<dt><strong>outlier_type</strong></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">projection</span></code></dt><dd><p>Returns the currently used projection.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">autorun</span></code>(X, Y, num_attacks, projection[, …])</p></td>
+<td><p>Runs the algorithm with a certain number of initial attack points randomly chosen.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code>(X, Y, Attacks, Labels, projection)</p></td>
+<td><p>Runs the algorithm.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="poisoning.frederickson2018.outlier_type">
+<em class="property">property </em><code class="sig-name descname">outlier_type</code><a class="headerlink" href="#poisoning.frederickson2018.outlier_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="poisoning.xiao2018">
+<em class="property">class </em><code class="sig-prename descclassname">poisoning.</code><code class="sig-name descname">xiao2018</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">'lasso'</span></em>, <em class="sig-param"><span class="n">beta</span><span class="o">=</span><span class="default_value">0.99</span></em>, <em class="sig-param"><span class="n">rho</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">max_iter</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">max_lsearch_iter</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">max_model_iter</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">model_tol</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">parallel</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#poisoning.xiao2018" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Dataset poisoning algorithm from ‘Is Feature Selection Secure against Training Data Poisoning? H.Xiao et al. 2018’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>type</strong><span class="classifier">{‘lasso’, ‘l1’, ‘ridge’, ‘l2’, ‘ridgeregression’, ‘ridge-regression’, ‘ridge regression’, ‘elastic’, ‘elasticnet’, ‘elastic-net’, ‘elastic net’}, default=’lasso’</span></dt><dd><p>Type of linear model that will be used in the algorithm.</p>
+</dd>
+<dt><strong>beta</strong><span class="classifier">float, default=0.99</span></dt><dd><p>Number that is raised to i-th power in line search, where i is the current line search iteration.</p>
+</dd>
+<dt><strong>rho</strong><span class="classifier">float, default=0.5</span></dt><dd><p>Convex constant that describes the elastic-nex mixing parameter.</p>
+</dd>
+<dt><strong>sigma</strong><span class="classifier">float, default=1e-3</span></dt><dd><p>Small positive constant used in bounding the line search.</p>
+</dd>
+<dt><strong>elsilon</strong><span class="classifier">float, default=1e-3</span></dt><dd><p>Small positive consant used in bounding the algorithm.</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=1000</span></dt><dd><p>Maximum iterations that the algorithm will go up to.</p>
+</dd>
+<dt><strong>max_lsearch_iter</strong><span class="classifier">int, default=10</span></dt><dd><p>Maximum iterations that the line search will go up to.</p>
+</dd>
+<dt><strong>max_model_iter</strong><span class="classifier">int, default=1000</span></dt><dd><p>Parameter that is passed into the linear model to bound iterations.</p>
+</dd>
+<dt><strong>model_tol</strong><span class="classifier">float, default=1e-4</span></dt><dd><p>Paramter that is passed into the linear model as the tolerance.</p>
+</dd>
+<dt><strong>parallel</strong><span class="classifier">bool, default=True</span></dt><dd><p>Parameter that will enable or disable the possible use of multiprocessing to 
+split passed attack points into multiple chunks for faster performance</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If invalid type is given.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_iter</strong><span class="classifier">int</span></dt><dd><p>Number of iterations completed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#poisoning.xiao2018.autorun" title="poisoning.xiao2018.autorun"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autorun</span></code></a>(X, Y, num_attacks, projection[, …])</p></td>
+<td><p>Runs the algorithm with a certain number of initial attack points randomly chosen.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#poisoning.xiao2018.run" title="poisoning.xiao2018.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>(X, Y, Attacks, Labels, projection)</p></td>
+<td><p>Runs the algorithm.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="poisoning.xiao2018.algorithm_type">
+<em class="property">property </em><code class="sig-name descname">algorithm_type</code><a class="headerlink" href="#poisoning.xiao2018.algorithm_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The currently used algorithm type.</p>
+<p>The setter will normalize the type into one of the three possible outputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>{‘lasso’, ‘ridge’, ‘elastic’}</dt><dd><p>One of three types for the linear model.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If not set to one of the vailid inputs.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="poisoning.xiao2018.autorun">
+<code class="sig-name descname">autorun</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">num_attacks</span></em>, <em class="sig-param"><span class="n">projection</span></em>, <em class="sig-param"><span class="n">rInitial</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#poisoning.xiao2018.autorun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the algorithm with a certain number of initial attack points randomly chosen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array_like</span></dt><dd><p>Dataset with no labels.</p>
+</dd>
+<dt><strong>Y</strong><span class="classifier">array_like</span></dt><dd><p>Labels to dataset.</p>
+</dd>
+<dt><strong>num_attacks</strong><span class="classifier">int</span></dt><dd><p>Number of attack points to randomly choose from dataset.</p>
+</dd>
+<dt><strong>projection</strong><span class="classifier">float or tuple or list of float or list of tuple</span></dt><dd><p>If float or tuple, the projection will be the same for all features,
+otherwise if a list, the projection will be described feature by feature.</p>
+</dd>
+<dt><strong>rInitial</strong><span class="classifier">bool, default=False</span></dt><dd><p>If true will also return the randomly chosen attack points.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>array_like or tuple of array_like</dt><dd><p>Either returns the optimized atack points, or a tuple of the optimized attack points and the original.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>Same as xiao2018.run()</p>
+</dd>
+<dt>TypeError</dt><dd><p>Same as xiao2018.run()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="poisoning.xiao2018.projection">
+<em class="property">property </em><code class="sig-name descname">projection</code><a class="headerlink" href="#poisoning.xiao2018.projection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the currently used projection.</p>
+<p>The setter will normalize the four possible inputs into either a tuple or a list of tuples,
+depending on the type of input that was given as input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>tuple or list of tuple</dt><dd><p>Currently used projection.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If not the correct type of input for projection.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="poisoning.xiao2018.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">Attacks</span></em>, <em class="sig-param"><span class="n">Labels</span></em>, <em class="sig-param"><span class="n">projection</span></em><span class="sig-paren">)</span><a class="headerlink" href="#poisoning.xiao2018.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array_like</span></dt><dd><p>Dataset with no labels.</p>
+</dd>
+<dt><strong>Y</strong><span class="classifier">array_like</span></dt><dd><p>Labels to dataset.</p>
+</dd>
+<dt><strong>Attacks</strong><span class="classifier">array_like</span></dt><dd><p>Initial attack points.</p>
+</dd>
+<dt><strong>Labels</strong><span class="classifier">array_like</span></dt><dd><p>Labels to attack points.</p>
+</dd>
+<dt><strong>projection</strong><span class="classifier">float or tuple or list of float or list of tuple</span></dt><dd><p>If float or tuple, the projection will be the same for all features,
+otherwise if a list, the projection will be described feature by feature.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>array_like</dt><dd><p>Final attack points, optimized by the algorithm.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>TypeError</dt><dd><p>When invalid projection is passed.</p>
+</dd>
+<dt>ValueError</dt><dd><p>When incorrect dimensions of X, Y, Attacks, Labels, or projection is passed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">poisoning package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-poisoning.algorithm">poisoning.algorithm module</a></li>
+<li><a class="reference internal" href="#module-poisoning">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to poisoning’s documentation!</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/poisoning.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to poisoning’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">poisoning 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">poisoning package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Roman Golota, Eduardo Zambrana, Srishti Gupta.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.3.1.
+    </div>
+  </body>
+</html>
