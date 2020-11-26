@@ -11,6 +11,7 @@ import os
 import csv
 from datetime import datetime
 
+import atexit, signal
 
 # gets the command line arguments for the benchmarks
 def get_arguments():
@@ -31,6 +32,11 @@ def get_arguments():
                         dest='prefix',
                         action='store_true',
                         help='Prefix output filename with date and time. Default is true if no output filename is provided.')
+    parser.add_argument('-v',
+                        '--verbose',
+                        dest='verbose',
+                        action='store_true',
+                        help='Print extra output.')
 
     args = parser.parse_args()
         
@@ -69,6 +75,9 @@ def get_data(dataset, attacks):
 
     return X, Y, Attacks, Labels, (len(X), len(X[0])), attacks
 
+def class_to_string(class_type):
+    return 'xiao2018' if class_type == poisoning.xiao2018 else 'frederickson2018'
+
 # run the benchmark by creating the necessary class and running the correct type of function, timing it and returning time
 # convert information into data that can be written into csv
 def run_benchmark(class_type, dataset, attacks, projection, arguments):
@@ -79,7 +88,7 @@ def run_benchmark(class_type, dataset, attacks, projection, arguments):
         model = class_type(**arguments)
         model.run(X, Y, Attacks, Labels, projection)
     
-    return dataset, 'xiao2018' if class_type == poisoning.xiao2018 else 'frederickson2018', dataset_size[0], dataset_size[1], len(Attacks), projection, bench.get_time()
+    return os.path.splitext(dataset)[0], class_to_string(class_type), dataset_size[0], dataset_size[1], len(Attacks), projection, bench.get_time()
 
 class bench_results:
     def __init__(self, filename, prefix=False):
@@ -99,10 +108,19 @@ class bench_results:
             writer.writerows(self.data)
 
 def main():
+    
     args = get_arguments()
     
     argfile_data = read_argfiles(args.argfiles)
     results = bench_results(args.out, args.prefix)
+    
+    def exit_handler():
+        results.write()
+        
+    atexit.register(exit_handler)
+    signal.signal(signal.SIGTERM, exit_handler)
+    signal.signal(signal.SIGINT, exit_handler)
+    
     bar_iterations = sum([len(aData['datasets']) * 
                           len(aData['model']) * 
                           len(aData['attacks']) *
@@ -112,7 +130,7 @@ def main():
                           for aData in argfile_data])
     
     paths = [os.path.dirname(os.path.realpath(f)) for f in args.argfiles]
-    with alive_progress.alive_bar(bar_iterations) as bar:
+    with alive_progress.alive_bar(bar_iterations, enrich_print=False) as bar:
         for data, f_path in zip(argfile_data, paths):
             for i in range(data['iter']):
                 for type_args in data['model_args']:
@@ -120,12 +138,16 @@ def main():
                         for type in data['model']:
                             for projection in data['projections']:
                                 for attack in data['attacks']:
+                                    if args.verbose:
+                                        print(f'Starting <{class_to_string(type)} | {os.path.splitext(dataset)[0]} | {projection} | {attack}> ...')
                                     results.add(run_benchmark(type, 
                                                           os.path.join(f_path, dataset), 
                                                           attack, 
                                                           projection, 
                                                           type_args))
-                                bar()
+                                    if args.verbose:
+                                        print(f'Done     <{class_to_string(type)} | {os.path.splitext(dataset)[0]} | {projection} | {attack}>.')
+                                    bar()
 
     results.write()
 
