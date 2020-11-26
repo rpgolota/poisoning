@@ -1,6 +1,7 @@
 import cProfile, pstats, io
 from pstats import SortKey
-import time
+import timeit
+from datetime import timedelta
 
 class pBench_full:
     
@@ -37,18 +38,21 @@ class pBench_fast:
         self.current_time = None
         
     def __enter__(self):
-        self.current_time = time.perf_counter()
+        self.current_time = timeit.default_timer()
         return self
     
     def __exit__(self, type, value, traceback):
-        self.current_time = time.perf_counter() - self.current_time
+        self.current_time = timeit.default_timer() - self.current_time
     
-    def get_stats(self):
-        return f"Took: {self.current_time} seconds."
+    def get_time(self):
+        return timedelta(seconds=self.current_time)
+    
+    def __str__(self):
+        return str(self.get_time())
     
     def show(self):
-        print(self.get_stats())
+        print(str(self))
         
     def write(self, filename, flag='w'):
         with open(filename, flag) as f:
-            f.write(self.get_stats())
+            f.write(str(self))

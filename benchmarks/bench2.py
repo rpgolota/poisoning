@@ -11,7 +11,8 @@ def main():
 
     folder = 'fast'
 
-    files = {'files/Input_large_dataset_miniboone.json':'miniboone'}
+    files = {'files/Input_dataset_musk-1.json':'musk1'}
+    # files = {'files/Input_large_dataset_miniboone.json':'miniboone'}
 
     projections = [1,2,3,4,5]
     num_attacks = [10,20,30,40,50,60,70,80,90,100]
