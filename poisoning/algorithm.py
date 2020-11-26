@@ -197,11 +197,8 @@ class xiao2018:
         return (sum(result) / X.shape[0]) + last_term
     
     def _learn_model(self, X, Y):
-        try:
-            self._linear_algorithm.fit(X, Y)
-        except:
-            print('here')
-    
+        self._linear_algorithm.fit(X, Y)
+
     def _gradient_r_term(self, weights):
         
         if self.algorithm_type == 'lasso':
@@ -242,12 +239,12 @@ class xiao2018:
         if self.algorithm_type == "lasso":
             reg = linear_model.LassoCV(cv=cv, max_iter=self.max_model_iter, tol=self.model_tol).fit(X, Y)
         elif self.algorithm_type == "ridge":
-            reg = linear_model.RidgeCV(cv=cv).fit(X, Y) # sklearn.exceptions.UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+            reg = linear_model.RidgeCV(cv=cv).fit(X, Y)
         else:
             reg = linear_model.ElasticNetCV(l1_ratio=self.rho, cv=cv, max_iter=self.max_model_iter, tol=self.model_tol).fit(X, Y)
     
         return reg.alpha_
-    
+        
     def _check_dataset(self, X, Y):
         
         if X.dtype == 'object':
