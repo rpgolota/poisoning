@@ -17,6 +17,7 @@ def test_type(type):
 def test_learn_model(file):
     inp = read_json(file)
     test = xiao2018()
+    test._set_model(inp[0], inp[1])
     test._learn_model(inp[0], inp[1])
 
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
