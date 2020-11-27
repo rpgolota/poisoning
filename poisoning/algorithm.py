@@ -278,8 +278,8 @@ class xiao2018:
         Attacks = Input[0]
         Labels = Input[1]
         
-        X = np.array(self._use_X)
-        Y = np.array(self._use_Y)
+        X = self._use_X
+        Y = self._use_Y
         Attacks = np.array(Attacks)
         Prev_Attacks = np.array(Attacks)
         Labels = np.array(Labels)

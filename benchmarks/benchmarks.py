@@ -150,7 +150,7 @@ def main():
                       data['iter'])
     
     with bench_results(args.out, args.prefix, args.append) as results:
-        with alive_progress.alive_bar(bar_iterations, enrich_print=False) as bar:
+        with alive_progress.alive_bar(bar_iterations, enrich_print=False, bar='classic2', spinner='classic') as bar:
             for i in range(data['iter']):
                 for type_args in data['model_args']:
                     for dataset in data['datasets']:
@@ -158,7 +158,7 @@ def main():
                             for projection in data['projections']:
                                 for attack in data['attacks']:
                                     if args.verbose:
-                                        print(f'Starting <{class_to_string(type)} | {os.path.splitext(dataset)[0]} | {projection} | {attack}> ...')
+                                        print(f'Starting (Type: {class_to_string(type)} | Dataset: {os.path.splitext(os.path.basename(dataset))[0]} | Projection: {projection} | Attack: {attack}) ...')
                                     result = run_benchmark(type, 
                                                             os.path.join(f_path, dataset), 
                                                             attack, 
@@ -166,7 +166,7 @@ def main():
                                                             type_args)
                                     results.add(result)
                                     if args.verbose:
-                                        print(f'Done ({result[7]}) <{class_to_string(type)} | {os.path.splitext(dataset)[0]} | {projection} | {attack}>.')
+                                        print(f'Done in {result[8]} seconds.')
                                     bar()
 
 if __name__ == "__main__":
