@@ -1,0 +1,8 @@
+{
+    "datasets":["files/Input_dataset_musk-1.json"],
+    "model":"xiao",
+    "attacks":[{"percent": 50}],
+    "model_args":[{}],
+    "projections":[1],
+    "iter":10
+}

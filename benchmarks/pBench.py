@@ -47,6 +47,9 @@ class pBench_fast:
     def get_time(self):
         return timedelta(seconds=self.current_time)
     
+    def get_seconds(self):
+        return self.current_time
+    
     def __str__(self):
         return str(self.get_time())
     

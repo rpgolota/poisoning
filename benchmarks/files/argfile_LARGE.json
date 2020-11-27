@@ -1,8 +1,0 @@
-{
-    "datasets":["Input_large_dataset_miniboone.json"],
-    "model":"xiao",
-    "attacks":[[0, 100], [0, 200], [0, 300], [0, 400]],
-    "model_args":[{}],
-    "projections":[1, 2, 3, 4, 5],
-    "iter":1
-}
