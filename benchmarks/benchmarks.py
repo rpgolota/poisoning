@@ -5,7 +5,6 @@ from pBench import pBench_fast
 import poisoning
 import json
 import argparse
-import alive_progress
 import time
 import os
 import csv
@@ -17,27 +16,25 @@ import atexit, signal
 def get_arguments():
     parser = argparse.ArgumentParser(description='Run benchmarks for poisoning.')
     parser.add_argument('argfile',
-                        type=str,
                         help='Provides information about running benchmarks.')
     parser.add_argument('-o',
                         '--out',
-                        dest='out',
-                        type=str,
                         default=None,
                         help='Output filename.')
     parser.add_argument('-p',
                         '--prefix',
-                        dest='prefix',
                         action='store_true',
                         help='Prefix output filename with date and time.')
     parser.add_argument('-v',
                         '--verbose',
-                        dest='verbose',
                         action='store_true',
                         help='Print extra output.')
+    parser.add_argument('-b',
+                        '--blind',
+                        action='store_true',
+                        help="Don't show the progress bar.")
     parser.add_argument('-a',
                         '--append',
-                        dest='append',
                         action='store_true',
                         help='Append to file if possible.')
 
@@ -136,6 +133,20 @@ class bench_results:
         self.writer.writerow(data)
         self.file.flush()
 
+class no_bar:
+    
+    def __init__(self, *args, **kwargs):
+        pass
+    
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, *args, **kwargs):
+        pass
+    
+    def __call__(self, *args, **kwargs):
+        pass
+
 def main():
     
     args = get_arguments()
@@ -149,8 +160,14 @@ def main():
                       len(data['projections']) * 
                       data['iter'])
     
+    if not args.blind:
+        import alive_progress
+        progress_bar = alive_progress.alive_bar
+    else:
+        progress_bar = no_bar
+    
     with bench_results(args.out, args.prefix, args.append) as results:
-        with alive_progress.alive_bar(bar_iterations, enrich_print=False, bar='classic2', spinner='classic') as bar:
+        with progress_bar(bar_iterations, enrich_print=False, bar='classic2', spinner='classic') as bar:
             for i in range(data['iter']):
                 for type_args in data['model_args']:
                     for dataset in data['datasets']:
