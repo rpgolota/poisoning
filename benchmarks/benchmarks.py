@@ -10,8 +10,6 @@ import os
 import csv
 from datetime import datetime
 
-import atexit, signal
-
 # gets the command line arguments for the benchmarks
 def get_arguments():
     parser = argparse.ArgumentParser(description='Run benchmarks for poisoning.')
@@ -42,7 +40,7 @@ def get_arguments():
     
     if args.out is None:
         args.out = os.path.splitext(os.path.basename(args.argfile))[0]
-   
+
     return args
 
 # reads json file contianing the information about how to run the benchmark
@@ -183,7 +181,9 @@ def main():
                                 for projection in data['projections']:
                                     for attack in data['attacks']:
                                         if args.verbose:
-                                            print(f'Starting (Type: {class_to_string(type)} | Dataset: {os.path.splitext(os.path.basename(dataset))[0]} | Projection: {projection} | Attack: {attack}) ...')
+                                            impl = class_to_string(type)
+                                            data_name = os.path.splitext(os.path.basename(dataset))[0]
+                                            print(f'Running: {{Implementation: {impl} | Dataset: {data_name} | Projection: {projection} | Attack: {attack}}}')
                                         result = run_benchmark(type, 
                                                                 os.path.join(f_path, dataset), 
                                                                 attack, 
@@ -191,7 +191,7 @@ def main():
                                                                 type_args)
                                         results.add(result)
                                         if args.verbose:
-                                            print(f'Done in {result[8]} seconds.')
+                                            print(f'Done in {result[7]} seconds.')
                                         bar()
                                         
             results.add_separator()
