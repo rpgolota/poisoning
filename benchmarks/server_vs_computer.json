@@ -1,0 +1,18 @@
+[
+    {
+        "datasets":["files/Input_dataset_musk-1.json"],
+        "model":"xiao",
+        "attacks":[{"range": [100, 101]}],
+        "model_args":[{}, {"type":"ridge"}],
+        "projections":[1,2,3,4,5],
+        "iter":1
+    },
+    {
+        "datasets":["files/Input_dataset_musk-1.json"],
+        "model":"xiao",
+        "attacks":[{"range": [50, 60]}],
+        "model_args":[{}, {"type":"ridge"}],
+        "projections":[1,2,3],
+        "iter":1
+    }
+]
