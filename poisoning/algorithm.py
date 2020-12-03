@@ -237,11 +237,11 @@ class xiao2018:
             cv = None
     
         if self.algorithm_type == "lasso":
-            reg = linear_model.LassoCV(cv=cv, max_iter=self.max_model_iter, tol=self.model_tol).fit(X, Y)
+            reg = linear_model.LassoCV(cv=cv, n_alphas=10).fit(X, Y)
         elif self.algorithm_type == "ridge":
             reg = linear_model.RidgeCV(cv=cv).fit(X, Y)
         else:
-            reg = linear_model.ElasticNetCV(l1_ratio=self.rho, cv=cv, max_iter=self.max_model_iter, tol=self.model_tol).fit(X, Y)
+            reg = linear_model.ElasticNetCV(cv=cv, l1_ratio=self.rho, n_alphas=10).fit(X, Y)
     
         return reg.alpha_
         
