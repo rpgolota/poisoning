@@ -46,11 +46,13 @@ def get_arguments():
     return args
 
 # reads json file contianing the information about how to run the benchmark
-def read_argfile(filename):
-    types = {'xiao':[poisoning.xiao2018], 'fred':[poisoning.frederickson2018], 'both':[poisoning.xiao2018, poisoning.frederickson2018]}
-    
+def read_argfiles(filename):
     with open(filename, 'r') as f:
         data = json.load(f)
+    return [read_argfile(d) for d in data]
+
+def read_argfile(data):
+    types = {'xiao':[poisoning.xiao2018], 'fred':[poisoning.frederickson2018], 'both':[poisoning.xiao2018, poisoning.frederickson2018]}
     
     data['model'] = types[data['model']]
     
@@ -102,7 +104,7 @@ def run_benchmark(class_type, dataset, attacks, projection, arguments):
             model.run(X, Y, Attacks, Labels, projection)
         attack_size = len(Attacks)
     
-    return os.path.splitext(dataset)[0], class_to_string(class_type), dataset_size[0], dataset_size[1], len(Attacks), attacks, projection, bench.get_time(), bench.get_seconds()
+    return os.path.splitext(os.path.basename(dataset))[0], class_to_string(class_type), model.algorithm_type, dataset_size[0], dataset_size[1], len(Attacks), projection, bench.get_seconds(), arguments, attacks, bench.get_time()
 
 class bench_results:
     
@@ -117,7 +119,7 @@ class bench_results:
         
         self.file = None
         self.writer = None
-        self.columns = ["Dataset", "Type", "Samples", "Features", "Attacks", "AttackInfo", "Projection", "FmtTime", "Seconds"]        
+        self.columns = ["dataset", "implementation", "algorithm_type", "n_samples", "n_features", "n_attacks", "projection", "seconds", "argument_info", "attack_info", "time_formatted"]
         
     def __enter__(self):
         self.file = open(self.filename + '.csv', self.flag, newline='')
@@ -131,6 +133,10 @@ class bench_results:
     
     def add(self, data):
         self.writer.writerow(data)
+        self.file.flush()
+        
+    def add_separator(self):
+        self.writer.writerow(['' for item in self.columns])
         self.file.flush()
 
 class no_bar:
@@ -150,41 +156,45 @@ class no_bar:
 def main():
     
     args = get_arguments()
-    data = read_argfile(args.argfile)
+    data_array = read_argfiles(args.argfile)
     f_path = os.path.dirname(os.path.realpath(args.argfile))
     
-    bar_iterations = (len(data['datasets']) * 
-                      len(data['model']) * 
-                      len(data['attacks']) *
-                      len(data['model_args']) * 
-                      len(data['projections']) * 
-                      data['iter'])
-    
-    if not args.blind:
-        import alive_progress
-        progress_bar = alive_progress.alive_bar
-    else:
-        progress_bar = no_bar
-    
     with bench_results(args.out, args.prefix, args.append) as results:
-        with progress_bar(bar_iterations, enrich_print=False, bar='classic2', spinner='classic') as bar:
-            for i in range(data['iter']):
-                for type_args in data['model_args']:
-                    for dataset in data['datasets']:
-                        for type in data['model']:
-                            for projection in data['projections']:
-                                for attack in data['attacks']:
-                                    if args.verbose:
-                                        print(f'Starting (Type: {class_to_string(type)} | Dataset: {os.path.splitext(os.path.basename(dataset))[0]} | Projection: {projection} | Attack: {attack}) ...')
-                                    result = run_benchmark(type, 
-                                                            os.path.join(f_path, dataset), 
-                                                            attack, 
-                                                            projection, 
-                                                            type_args)
-                                    results.add(result)
-                                    if args.verbose:
-                                        print(f'Done in {result[8]} seconds.')
-                                    bar()
+        for data in data_array:
+            
+            bar_iterations = (len(data['datasets']) * 
+                        len(data['model']) * 
+                        len(data['attacks']) *
+                        len(data['model_args']) * 
+                        len(data['projections']) * 
+                        data['iter'])
+        
+            if not args.blind:
+                import alive_progress
+                progress_bar = alive_progress.alive_bar
+            else:
+                progress_bar = no_bar
+            
+            with progress_bar(bar_iterations, enrich_print=False, bar='classic2', spinner='classic') as bar:
+                for i in range(data['iter']):
+                    for type_args in data['model_args']:
+                        for dataset in data['datasets']:
+                            for type in data['model']:
+                                for projection in data['projections']:
+                                    for attack in data['attacks']:
+                                        if args.verbose:
+                                            print(f'Starting (Type: {class_to_string(type)} | Dataset: {os.path.splitext(os.path.basename(dataset))[0]} | Projection: {projection} | Attack: {attack}) ...')
+                                        result = run_benchmark(type, 
+                                                                os.path.join(f_path, dataset), 
+                                                                attack, 
+                                                                projection, 
+                                                                type_args)
+                                        results.add(result)
+                                        if args.verbose:
+                                            print(f'Done in {result[8]} seconds.')
+                                        bar()
+                                        
+            results.add_separator()
 
 if __name__ == "__main__":
     main()
