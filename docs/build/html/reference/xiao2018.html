@@ -164,7 +164,9 @@
 <dl class="py class">
 <dt id="poisoning.xiao2018">
 <em class="property">class </em><code class="sig-prename descclassname">poisoning.</code><code class="sig-name descname">xiao2018</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">'lasso'</span></em>, <em class="sig-param"><span class="n">beta</span><span class="o">=</span><span class="default_value">0.99</span></em>, <em class="sig-param"><span class="n">rho</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">max_iter</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">max_lsearch_iter</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">max_model_iter</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">model_tol</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">parallel</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/poisoning/algorithm.html#xiao2018"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poisoning.xiao2018" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dataset poisoning algorithm from ‘Is Feature Selection Secure against Training Data Poisoning? H.Xiao et al. 2018’</p>
+<dd><p>Class for dataset poisoning algorithm from “Is Feature Selection Secure against Training Data Poisoning? H.Xiao et al. 2018”.</p>
+<p>Uses two main methods, run and autorun, in order to poison a given dataset.
+By default uses multiprocessing acceleration for faster computation times.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -172,7 +174,7 @@
 </dd>
 <dt><strong>beta</strong><span class="classifier">float, default=0.99</span></dt><dd><p>Number that is raised to i-th power in line search, where i is the current line search iteration.</p>
 </dd>
-<dt><strong>rho</strong><span class="classifier">float, default=0.5</span></dt><dd><p>Convex constant that describes the elastic-nex mixing parameter.</p>
+<dt><strong>rho</strong><span class="classifier">float, default=0.5</span></dt><dd><p>Convex constant that describes the elastic-net mixing parameter.</p>
 </dd>
 <dt><strong>sigma</strong><span class="classifier">float, default=1e-3</span></dt><dd><p>Small positive constant used in bounding the line search.</p>
 </dd>
@@ -197,6 +199,18 @@ split passed attack points into multiple chunks for faster performance</p>
 </dd>
 </dl>
 </dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">poisoning</span> <span class="kn">import</span> <span class="n">xiao2018</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;spect_test.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">xiao2018</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;elastic&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">poisoned</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">autorun</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
 <dt class="field-odd">Attributes</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>n_iter</strong><span class="classifier">int</span></dt><dd><p>Number of iterations completed.</p>
