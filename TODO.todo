@@ -19,8 +19,8 @@ Total Progress:
         ✔ Sub-Gradient @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m28s)
         ✔ Equation 7 @started(20-10-15 17:27) @done(20-10-21 14:57) @lasted(5d21h30m36s)
         Library Progress:
-        ☐ Make better documentation
         ☐ Remove bloat
+        ✔ Make better documentation @done(20-12-08 13:32)
         ✔ Make better readme @done(20-12-08 02:13)
         ✔ Add version @done(20-12-08 00:47)
         ✔ Making all __init__ @done(20-11-16 20:31)
