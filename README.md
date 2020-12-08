@@ -20,7 +20,7 @@ model = xiao2018(type='elastic')
 poisoned = model.autorun(X, Y, 0.1, (0,2))
 ```
 
-#####Windows
+##### Windows
 If you are on windows, make sure to use a name guard if multiprocessing is enabled (default),
 
 ```python
