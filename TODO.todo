@@ -19,18 +19,20 @@ Total Progress:
         ✔ Sub-Gradient @started(20-10-07 20:26) @done(20-10-07 20:45) @lasted(19m28s)
         ✔ Equation 7 @started(20-10-15 17:27) @done(20-10-21 14:57) @lasted(5d21h30m36s)
         Library Progress:
-        ☐ Make better readme
+        ☐ Make better documentation
+        ☐ Remove bloat
+        ✔ Make better readme @done(20-12-08 02:13)
+        ✔ Add version @done(20-12-08 00:47)
         ✔ Making all __init__ @done(20-11-16 20:31)
         ✔ Rearrange the files inside the library @done(20-11-16 20:31)
         ✔ Documentation @done(20-11-11 00:02)
         ✔ Packaging project with setuptools @done(20-11-09 20:58)
         ✔ Make examples @done(20-11-09 20:58)
     Open Topics:
-        ☐ Reason for long calculation time is due to find_alpha function
-            - When was not using parallel, function still took long but not significant enough to seem as a problem.
-            - When in parallel with many cores, the time the function takes compared to finding some amount of attack points is dramatic 
-        ☐ Emitting warnings when max_iter is reached
-        ☐ Fix warnings with documentation
+        ✔ Reason for long calculation time is due to find_alpha function @done(20-12-08 00:47)
+            ✔ When was not using parallel, function still took long but not significant enough to seem as a problem. @done(20-12-08 00:47)
+            ✔ When in parallel with many cores, the time the function takes compared to finding some amount of attack points is dramatic @done(20-12-08 00:47)
+        ✘ Emitting warnings when max_iter is reached @cancelled(20-12-08 00:50)
         ✔ New benchmarking system @done(20-11-25 18:54)
         ✔ Find a place to put the documentation @done(20-11-25 07:57)
         ✔ Find where exactly where warnings are coming from @done(20-11-25 07:57)
