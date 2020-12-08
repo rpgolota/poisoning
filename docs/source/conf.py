@@ -28,9 +28,10 @@ def get_version():
 
 project = 'poisoning'
 
-copyright = '2020, Roman Golota, Eduardo Zambrana, Srishti Gupta'
+author_list = ['Roman Golota', 'Eduardo Zambrana']
 
-author = 'Roman Golota, Eduardo Zambrana, Srishti Gupta'
+copyright = '2020.' + ', '.join(author_list)
+author = ', '.join(author_list)
 
 # The full version, including alpha/beta/rc tags
 release = get_version()
