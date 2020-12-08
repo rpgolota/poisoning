@@ -10,8 +10,11 @@ Welcome to poisoning's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   poisoning
+   introduction.rst
+   xiao2018.rst
+   frederickson2018.rst
 
+   reference.rst
 
 Indices and tables
 ==================

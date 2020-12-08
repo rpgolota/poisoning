@@ -18,7 +18,7 @@ class xiao2018:
         Number that is raised to i-th power in line search, where i is the current line search iteration.
         
     rho : float, default=0.5
-        Convex constant that describes the elastic-nex mixing parameter.
+        Convex constant that describes the elastic-net mixing parameter.
         
     sigma : float, default=1e-3
         Small positive constant used in bounding the line search.

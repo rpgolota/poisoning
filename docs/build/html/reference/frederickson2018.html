@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>frederickson2018 &mdash; poisoning 0.6.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="xiao2018" href="xiao2018.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> poisoning
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xiao2018.html">xiao2018 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../frederickson2018.html">frederickson2018 API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="xiao2018.html">xiao2018</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">frederickson2018</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">poisoning</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../reference.html">Reference</a> &raquo;</li>
+        
+      <li>frederickson2018</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/frederickson2018.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="frederickson2018">
+<h1>frederickson2018<a class="headerlink" href="#frederickson2018" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="poisoning.frederickson2018">
+<em class="property">class </em><code class="sig-prename descclassname">poisoning.</code><code class="sig-name descname">frederickson2018</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">phi</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">power</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">outlier_type</span><span class="o">=</span><span class="default_value">'distance'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/poisoning/algorithm.html#frederickson2018"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poisoning.frederickson2018" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><a class="reference internal" href="#poisoning.frederickson2018.algorithm_type" title="poisoning.frederickson2018.algorithm_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">algorithm_type</span></code></a></dt><dd><p>The currently used algorithm type.</p>
+</dd>
+<dt><strong>outlier_type</strong></dt><dd></dd>
+<dt><a class="reference internal" href="#poisoning.frederickson2018.projection" title="poisoning.frederickson2018.projection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projection</span></code></a></dt><dd><p>Returns the currently used projection.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#poisoning.frederickson2018.autorun" title="poisoning.frederickson2018.autorun"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autorun</span></code></a>(X, Y, num_attacks, projection[, …])</p></td>
+<td><p>Runs the algorithm with a certain number of initial attack points randomly chosen.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#poisoning.frederickson2018.run" title="poisoning.frederickson2018.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>(X, Y, Attacks, Labels, projection)</p></td>
+<td><p>Runs the algorithm.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="poisoning.frederickson2018.algorithm_type">
+<em class="property">property </em><code class="sig-name descname">algorithm_type</code><a class="headerlink" href="#poisoning.frederickson2018.algorithm_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The currently used algorithm type.</p>
+<p>The setter will normalize the type into one of the three possible outputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>{‘lasso’, ‘ridge’, ‘elastic’}</dt><dd><p>One of three types for the linear model.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If not set to one of the vailid inputs.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="poisoning.frederickson2018.autorun">
+<code class="sig-name descname">autorun</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">num_attacks</span></em>, <em class="sig-param"><span class="n">projection</span></em>, <em class="sig-param"><span class="n">rInitial</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#poisoning.frederickson2018.autorun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the algorithm with a certain number of initial attack points randomly chosen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array_like</span></dt><dd><p>Dataset with no labels.</p>
+</dd>
+<dt><strong>Y</strong><span class="classifier">array_like</span></dt><dd><p>Labels to dataset.</p>
+</dd>
+<dt><strong>num_attacks</strong><span class="classifier">int or float</span></dt><dd><p>When int, a number of attack points to randomly choose from dataset.
+When float, a range of 0.0 to 1.0, representing the percent of random poisoning.</p>
+</dd>
+<dt><strong>projection</strong><span class="classifier">float or tuple or list of float or list of tuple</span></dt><dd><p>If float or tuple, the projection will be the same for all features,
+otherwise if a list, the projection will be described feature by feature.</p>
+</dd>
+<dt><strong>rInitial</strong><span class="classifier">bool, default=False</span></dt><dd><p>If true will also return the randomly chosen attack points.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>array_like or tuple of array_like</dt><dd><p>Either returns the optimized atack points, or a tuple of the optimized attack points and the original.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>Same as xiao2018.run()</p>
+</dd>
+<dt>TypeError</dt><dd><p>Same as xiao2018.run()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="poisoning.frederickson2018.projection">
+<em class="property">property </em><code class="sig-name descname">projection</code><a class="headerlink" href="#poisoning.frederickson2018.projection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the currently used projection.</p>
+<p>The setter will normalize the four possible inputs into either a tuple or a list of tuples,
+depending on the type of input that was given as input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>tuple or list of tuple</dt><dd><p>Currently used projection.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If not the correct type of input for projection.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="poisoning.frederickson2018.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">Attacks</span></em>, <em class="sig-param"><span class="n">Labels</span></em>, <em class="sig-param"><span class="n">projection</span></em><span class="sig-paren">)</span><a class="headerlink" href="#poisoning.frederickson2018.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array_like</span></dt><dd><p>Dataset with no labels.</p>
+</dd>
+<dt><strong>Y</strong><span class="classifier">array_like</span></dt><dd><p>Labels to dataset.</p>
+</dd>
+<dt><strong>Attacks</strong><span class="classifier">array_like</span></dt><dd><p>Initial attack points.</p>
+</dd>
+<dt><strong>Labels</strong><span class="classifier">array_like</span></dt><dd><p>Labels to attack points.</p>
+</dd>
+<dt><strong>projection</strong><span class="classifier">float or tuple or list of float or list of tuple</span></dt><dd><p>If float or tuple, the projection will be the same for all features,
+otherwise if a list, the projection will be described feature by feature.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>array_like</dt><dd><p>Final attack points, optimized by the algorithm.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>TypeError</dt><dd><p>When invalid projection is passed.</p>
+</dd>
+<dt>ValueError</dt><dd><p>When incorrect dimensions of X, Y, Attacks, Labels, or projection is passed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="xiao2018.html" class="btn btn-neutral float-left" title="xiao2018" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Roman Golota, Eduardo Zambrana, Srishti Gupta
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

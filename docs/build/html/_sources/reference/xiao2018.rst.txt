@@ -1,0 +1,6 @@
+xiao2018
+========
+
+.. autoclass:: poisoning.xiao2018
+    :members:
+    :inherited-members:

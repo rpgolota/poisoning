@@ -1,0 +1,43 @@
+xiao2018 API
+============
+
+The main feature of poisoning is :class:`~poisoning.xiao2018` class. To get started using it, import it from poisoning::
+
+    from rich.console import xiao2018
+
+Parameters
+----------
+
+The following are parameters to the class.
+
+* :obj:`~poisoning.xiao2018.type` is a string representing the linear model type being used.
+* :obj:`~poisoning.xiao2018.parallel` is a bool flag, using multiprocessing if true.
+* :obj:`~poisoning.xiao2018.beta` is a parameter used as a power's base in line search.
+* :obj:`~poisoning.xiao2018.rho` is a convex constant representing the elastic-net mixing parameter.
+* :obj:`~poisoning.xiao2018.sigma` is a small positive constant used in bounding the line search.
+* :obj:`~poisoning.xiao2018.epsilon` is a small positive consant used in bounding the algorithm.
+* :obj:`~poisoning.xiao2018.max_iter` is the maximum iterations that the algorithm will go up to.
+* :obj:`~poisoning.xiao2018.max_lsearch_iter` is the maximum iterations that the line search will go up to.
+* :obj:`~poisoning.xiao2018.max_model_iter` is a parameter that is passed into the linear model to bound iterations.
+* :obj:`~poisoning.xiao2018.model_tol` is a paramter that is passed into the linear model as the tolerance.
+
+Attributes
+----------
+
+The following are attributes of the class.
+
+* :obj:`~poisoning.xiao2018.n_iter` is a number representing iterations completed.
+* :obj:`~poisoning.xiao2018.algorithm_type` is a string representing the linear model type being used.
+* :obj:`~poisoning.xiao2018.projection` is a tuple or a list, representing the boundary of either all features or each feature.
+
+Methods
+-------
+
+There are two methods available to the user.
+
+* :meth:`~poisoning.xiao2018.run`
+* :meth:`~poisoning.xiao2018.autorun`
+
+The difference between the two methods is that autorun does not need to take as an input initial attack points and initial labels for those attack points.
+
+Instead, it takes in a number (int or float[0.0, 1.0]) representing either the number of attacks to create, or the percent of attacks to create.
