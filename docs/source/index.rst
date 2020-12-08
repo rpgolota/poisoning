@@ -16,9 +16,4 @@ Welcome to poisoning's documentation!
 
    reference.rst
 
-Indices and tables
-==================
-
 * :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
