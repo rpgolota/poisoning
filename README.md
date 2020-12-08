@@ -3,7 +3,10 @@
 
 ##### Poisoning datasets using gradient ascent, targeting feature selection.
 
+##### [Documentation](https://rpgolota.github.io/poisoning/build/html/index.html)
+
 ---
+
 
 ### Get started
 ```python
