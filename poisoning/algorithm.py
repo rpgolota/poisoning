@@ -7,7 +7,10 @@ import os
 import concurrent.futures
 
 class xiao2018:
-    """Dataset poisoning algorithm from 'Is Feature Selection Secure against Training Data Poisoning? H.Xiao et al. 2018'
+    """Class for dataset poisoning algorithm from "Is Feature Selection Secure against Training Data Poisoning? H.Xiao et al. 2018".
+    
+    Uses two main methods, run and autorun, in order to poison a given dataset.
+    By default uses multiprocessing acceleration for faster computation times.
     
     Parameters
     ----------
@@ -52,6 +55,16 @@ class xiao2018:
     ------
     TypeError
         If invalid type is given.
+        
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from poisoning import xiao2018
+    >>> dataset = pd.read_csv('spect_test.csv', sep=",", header=None)
+    >>> X = dataset.iloc[:,:-1].values
+    >>> Y = dataset.iloc[:,-1].values
+    >>> model = xiao2018(type='elastic')
+    >>> poisoned = model.autorun(X, Y, 0.1, (0,2))
     
     """
     def __init__(self, *, type='lasso', beta=0.99,
