@@ -4,10 +4,10 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>poisoning package &#8212; poisoning 0.6.1 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -174,7 +174,8 @@ split passed attack points into multiple chunks for faster performance</p>
 </dd>
 <dt><strong>Y</strong><span class="classifier">array_like</span></dt><dd><p>Labels to dataset.</p>
 </dd>
-<dt><strong>num_attacks</strong><span class="classifier">int</span></dt><dd><p>Number of attack points to randomly choose from dataset.</p>
+<dt><strong>num_attacks</strong><span class="classifier">int or float</span></dt><dd><p>When int, a number of attack points to randomly choose from dataset.
+When float, a range of 0.0 to 1.0, representing the percent of random poisoning.</p>
 </dd>
 <dt><strong>projection</strong><span class="classifier">float or tuple or list of float or list of tuple</span></dt><dd><p>If float or tuple, the projection will be the same for all features,
 otherwise if a list, the projection will be described feature by feature.</p>
@@ -392,7 +393,8 @@ split passed attack points into multiple chunks for faster performance</p>
 </dd>
 <dt><strong>Y</strong><span class="classifier">array_like</span></dt><dd><p>Labels to dataset.</p>
 </dd>
-<dt><strong>num_attacks</strong><span class="classifier">int</span></dt><dd><p>Number of attack points to randomly choose from dataset.</p>
+<dt><strong>num_attacks</strong><span class="classifier">int or float</span></dt><dd><p>When int, a number of attack points to randomly choose from dataset.
+When float, a range of 0.0 to 1.0, representing the percent of random poisoning.</p>
 </dd>
 <dt><strong>projection</strong><span class="classifier">float or tuple or list of float or list of tuple</span></dt><dd><p>If float or tuple, the projection will be the same for all features,
 otherwise if a list, the projection will be described feature by feature.</p>
@@ -541,7 +543,7 @@ otherwise if a list, the projection will be described feature by feature.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Roman Golota, Eduardo Zambrana, Srishti Gupta.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.3.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
     </div>
   </body>
 </html>
