@@ -31,9 +31,11 @@ project = 'poisoning'
 author_list = ['Roman Golota', 'Eduardo Zambrana']
 
 copyright = '2020. ' + ', '.join(author_list)
+
 author = ', '.join(author_list)
 
 # The full version, including alpha/beta/rc tags
+version = get_version()
 release = get_version()
 
 
