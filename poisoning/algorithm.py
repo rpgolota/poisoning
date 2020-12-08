@@ -382,8 +382,9 @@ class xiao2018:
             
         Y : array_like 
             Labels to dataset.
-        num_attacks : int
-            Number of attack points to randomly choose from dataset.
+        num_attacks : int or float
+            When int, a number of attack points to randomly choose from dataset.
+            When float, a range of 0.0 to 1.0, representing the percent of random poisoning.
             
         projection : float or tuple or list of float or list of tuple
             If float or tuple, the projection will be the same for all features,
@@ -410,7 +411,12 @@ class xiao2018:
         Y_np = np.array(Y)
         self._check_dataset(X_np, Y_np)
         
-        Attacks = random.sample([x + [y] for x, y in zip(X, Y)], num_attacks)
+        if type(num_attacks) is float:
+            if num_attacks < 0 or num_attacks > 1:
+                raise ValueError('Number must be between 0.0 and 1.0')
+            num_attacks = int(len(X_np) * num_attacks)
+        
+        Attacks = random.sample([x + [y] for x, y in zip(X_np.tolist(), Y_np.tolist())], num_attacks)
         Labels = [row[-1] for row in Attacks]
         Attacks = [row[:-1] for row in Attacks]
         
