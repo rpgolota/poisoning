@@ -211,16 +211,6 @@
 <span class="sd">    ------</span>
 <span class="sd">    TypeError</span>
 <span class="sd">        If invalid type is given.</span>
-<span class="sd">        </span>
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
-<span class="sd">    &gt;&gt;&gt; from poisoning import xiao2018</span>
-<span class="sd">    &gt;&gt;&gt; dataset = pd.read_csv(&#39;spect_test.csv&#39;, sep=&quot;,&quot;, header=None)</span>
-<span class="sd">    &gt;&gt;&gt; X = dataset.iloc[:,:-1].values</span>
-<span class="sd">    &gt;&gt;&gt; Y = dataset.iloc[:,-1].values</span>
-<span class="sd">    &gt;&gt;&gt; model = xiao2018(type=&#39;elastic&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; poisoned = model.autorun(X, Y, 0.1, (0,2))</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;lasso&#39;</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>
@@ -521,8 +511,17 @@
 <span class="sd">        </span>
 <span class="sd">        ValueError</span>
 <span class="sd">            When incorrect dimensions of X, Y, Attacks, Labels, or projection is passed.</span>
+<span class="sd">        </span>
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; from poisoning import xiao2018</span>
+<span class="sd">        &gt;&gt;&gt; dataset = pd.read_csv(&#39;spect_test.csv&#39;, sep=&quot;,&quot;, header=None)</span>
+<span class="sd">        &gt;&gt;&gt; X = dataset.iloc[:,:-1].values</span>
+<span class="sd">        &gt;&gt;&gt; Y = dataset.iloc[:,-1].values</span>
+<span class="sd">        &gt;&gt;&gt; model = xiao2018(type=&#39;elastic&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; poisoned = model.run(X, Y, X[0:3], Y[0:3], (0,2))</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
         <span class="bp">self</span><span class="o">.</span><span class="n">_use_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_use_Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">projection</span>
@@ -541,7 +540,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_implementation</span><span class="p">((</span><span class="n">Attacks</span><span class="p">,</span> <span class="n">Labels</span><span class="p">))</span></div>
    
-<div class="viewcode-block" id="xiao2018.autorun"><a class="viewcode-back" href="../../reference/xiao2018.html#poisoning.xiao2018.autorun">[docs]</a>    <span class="k">def</span> <span class="nf">autorun</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">num_attacks</span><span class="p">,</span> <span class="n">projection</span><span class="p">,</span> <span class="n">rInitial</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>    
+<div class="viewcode-block" id="xiao2018.autorun"><a class="viewcode-back" href="../../reference/xiao2018.html#poisoning.xiao2018.autorun">[docs]</a>    <span class="k">def</span> <span class="nf">autorun</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">num_attacks</span><span class="p">,</span> <span class="n">projection</span><span class="p">,</span> <span class="n">return_initial</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>    
         <span class="sd">&quot;&quot;&quot;Runs the algorithm with a certain number of initial attack points randomly chosen.</span>
 
 <span class="sd">        Parameters</span>
@@ -559,13 +558,15 @@
 <span class="sd">            If float or tuple, the projection will be the same for all features,</span>
 <span class="sd">            otherwise if a list, the projection will be described feature by feature.</span>
 <span class="sd">            </span>
-<span class="sd">        rInitial : bool, default=False</span>
+<span class="sd">        return_initial : bool, default=False</span>
 <span class="sd">            If true will also return the randomly chosen attack points.</span>
 <span class="sd">            </span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        array_like or tuple of array_like</span>
-<span class="sd">            Either returns the optimized atack points, or a tuple of the optimized attack points and the original.</span>
+<span class="sd">        tuple of array_like</span>
+<span class="sd">            Normally returns a tuple of the final attack points and the labels associated with them.</span>
+<span class="sd">            </span>
+<span class="sd">            If return_initial is True, returns tuple of the final attack points, the labels, and the initial attack points.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -574,6 +575,16 @@
 <span class="sd">            </span>
 <span class="sd">        TypeError</span>
 <span class="sd">            Same as xiao2018.run()</span>
+<span class="sd">            </span>
+<span class="sd">            Examples</span>
+<span class="sd">            --------</span>
+<span class="sd">            &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">            &gt;&gt;&gt; from poisoning import xiao2018</span>
+<span class="sd">            &gt;&gt;&gt; dataset = pd.read_csv(&#39;spect_test.csv&#39;, sep=&quot;,&quot;, header=None)</span>
+<span class="sd">            &gt;&gt;&gt; X = dataset.iloc[:,:-1].values</span>
+<span class="sd">            &gt;&gt;&gt; Y = dataset.iloc[:,-1].values</span>
+<span class="sd">            &gt;&gt;&gt; model = xiao2018(type=&#39;elastic&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; poisoned, labels = model.autorun(X, Y, 0.1, (0,2))</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">projection</span>
         <span class="n">X_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -591,10 +602,10 @@
         
         <span class="n">Result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Attacks</span><span class="p">,</span> <span class="n">Labels</span><span class="p">,</span> <span class="n">projection</span><span class="p">)</span>
         
-        <span class="k">if</span> <span class="n">rInitial</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Result</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Attacks</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">return_initial</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Result</span><span class="p">,</span> <span class="n">Labels</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Attacks</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Result</span></div></div>
+            <span class="k">return</span> <span class="n">Result</span><span class="p">,</span> <span class="n">Labels</span></div></div>
 
 <div class="viewcode-block" id="frederickson2018"><a class="viewcode-back" href="../../reference/frederickson2018.html#poisoning.frederickson2018">[docs]</a><span class="k">class</span> <span class="nc">frederickson2018</span><span class="p">(</span><span class="n">xiao2018</span><span class="p">):</span>
     

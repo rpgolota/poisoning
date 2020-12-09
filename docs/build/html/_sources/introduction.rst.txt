@@ -32,7 +32,7 @@ The quickest way to get started is to simply import the required model form pois
 
     model = xiao2018(type='elastic')
     # poison 10 percent of the dataset, with a boundary box of 0 to 2 for all features
-    poisoned = model.autorun(X, Y, 0.1, (0,2))
+    poisoned, labels = model.autorun(X, Y, 0.1, (0,2))
 
 The recommended way of extracting the Samples (X) and labels (Y) from a csv file is using pandas for a quick start.
 

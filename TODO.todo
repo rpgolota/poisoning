@@ -11,6 +11,7 @@ Total Progress:
         ✔ Line Search @done(20-10-27 21:05)
         ✔ Projection Operator Support (As input to function) @done(20-10-23 12:09)
     Tests:
+        ☐ Change from using .json to .csv with pandas
         ✔ Bounds equations @done(20-11-12 21:23)
         ✔ Rework all tests to test the class @done(20-10-26 23:33)
         ✔ Equation 2 @done(20-10-07 20:26)
@@ -28,7 +29,8 @@ Total Progress:
         ✔ Documentation @done(20-11-11 00:02)
         ✔ Packaging project with setuptools @done(20-11-09 20:58)
         ✔ Make examples @done(20-11-09 20:58)
-    Open Topics:
+    Other Topics:
+        ✔ Change autorun to also return the labels @done(20-12-08 17:49)
         ✔ Reason for long calculation time is due to find_alpha function @done(20-12-08 00:47)
             ✔ When was not using parallel, function still took long but not significant enough to seem as a problem. @done(20-12-08 00:47)
             ✔ When in parallel with many cores, the time the function takes compared to finding some amount of attack points is dramatic @done(20-12-08 00:47)

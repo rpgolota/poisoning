@@ -55,16 +55,6 @@ class xiao2018:
     ------
     TypeError
         If invalid type is given.
-        
-    Examples
-    --------
-    >>> import pandas as pd
-    >>> from poisoning import xiao2018
-    >>> dataset = pd.read_csv('spect_test.csv', sep=",", header=None)
-    >>> X = dataset.iloc[:,:-1].values
-    >>> Y = dataset.iloc[:,-1].values
-    >>> model = xiao2018(type='elastic')
-    >>> poisoned = model.autorun(X, Y, 0.1, (0,2))
     
     """
     def __init__(self, *, type='lasso', beta=0.99,
@@ -365,8 +355,17 @@ class xiao2018:
         
         ValueError
             When incorrect dimensions of X, Y, Attacks, Labels, or projection is passed.
-        """
         
+        Examples
+        --------
+        >>> import pandas as pd
+        >>> from poisoning import xiao2018
+        >>> dataset = pd.read_csv('spect_test.csv', sep=",", header=None)
+        >>> X = dataset.iloc[:,:-1].values
+        >>> Y = dataset.iloc[:,-1].values
+        >>> model = xiao2018(type='elastic')
+        >>> poisoned = model.run(X, Y, X[0:3], Y[0:3], (0,2))
+        """
         self._use_X = np.array(X)
         self._use_Y = np.array(Y)
         self.projection = projection
@@ -385,7 +384,7 @@ class xiao2018:
         else:
             return self._run_implementation((Attacks, Labels))
    
-    def autorun(self, X, Y, num_attacks, projection, rInitial=False):    
+    def autorun(self, X, Y, num_attacks, projection, return_initial=False):    
         """Runs the algorithm with a certain number of initial attack points randomly chosen.
 
         Parameters
@@ -403,13 +402,15 @@ class xiao2018:
             If float or tuple, the projection will be the same for all features,
             otherwise if a list, the projection will be described feature by feature.
             
-        rInitial : bool, default=False
+        return_initial : bool, default=False
             If true will also return the randomly chosen attack points.
             
         Returns
         -------
-        array_like or tuple of array_like
-            Either returns the optimized atack points, or a tuple of the optimized attack points and the original.
+        tuple of array_like
+            Normally returns a tuple of the final attack points and the labels associated with them.
+            
+            If return_initial is True, returns tuple of the final attack points, the labels, and the initial attack points.
 
         Raises
         ------
@@ -418,6 +419,16 @@ class xiao2018:
             
         TypeError
             Same as xiao2018.run()
+            
+            Examples
+            --------
+            >>> import pandas as pd
+            >>> from poisoning import xiao2018
+            >>> dataset = pd.read_csv('spect_test.csv', sep=",", header=None)
+            >>> X = dataset.iloc[:,:-1].values
+            >>> Y = dataset.iloc[:,-1].values
+            >>> model = xiao2018(type='elastic')
+            >>> poisoned, labels = model.autorun(X, Y, 0.1, (0,2))
         """
         self.projection = projection
         X_np = np.array(X)
@@ -435,10 +446,10 @@ class xiao2018:
         
         Result = self.run(X, Y, Attacks, Labels, projection)
         
-        if rInitial:
-            return Result, np.array(Attacks)
+        if return_initial:
+            return Result, Labels, np.array(Attacks)
         else:
-            return Result
+            return Result, Labels
 
 class frederickson2018(xiao2018):
     

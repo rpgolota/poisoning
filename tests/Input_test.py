@@ -73,7 +73,7 @@ def test_manual(file, type):
 def test_autorun(file, num):
     inp = read_json(file)
     test = xiao2018()
-    res = test.autorun(inp[0], inp[1], num, 1)
+    res, _ = test.autorun(inp[0], inp[1], num, 1)
     assert len(res) == num
 
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
