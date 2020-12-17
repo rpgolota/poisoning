@@ -1,7 +1,6 @@
 from sklearn import linear_model, neighbors
 from sys import float_info
 import numpy as np
-import scipy as sp
 import random
 import os
 import concurrent.futures
