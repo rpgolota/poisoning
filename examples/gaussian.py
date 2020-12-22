@@ -107,10 +107,13 @@ def comparative_plots(json_file, **kwargs):
             
             res = model.run(X, Y, Attacks, Labels, mod_proj)
             fmt_kwargs = [f'{first}: {second}' for first, second in zip(arg.keys(), [str(a) for a in arg.values()])]
+            labs = ['', ' - Kwargs -', '\n'.join(fmt_kwargs), '', f'Dataset Size: {len(X)}', f'Lambda: {model.alpha}', f'Attacks: {len(Attacks)}', f'Projection: {projection}']
+            if not len(arg):
+                labs.pop(1)
             draw_plot(separate_by_label(X, Y), Attacks, res, projection, center=center,
                         filename=f'{folderpath}/compare_{json_file.rstrip(".json")}_{model.algorithm_type}_{i}.png',
-                        aHandles=[Rectangle((0, 0), 1, 1, fc="white", ec="white", lw=0, alpha=0)] * (len(arg) + 7),
-                        aLabels=['', ' - Kwargs -', '\n'.join(fmt_kwargs), '', f'Dataset Size: {len(X)}', f'Lambda: {model.alpha}', f'Attacks: {len(Attacks)}', f'Projection: {projection}'],
+                        aHandles=[Rectangle((0, 0), 1, 1, fc="white", ec="white", lw=0, alpha=0)] * (len(arg) + (7 if len(arg) else 6)),
+                        aLabels=labs,
                         title=f'Compare Scatter ({model.algorithm_type}) ({json_file}) :: #{i+1}')
 
 if __name__ == "__main__":
