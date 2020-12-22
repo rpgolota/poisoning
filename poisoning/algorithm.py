@@ -519,10 +519,27 @@ class frederickson2018(xiao2018):
         return outlier, k_nearest_indices
     
     def _k_partial(self, X, ax):
-        outlier_term, indices= self._k_nearest([ax])
+        
         # Sometimes, indices[0, self.k_th - 1] is size of array, which gives an error.
         # Also, indices[0, 0] seems to be the size of the array a lot of the time. Can't tell what is wrong here.
-        # Seems to only happen with titanic.csv with l2?
+        # Seems to only happen with titanic.csv.
+        
+        # Traceback (most recent call last):
+        #     File "/opt/hostedtoolcache/Python/3.8.6/x64/lib/python3.8/concurrent/futures/process.py", line 239, in _process_worker
+        #         r = call_item.fn(*call_item.args, **call_item.kwargs)
+        #     File "/opt/hostedtoolcache/Python/3.8.6/x64/lib/python3.8/concurrent/futures/process.py", line 198, in _process_chunk
+        #         return [fn(*args) for args in chunk]
+        #     File "/opt/hostedtoolcache/Python/3.8.6/x64/lib/python3.8/concurrent/futures/process.py", line 198, in <listcomp>
+        #         return [fn(*args) for args in chunk]
+        #     File "/home/runner/work/poisoning/poisoning/poisoning/algorithm.py", line 297, in _run_implementation
+        #         d = self._project(attack + self._gradient(X, Y, attack, label)) - attack
+        #     File "/home/runner/work/poisoning/poisoning/poisoning/algorithm.py", line 544, in _gradient
+        #         return (((sum(result) / X.shape[0]) + last_term) - (self.phi * self._useable_partials(X, ax)))
+        #     File "/home/runner/work/poisoning/poisoning/poisoning/algorithm.py", line 526, in _k_partial
+        #         partial_outlier = self.power * (outlier_term**(self.power - 2)) * (ax - X[indices[0, self.k_th - 1]])
+        #     IndexError: index 2201 is out of bounds for axis 0 with size 2201
+        
+        outlier_term, indices= self._k_nearest([ax])
         partial_outlier = self.power * (outlier_term**(self.power - 2)) * (ax - X[indices[0, self.k_th - 1]])
         
         return partial_outlier 
