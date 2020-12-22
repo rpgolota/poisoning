@@ -16,11 +16,10 @@ python_requires = '>=3.7'
 
 packages = ['poisoning']
 
-install_requires = ['pytest>=5.4',
-                    'numpy>=1.18,<=1.19.3',
+install_requires = ['numpy>=1.18,<=1.19.3',
                     'sklearn']
 
-classifiers = [ 'Development Status :: 4 - Beta',
+classifiers = [ 'Development Status :: 5 - Production/Stable',
                 'Intended Audience :: Science/Research',
                 'Operating System :: OS Independent',
                 'Programming Language :: Python :: 3.8']
