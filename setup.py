@@ -4,6 +4,13 @@ def get_version():
     exec(open('poisoning/version.py').read(), locals())
     return locals()['__version__']
 
+def get_requirements():
+    with open('requirements.txt') as f:
+        lines = f.read()
+        
+    lines = lines.strip().split('\n')
+    return lines
+
 name = 'poisoning'
 
 version = get_version()
@@ -16,8 +23,7 @@ python_requires = '>=3.7'
 
 packages = ['poisoning']
 
-install_requires = ['numpy>=1.18,<=1.19.3',
-                    'sklearn']
+install_requires = get_requirements()
 
 classifiers = [ 'Development Status :: 5 - Production/Stable',
                 'Intended Audience :: Science/Research',
