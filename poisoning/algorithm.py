@@ -38,7 +38,7 @@ class xiao2018:
         Parameter that is passed into the linear model to bound iterations.
         
     model_tol : float, default=1e-4
-        Paramter that is passed into the linear model as the tolerance.
+        Parameter that is passed into the linear model as the tolerance.
     
     parallel : bool, default=True
         Parameter that will enable or disable the possible use of multiprocessing to 
@@ -462,13 +462,13 @@ class frederickson2018(xiao2018):
         Type of outlier type that will be used in the algorithm.
     
     phi : float, default=1.0
-        WIP
+        Outlier weight term used as the penalty term
         
     power : float, default=2.0
-        WIP
+        User-defined parameter used to raise the distance to the k-th nearest neighbor to some power.
         
     k : int, default=3
-        WIP
+        The k-th nearest point that is an element in the surrogate dataset
     """    
     
     def __init__(self, *, phi=1.0, power=2.0, k=3, outlier_type='nearest', **kwargs):
