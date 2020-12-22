@@ -1,0 +1,35 @@
+
+name: Code Test
+
+on:
+  push:
+    paths:
+      - 'poisoning/**'
+      - 'tests/**'
+  pull_request:
+    paths:
+      - 'poisoning/**'
+      - 'tests/**'
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+      
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          
+      - name: Run tests
+        run: |
+          python -m pytest -m "not pip"
