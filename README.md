@@ -11,12 +11,12 @@
 
 ---
 
-### Example
-The following is an exaple of using xiao2018 to poison a gaussian distribution.
+### Examples
+The following is an example of using xiao2018 to poison a gaussian distribution.
 
 ![Poisoning Example](examples/poisoning_example_xiao.png)
 
-The following is an exaple of using frederickson2018 to poison a gaussian distribution.
+The following is an example of using frederickson2018 to poison a gaussian distribution.
 
 ![Poisoning Example](examples/poisoning_example_frederickson.png)
 
