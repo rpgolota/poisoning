@@ -1,5 +1,7 @@
 # Dataset Poisoning
-<p align="left"><a href="https://github.com/rpgolota/poisoning/actions?query=workflow%3ATests"><img alt="Toolkit unit tests status" src="https://github.com/rpgolota/poisoning/workflows/Tests/badge.svg"></a></p>
+
+![Code Test](https://github.com/rpgolota/poisoning/workflows/Code%20Test/badge.svg)
+![Pip Test](https://github.com/rpgolota/poisoning/workflows/Pip%20Test/badge.svg)
 
 ##### Poisoning datasets using gradient ascent, targeting feature selection.
 

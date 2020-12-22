@@ -3,7 +3,7 @@ from poisoning import xiao2018
 
 def test_sanity():
     
-    dataset = pd.read_csv('datasets/good_data/spect_test.csv', sep=",", header=None)
+    dataset = pd.read_csv('tests/input/balloons.csv', sep=",", header=None)
 
     X = dataset.iloc[:,:-1].values
     Y = dataset.iloc[:,-1].values

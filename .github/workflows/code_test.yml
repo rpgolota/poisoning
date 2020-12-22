@@ -32,4 +32,4 @@ jobs:
           
       - name: Run tests
         run: |
-          python -m pytest -m "not pip"
+          python -m pytest
