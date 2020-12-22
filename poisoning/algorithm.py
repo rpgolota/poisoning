@@ -500,6 +500,7 @@ class frederickson2018(xiao2018):
             raise TypeError(f'Invalid outlier type: {tp}')
 
     def _learn_model(self, X, Y):
+    
         self._linear_algorithm.fit(X, Y)
         self._Knearest_neighbor.fit(X, Y)
 
@@ -510,6 +511,8 @@ class frederickson2018(xiao2018):
         return np.array([float('inf') if distance > self.phi else 0 for distance in distances])
         
     def _k_nearest(self, X):
+        print('here2')
+        print(f'X: {X}')
         euclideanDistance, k_nearest_indices = self._Knearest_neighbor.kneighbors(X, n_neighbors=self.k_th)
         outlier = ((euclideanDistance[0, self.k_th - 1]) ** self.power) 
 
@@ -517,6 +520,8 @@ class frederickson2018(xiao2018):
     
     def _k_partial(self, X, ax):
         outlier_term, indices= self._k_nearest([ax])
+        # Sometimes, indices[0, self.k_th - 1] is size of array, which gives an error.
+        # Also, indices[0, 0] seems to be the size of the array a lot of the time. Can't tell what is wrong here.
         partial_outlier = self.power * (outlier_term**(self.power - 2)) * (ax - X[indices[0, self.k_th - 1]])
         
         return partial_outlier 
@@ -536,3 +541,9 @@ class frederickson2018(xiao2018):
         result = [((np.dot(item[0], ax) + biases) - item[1]) * (np.matmul(item[0], partial_weights) + partial_biases) for item in zip(X, Y)] 
 
         return (((sum(result) / X.shape[0]) + last_term) - (self.phi * self._useable_partials(X, ax)))
+    
+    # def run(self, X, Y, Attacks, Labels, projection):
+    #     if (len(X) < self.k_th):
+    #         self.k_th = len(X)
+        
+    #     super().run(X, Y, Attacks, Labels, projection)
