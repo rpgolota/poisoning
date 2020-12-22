@@ -1,7 +1,15 @@
 
 name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - 'poisoning/**'
+      - 'tests/**'
+  pull_request:
+    paths:
+      - 'poisoning/**'
+      - 'tests/**'
 
 jobs:
   python:
