@@ -522,6 +522,7 @@ class frederickson2018(xiao2018):
         outlier_term, indices= self._k_nearest([ax])
         # Sometimes, indices[0, self.k_th - 1] is size of array, which gives an error.
         # Also, indices[0, 0] seems to be the size of the array a lot of the time. Can't tell what is wrong here.
+        # Seems to only happen with titanic.csv with l2?
         partial_outlier = self.power * (outlier_term**(self.power - 2)) * (ax - X[indices[0, self.k_th - 1]])
         
         return partial_outlier 
