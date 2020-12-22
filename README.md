@@ -1,14 +1,24 @@
 # Dataset Poisoning
 
-<p align="left"><a href="https://github.com/rpgolota/poisoning/actions?query=workflow%3ACode"><img alt="Toolkit unit tests status" src="https://github.com/rpgolota/poisoning/workflows/Code%20Test/badge.svg"></a></p>
-<p align="left"><a href="https://github.com/rpgolota/poisoning/actions?query=workflow%3APip"><img alt="Toolkit unit tests status" src="https://github.com/rpgolota/poisoning/workflows/Pip%20Test/badge.svg"></a></p>
-
 ##### Poisoning datasets using gradient ascent, targeting feature selection.
 
 ##### [Documentation](https://rpgolota.github.io/poisoning/build/html/index.html)
 
+| Tests |Description|
+| ----------- | ----------- |
+|![Code Test](https://github.com/rpgolota/poisoning/workflows/Code%20Test/badge.svg)|Tests regarding algorithm.|
+|![Pip Test](https://github.com/rpgolota/poisoning/workflows/Pip%20Test/badge.svg)|Tests regarding the ability to build and install with pip|
+
 ---
 
+### Example
+The following is an exaple of using xiao2018 to poison a gaussian distribution.
+
+![Poisoning Example](examples/poisoning_example_xiao.png)
+
+The following is an exaple of using frederickson2018 to poison a gaussian distribution.
+
+![Poisoning Example](examples/poisoning_example_frederickson.png)
 
 ### Get started
 ```python

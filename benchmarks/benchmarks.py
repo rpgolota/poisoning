@@ -8,6 +8,7 @@ import argparse
 import time
 import os
 import csv
+import pandas as pd
 from datetime import datetime
 
 # gets the command line arguments for the benchmarks
@@ -57,8 +58,16 @@ def read_argfile(data):
     return data
 
 def get_data(dataset, attacks):
-    with open(dataset, 'r') as f:
-        X, Y, _, _ = json.load(f)
+    extension = os.path.splitext(dataset)[1]
+    if extension == '.csv':
+        dataset = pd.read_csv(dataset, sep=",", header=None)
+        X = dataset.iloc[:,:-1].values
+        Y = dataset.iloc[:,-1].values
+    elif extension == '.json':
+        with open(dataset, 'r') as f:
+            X, Y = json.load(f)
+    else:
+        raise ValueError(f'Cannot accept {extension} files.')
     
     if attacks.get('range', False):
         tp = 'range'
