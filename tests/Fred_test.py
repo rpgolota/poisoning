@@ -8,7 +8,6 @@ MAX_ITER = [None, 10]
 ALGORITHM_TYPE = ['lasso', 'l1', 'ridge', 'l2', 'ridgeregression', 'ridge-regression', 'ridge regression', 'elastic', 'elasticnet', 'elastic-net', 'elastic net']
 ALGORITHM_TYPE_SMALL = ['l1', 'l2', 'elastic']
 
-@pytest.mark.xfail(reason='Bug in _k_nearest code')
 @pytest.mark.parametrize('outlier_type', ['nearest neighbor'])
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
 @pytest.mark.parametrize('file', find_inputs('Input_test'))

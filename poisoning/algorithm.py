@@ -490,14 +490,14 @@ class frederickson2018(xiao2018):
         
         return np.array([float('inf') if distance > self.phi else 0 for distance in distances])
         
-    def _k_nearest(self, ax):
-        euclideanDistance, k_nearest_indices = self._Knearest_neighbor.kneighbors(ax.reshape(1, -1), n_neighbors=self.k_th)
-        outlier = ((euclideanDistance[0, self.k_th - 1]) ** self.power)
+    def _k_nearest(self, X):
+        euclideanDistance, k_nearest_indices = self._Knearest_neighbor.kneighbors(X, n_neighbors=self.k_th)
+        outlier = ((euclideanDistance[0, self.k_th - 1]) ** self.power) 
 
         return outlier, k_nearest_indices
     
     def _k_partial(self, X, ax):
-        outlier_term, indices= self._k_nearest(ax)
+        outlier_term, indices= self._k_nearest([ax])
         partial_outlier = self.power * (outlier_term**(self.power - 2)) * (ax - X[indices[0, self.k_th - 1]])
         
         return partial_outlier 
