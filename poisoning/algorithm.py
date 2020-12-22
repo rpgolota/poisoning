@@ -505,7 +505,7 @@ class frederickson2018(xiao2018):
 
     def _distance_threshold(self, X, Y):
         k_nearest_model = self._Knearest_neighbor.fit(X, Y)
-        distances, _ = k_nearest_model.kneighbors(X, n_neighbors= 1)
+        distances, _ = k_nearest_model.kneighbors(X, n_neighbors= 1) # why is n_neighbors 1
         
         return np.array([float('inf') if distance > self.phi else 0 for distance in distances])
         
@@ -536,4 +536,3 @@ class frederickson2018(xiao2018):
         result = [((np.dot(item[0], ax) + biases) - item[1]) * (np.matmul(item[0], partial_weights) + partial_biases) for item in zip(X, Y)] 
 
         return (((sum(result) / X.shape[0]) + last_term) - (self.phi * self._useable_partials(X, ax)))
-  
