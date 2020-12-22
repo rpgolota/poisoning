@@ -25,7 +25,7 @@ class xiao2018:
     sigma : float, default=1e-3
         Small positive constant used in bounding the line search.
         
-    elsilon : float, default=1e-3
+    epsilon : float, default=1e-3
         Small positive consant used in bounding the algorithm.
         
     max_iter : int, default=1000
@@ -419,15 +419,15 @@ class xiao2018:
         TypeError
             Same as xiao2018.run()
             
-            Examples
-            --------
-            >>> import pandas as pd
-            >>> from poisoning import xiao2018
-            >>> dataset = pd.read_csv('spect_test.csv', sep=",", header=None)
-            >>> X = dataset.iloc[:,:-1].values
-            >>> Y = dataset.iloc[:,-1].values
-            >>> model = xiao2018(type='elastic')
-            >>> poisoned, labels = model.autorun(X, Y, 0.1, (0,2))
+        Examples
+        --------
+        >>> import pandas as pd
+        >>> from poisoning import xiao2018
+        >>> dataset = pd.read_csv('spect_test.csv', sep=",", header=None)
+        >>> X = dataset.iloc[:,:-1].values
+        >>> Y = dataset.iloc[:,-1].values
+        >>> model = xiao2018(type='elastic')
+        >>> poisoned, labels = model.autorun(X, Y, 0.1, (0,2))
         """
         self.projection = projection
         X_np = np.array(X)
@@ -451,8 +451,27 @@ class xiao2018:
             return Result, Labels
 
 class frederickson2018(xiao2018):
+    """Class for dataset poisoning algorithm from "Attack Strength vs. Detectability Dilemma in Adversarial Machine Learning. C.Frededrickson et al. 2018".
     
-    def __init__(self, *, phi=1, power=2, k=3, outlier_type='nearest neighbor', **kwargs):
+    Uses two main methods, run and autorun, in order to poison a given dataset.
+    Differs from xiao by implementing a smarter boundary condition to create less detectable adversarial samples.
+    
+    Parameters
+    ----------
+    outlier_type : {'distance', 'distance_threshhold', 'distance threshhold', 'nearest', 'neighbor', 'k_nearest', 'nearest neighbor'}, default='nearest'
+        Type of outlier type that will be used in the algorithm.
+    
+    phi : float, default=1.0
+        WIP
+        
+    power : float, default=2.0
+        WIP
+        
+    k : int, default=3
+        WIP
+    """    
+    
+    def __init__(self, *, phi=1.0, power=2.0, k=3, outlier_type='nearest', **kwargs):
         self.phi = phi
         self.power = power
         self.k_th = k
@@ -475,7 +494,7 @@ class frederickson2018(xiao2018):
     def outlier_type(self, tp):
         if tp in ['distance', 'distance_threshhold', 'distance threshhold']:
             self._outlier_type = 'distance'
-        elif tp in ['nearest', 'k_nearest', 'nearest neighbor']:
+        elif tp in ['nearest', 'neighbor', 'k_nearest', 'nearest neighbor']:
             self._outlier_type = 'nearest'
         else:
             raise TypeError(f'Invalid outlier type: {tp}')

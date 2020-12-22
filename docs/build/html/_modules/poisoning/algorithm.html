@@ -157,7 +157,6 @@
 <span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span><span class="p">,</span> <span class="n">neighbors</span>
 <span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">float_info</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">concurrent.futures</span>
@@ -182,7 +181,7 @@
 <span class="sd">    sigma : float, default=1e-3</span>
 <span class="sd">        Small positive constant used in bounding the line search.</span>
 <span class="sd">        </span>
-<span class="sd">    elsilon : float, default=1e-3</span>
+<span class="sd">    epsilon : float, default=1e-3</span>
 <span class="sd">        Small positive consant used in bounding the algorithm.</span>
 <span class="sd">        </span>
 <span class="sd">    max_iter : int, default=1000</span>
@@ -576,15 +575,15 @@
 <span class="sd">        TypeError</span>
 <span class="sd">            Same as xiao2018.run()</span>
 <span class="sd">            </span>
-<span class="sd">            Examples</span>
-<span class="sd">            --------</span>
-<span class="sd">            &gt;&gt;&gt; import pandas as pd</span>
-<span class="sd">            &gt;&gt;&gt; from poisoning import xiao2018</span>
-<span class="sd">            &gt;&gt;&gt; dataset = pd.read_csv(&#39;spect_test.csv&#39;, sep=&quot;,&quot;, header=None)</span>
-<span class="sd">            &gt;&gt;&gt; X = dataset.iloc[:,:-1].values</span>
-<span class="sd">            &gt;&gt;&gt; Y = dataset.iloc[:,-1].values</span>
-<span class="sd">            &gt;&gt;&gt; model = xiao2018(type=&#39;elastic&#39;)</span>
-<span class="sd">            &gt;&gt;&gt; poisoned, labels = model.autorun(X, Y, 0.1, (0,2))</span>
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; from poisoning import xiao2018</span>
+<span class="sd">        &gt;&gt;&gt; dataset = pd.read_csv(&#39;spect_test.csv&#39;, sep=&quot;,&quot;, header=None)</span>
+<span class="sd">        &gt;&gt;&gt; X = dataset.iloc[:,:-1].values</span>
+<span class="sd">        &gt;&gt;&gt; Y = dataset.iloc[:,-1].values</span>
+<span class="sd">        &gt;&gt;&gt; model = xiao2018(type=&#39;elastic&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; poisoned, labels = model.autorun(X, Y, 0.1, (0,2))</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">projection</span>
         <span class="n">X_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -608,8 +607,27 @@
             <span class="k">return</span> <span class="n">Result</span><span class="p">,</span> <span class="n">Labels</span></div></div>
 
 <div class="viewcode-block" id="frederickson2018"><a class="viewcode-back" href="../../reference/frederickson2018.html#poisoning.frederickson2018">[docs]</a><span class="k">class</span> <span class="nc">frederickson2018</span><span class="p">(</span><span class="n">xiao2018</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class for dataset poisoning algorithm from &quot;Attack Strength vs. Detectability Dilemma in Adversarial Machine Learning. C.Frededrickson et al. 2018&quot;.</span>
+<span class="sd">    </span>
+<span class="sd">    Uses two main methods, run and autorun, in order to poison a given dataset.</span>
+<span class="sd">    Differs from xiao by implementing a smarter boundary condition to create less detectable adversarial samples.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    outlier_type : {&#39;distance&#39;, &#39;distance_threshhold&#39;, &#39;distance threshhold&#39;, &#39;nearest&#39;, &#39;neighbor&#39;, &#39;k_nearest&#39;, &#39;nearest neighbor&#39;}, default=&#39;nearest&#39;</span>
+<span class="sd">        Type of outlier type that will be used in the algorithm.</span>
+<span class="sd">    </span>
+<span class="sd">    phi : float, default=1.0</span>
+<span class="sd">        WIP</span>
+<span class="sd">        </span>
+<span class="sd">    power : float, default=2.0</span>
+<span class="sd">        WIP</span>
+<span class="sd">        </span>
+<span class="sd">    k : int, default=3</span>
+<span class="sd">        WIP</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
     
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">outlier_type</span><span class="o">=</span><span class="s1">&#39;nearest neighbor&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">outlier_type</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="n">phi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">power</span> <span class="o">=</span> <span class="n">power</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">k_th</span> <span class="o">=</span> <span class="n">k</span>
@@ -632,7 +650,7 @@
     <span class="k">def</span> <span class="nf">outlier_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tp</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">tp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_threshhold&#39;</span><span class="p">,</span> <span class="s1">&#39;distance threshhold&#39;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_outlier_type</span> <span class="o">=</span> <span class="s1">&#39;distance&#39;</span>
-        <span class="k">elif</span> <span class="n">tp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="s1">&#39;k_nearest&#39;</span><span class="p">,</span> <span class="s1">&#39;nearest neighbor&#39;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">tp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="s1">&#39;neighbor&#39;</span><span class="p">,</span> <span class="s1">&#39;k_nearest&#39;</span><span class="p">,</span> <span class="s1">&#39;nearest neighbor&#39;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_outlier_type</span> <span class="o">=</span> <span class="s1">&#39;nearest&#39;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid outlier type: </span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -647,14 +665,14 @@
         
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">distance</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">distance</span> <span class="ow">in</span> <span class="n">distances</span><span class="p">])</span>
         
-    <span class="k">def</span> <span class="nf">_k_nearest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
-        <span class="n">euclideanDistance</span><span class="p">,</span> <span class="n">k_nearest_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Knearest_neighbor</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k_th</span><span class="p">)</span>
-        <span class="n">outlier</span> <span class="o">=</span> <span class="p">((</span><span class="n">euclideanDistance</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_th</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_k_nearest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">euclideanDistance</span><span class="p">,</span> <span class="n">k_nearest_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Knearest_neighbor</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k_th</span><span class="p">)</span>
+        <span class="n">outlier</span> <span class="o">=</span> <span class="p">((</span><span class="n">euclideanDistance</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_th</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span><span class="p">)</span> 
 
         <span class="k">return</span> <span class="n">outlier</span><span class="p">,</span> <span class="n">k_nearest_indices</span>
     
     <span class="k">def</span> <span class="nf">_k_partial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
-        <span class="n">outlier_term</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k_nearest</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">outlier_term</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k_nearest</span><span class="p">([</span><span class="n">ax</span><span class="p">])</span>
         <span class="n">partial_outlier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span> <span class="o">*</span> <span class="p">(</span><span class="n">outlier_term</span><span class="o">**</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">power</span> <span class="o">-</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">ax</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_th</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]])</span>
         
         <span class="k">return</span> <span class="n">partial_outlier</span> 
