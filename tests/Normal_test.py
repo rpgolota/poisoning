@@ -8,11 +8,12 @@ import glob
 import os
 import json
 
+import itertools
+
 SEARCH_PATH = os.path.normcase(os.getcwd() + '/tests/input/')
 
-def mark_parameters(X=[], Y=[], xfail=[], *, mark=pytest.mark.xfail, reason=''):
-    out = [(x, y) if (x, y) not in xfail else pytest.param(x, y, marks=mark(reason=reason)) for x in X for y in Y]
-    return out
+def tmark(*args, label=[], mark=pytest.mark.xfail, reason=None):
+    return [i if i not in label else pytest.param(*i, marks=mark(reason=reason)) for i in itertools.product(*args)]
 
 def find_inputs(name):
     onlyfiles = [f for f in os.listdir(SEARCH_PATH) if os.path.isfile(os.path.join(SEARCH_PATH, f))]
@@ -41,7 +42,7 @@ def test_learn_model(file, model):
     test._learn_model(inp[0], inp[1])
 
 @pytest.mark.parametrize('type', ALGORITHM_TYPE_SMALL)
-@pytest.mark.parametrize('file,model', mark_parameters(find_inputs('Input_test'), [xiao2018, frederickson2018], [('Input_test_1.json', frederickson2018)], mark=pytest.mark.skip, reason='Too complicated to refactor.'))
+@pytest.mark.parametrize('file,model', tmark(find_inputs('Input_test'), [xiao2018, frederickson2018], label=[('Input_test_1.json', frederickson2018)], mark=pytest.mark.skip, reason='Too complicated to refactor.'))
 def test_gradient(type, file, model):
     inp = read_json(file)
     test = model(type=type)
@@ -50,7 +51,7 @@ def test_gradient(type, file, model):
     res = test._gradient(np.array(inp[0]), inp[1], inp[2][0], inp[3][0])
     assert res.shape[0] == len(inp[0][0])
 
-@pytest.mark.parametrize('file,model', mark_parameters(find_inputs('Input_test'), [xiao2018, frederickson2018], [('Input_test_1.json', frederickson2018)], mark=pytest.mark.skip, reason='Too complicated to refactor.'))
+@pytest.mark.parametrize('file,model', tmark(find_inputs('Input_test'), [xiao2018, frederickson2018], label=[('Input_test_1.json', frederickson2018)], mark=pytest.mark.skip, reason='Too complicated to refactor.'))
 def test_bounds(file, model):
     inp = read_json(file)
     test = model()
