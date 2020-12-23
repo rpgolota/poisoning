@@ -3,7 +3,7 @@ xiao2018 API
 
 The main feature of poisoning is :class:`~poisoning.xiao2018` class. To get started using it, import it from poisoning::
 
-    from rich.console import xiao2018
+    from poisoning import xiao2018
 
 Parameters
 ----------

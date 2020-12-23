@@ -175,11 +175,11 @@ Differs from xiao by implementing a smarter boundary condition to create less de
 <dd class="field-odd"><dl class="simple">
 <dt><strong>outlier_type</strong><span class="classifier">{‘distance’, ‘distance_threshhold’, ‘distance threshhold’, ‘nearest’, ‘neighbor’, ‘k_nearest’, ‘nearest neighbor’}, default=’nearest’</span></dt><dd><p>Type of outlier type that will be used in the algorithm.</p>
 </dd>
-<dt><strong>phi</strong><span class="classifier">float, default=1.0</span></dt><dd><p>Outlier weight term used as the penalty term</p>
+<dt><strong>phi</strong><span class="classifier">float, default=1.0</span></dt><dd><p>Outlier weight term used as the penalty term.</p>
 </dd>
-<dt><strong>power</strong><span class="classifier">float, default=2.0</span></dt><dd><p>User-defined parameter used to raise the distance to the k-th nearest neighbor to some power.</p>
+<dt><strong>power</strong><span class="classifier">float, default=2.0</span></dt><dd><p>User-defined parameter used to raise the distance of the k-th nearest neighbor to some power.</p>
 </dd>
-<dt><strong>k</strong><span class="classifier">int, default=3</span></dt><dd><p>The k-th nearest point that is an element in the surrogate dataset</p>
+<dt><strong>k</strong><span class="classifier">int, default=3</span></dt><dd><p>The k-th nearest point that is an element in the surrogate dataset.</p>
 </dd>
 </dl>
 </dd>
@@ -187,7 +187,8 @@ Differs from xiao by implementing a smarter boundary condition to create less de
 <dd class="field-even"><dl class="simple">
 <dt><a class="reference internal" href="#poisoning.frederickson2018.algorithm_type" title="poisoning.frederickson2018.algorithm_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">algorithm_type</span></code></a></dt><dd><p>The currently used algorithm type.</p>
 </dd>
-<dt><strong>outlier_type</strong></dt><dd></dd>
+<dt><a class="reference internal" href="#poisoning.frederickson2018.outlier_type" title="poisoning.frederickson2018.outlier_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outlier_type</span></code></a></dt><dd><p>The currently used outlier type.</p>
+</dd>
 <dt><a class="reference internal" href="#poisoning.frederickson2018.projection" title="poisoning.frederickson2018.projection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projection</span></code></a></dt><dd><p>Returns the currently used projection.</p>
 </dd>
 </dl>
@@ -276,6 +277,27 @@ otherwise if a list, the projection will be described feature by feature.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">poisoned</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">autorun</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="poisoning.frederickson2018.outlier_type">
+<em class="property">property </em><code class="sig-name descname">outlier_type</code><a class="headerlink" href="#poisoning.frederickson2018.outlier_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The currently used outlier type.</p>
+<p>The setter will normalize the type into one of two possible types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>{‘distance’, ‘nearest’}</dt><dd><p>One of three types for the outlier type.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If not set to one of the vailid inputs.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

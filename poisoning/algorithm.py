@@ -462,13 +462,13 @@ class frederickson2018(xiao2018):
         Type of outlier type that will be used in the algorithm.
     
     phi : float, default=1.0
-        Outlier weight term used as the penalty term
+        Outlier weight term used as the penalty term.
         
     power : float, default=2.0
-        User-defined parameter used to raise the distance to the k-th nearest neighbor to some power.
+        User-defined parameter used to raise the distance of the k-th nearest neighbor to some power.
         
     k : int, default=3
-        The k-th nearest point that is an element in the surrogate dataset
+        The k-th nearest point that is an element in the surrogate dataset.
     """    
     
     def __init__(self, *, phi=1.0, power=2.0, k=3, outlier_type='nearest', **kwargs):
@@ -488,6 +488,20 @@ class frederickson2018(xiao2018):
 
     @property
     def outlier_type(self):
+        """The currently used outlier type.
+        
+        The setter will normalize the type into one of two possible types.
+
+        Returns
+        -------
+        {'distance', 'nearest'}
+            One of three types for the outlier type.
+            
+        Raises
+        ------
+        TypeError
+            If not set to one of the vailid inputs.
+        """
         return self._outlier_type
     
     @outlier_type.setter
@@ -542,7 +556,7 @@ class frederickson2018(xiao2018):
         outlier_term, indices= self._k_nearest([ax])
         partial_outlier = self.power * (outlier_term**(self.power - 2)) * (ax - X[indices[0, self.k_th - 1]])
         
-        return partial_outlier 
+        return partial_outlier
     
     def _bounds(self, X, Y):
         length = X.shape[0]

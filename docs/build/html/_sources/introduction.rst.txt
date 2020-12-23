@@ -17,6 +17,10 @@ You can install poisoning by downloading from `github <https://github.com/rpgolo
 
     pip install poisoning
 
+A shortcut is to run the following command::
+
+    pip install git+https://github.com/rpgolota/poisoning/
+
 Quick Start
 -----------
 

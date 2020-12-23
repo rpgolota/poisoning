@@ -164,30 +164,37 @@
             
   <div class="section" id="frederickson2018-api">
 <h1>frederickson2018 API<a class="headerlink" href="#frederickson2018-api" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference internal" href="reference/frederickson2018.html#poisoning.frederickson2018" title="poisoning.frederickson2018"><code class="xref py py-class docutils literal notranslate"><span class="pre">frederickson2018</span></code></a> class is a subclass of <a class="reference internal" href="reference/xiao2018.html#poisoning.xiao2018" title="poisoning.xiao2018"><code class="xref py py-class docutils literal notranslate"><span class="pre">xiao2018</span></code></a>. To get started using it, import it from poisoning:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rich.console</span> <span class="kn">import</span> <span class="n">frederickson2018</span>
+<p>The <a class="reference internal" href="reference/frederickson2018.html#poisoning.frederickson2018" title="poisoning.frederickson2018"><code class="xref py py-class docutils literal notranslate"><span class="pre">frederickson2018</span></code></a> class is a subclass of <a class="reference internal" href="reference/xiao2018.html#poisoning.xiao2018" title="poisoning.xiao2018"><code class="xref py py-class docutils literal notranslate"><span class="pre">xiao2018</span></code></a>, meaning it has all the data that xiao2018 has.
+The reason to use frederickson2018 is to create smarter attack points that are less detectable by staying closer to the original data. Where xiao2018 uses just the bounding box and some arbitrary constants to bound its final attack points, frederickson2018 uses a loss term in order to accomplish a better boundary.</p>
+<p>To get started using it, import it from poisoning:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">poisoning</span> <span class="kn">import</span> <span class="n">frederickson2018</span>
 </pre></div>
 </div>
 <div class="section" id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Work in progress…</p>
-</div>
+<p>The following are parameters to the class.</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">phi</span></code> is a float used as the penalty term.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">power</span></code> is a float used to raise the distance of the k-th nearest neighbor to some power.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">k</span></code> is an integer, representing the k-th nearest point that is an element in the surrogate dataset.</p></li>
+<li><p><a class="reference internal" href="reference/frederickson2018.html#poisoning.frederickson2018.outlier_type" title="poisoning.frederickson2018.outlier_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outlier_type</span></code></a> is a string representing the type of outlier type that will be used in the algorithm..</p></li>
+</ul>
 </div>
 <div class="section" id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Work in progress…</p>
-</div>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference/frederickson2018.html#poisoning.frederickson2018.outlier_type" title="poisoning.frederickson2018.outlier_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outlier_type</span></code></a> string representing the outlier type.</p></li>
+</ul>
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Work in progress…</p>
-</div>
+<p>There are two methods available to the user.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference/frederickson2018.html#poisoning.frederickson2018.run" title="poisoning.frederickson2018.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a></p></li>
+<li><p><a class="reference internal" href="reference/frederickson2018.html#poisoning.frederickson2018.autorun" title="poisoning.frederickson2018.autorun"><code class="xref py py-meth docutils literal notranslate"><span class="pre">autorun()</span></code></a></p></li>
+</ul>
+<p>The difference between the two methods is that autorun does not need to take as an input initial attack points and initial labels for those attack points.</p>
+<p>Instead, it takes in a number (int or float[0.0, 1.0]) representing either the number of attacks to create, or the percent of attacks to create.</p>
 </div>
 </div>
 
