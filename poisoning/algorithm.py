@@ -559,9 +559,3 @@ class frederickson2018(xiao2018):
         result = [((np.dot(item[0], ax) + biases) - item[1]) * (np.matmul(item[0], partial_weights) + partial_biases) for item in zip(X, Y)] 
 
         return (((sum(result) / X.shape[0]) + last_term) - (self.phi * self._useable_partials(X, ax)))
-    
-    # def run(self, X, Y, Attacks, Labels, projection):
-    #     if (len(X) < self.k_th):
-    #         self.k_th = len(X)
-        
-    #     super().run(X, Y, Attacks, Labels, projection)
