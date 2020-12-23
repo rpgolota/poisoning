@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>poisoning.algorithm &mdash; poisoning 0.7.1 documentation</title>
+  <title>poisoning.algorithm &mdash; poisoning 1.0.1 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.7.1
+                1.0.1
               </div>
             
           
@@ -194,7 +194,7 @@
 <span class="sd">        Parameter that is passed into the linear model to bound iterations.</span>
 <span class="sd">        </span>
 <span class="sd">    model_tol : float, default=1e-4</span>
-<span class="sd">        Paramter that is passed into the linear model as the tolerance.</span>
+<span class="sd">        Parameter that is passed into the linear model as the tolerance.</span>
 <span class="sd">    </span>
 <span class="sd">    parallel : bool, default=True</span>
 <span class="sd">        Parameter that will enable or disable the possible use of multiprocessing to </span>
@@ -618,13 +618,13 @@
 <span class="sd">        Type of outlier type that will be used in the algorithm.</span>
 <span class="sd">    </span>
 <span class="sd">    phi : float, default=1.0</span>
-<span class="sd">        WIP</span>
+<span class="sd">        Outlier weight term used as the penalty term</span>
 <span class="sd">        </span>
 <span class="sd">    power : float, default=2.0</span>
-<span class="sd">        WIP</span>
+<span class="sd">        User-defined parameter used to raise the distance to the k-th nearest neighbor to some power.</span>
 <span class="sd">        </span>
 <span class="sd">    k : int, default=3</span>
-<span class="sd">        WIP</span>
+<span class="sd">        The k-th nearest point that is an element in the surrogate dataset</span>
 <span class="sd">    &quot;&quot;&quot;</span>    
     
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">outlier_type</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -656,22 +656,45 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid outlier type: </span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_learn_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    
         <span class="bp">self</span><span class="o">.</span><span class="n">_linear_algorithm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_Knearest_neighbor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_distance_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
         <span class="n">k_nearest_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Knearest_neighbor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
-        <span class="n">distances</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">k_nearest_model</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">distances</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">k_nearest_model</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># why is n_neighbors 1</span>
         
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">distance</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">distance</span> <span class="ow">in</span> <span class="n">distances</span><span class="p">])</span>
         
     <span class="k">def</span> <span class="nf">_k_nearest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;here2&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;X: </span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">euclideanDistance</span><span class="p">,</span> <span class="n">k_nearest_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Knearest_neighbor</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k_th</span><span class="p">)</span>
         <span class="n">outlier</span> <span class="o">=</span> <span class="p">((</span><span class="n">euclideanDistance</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_th</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span><span class="p">)</span> 
 
         <span class="k">return</span> <span class="n">outlier</span><span class="p">,</span> <span class="n">k_nearest_indices</span>
     
     <span class="k">def</span> <span class="nf">_k_partial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+        
+        <span class="c1"># Sometimes, indices[0, self.k_th - 1] is size of array, which gives an error.</span>
+        <span class="c1"># Also, indices[0, 0] seems to be the size of the array a lot of the time. Can&#39;t tell what is wrong here.</span>
+        <span class="c1"># Seems to only happen with titanic.csv.</span>
+        
+        <span class="c1"># Traceback (most recent call last):</span>
+        <span class="c1">#     File &quot;/opt/hostedtoolcache/Python/3.8.6/x64/lib/python3.8/concurrent/futures/process.py&quot;, line 239, in _process_worker</span>
+        <span class="c1">#         r = call_item.fn(*call_item.args, **call_item.kwargs)</span>
+        <span class="c1">#     File &quot;/opt/hostedtoolcache/Python/3.8.6/x64/lib/python3.8/concurrent/futures/process.py&quot;, line 198, in _process_chunk</span>
+        <span class="c1">#         return [fn(*args) for args in chunk]</span>
+        <span class="c1">#     File &quot;/opt/hostedtoolcache/Python/3.8.6/x64/lib/python3.8/concurrent/futures/process.py&quot;, line 198, in &lt;listcomp&gt;</span>
+        <span class="c1">#         return [fn(*args) for args in chunk]</span>
+        <span class="c1">#     File &quot;/home/runner/work/poisoning/poisoning/poisoning/algorithm.py&quot;, line 297, in _run_implementation</span>
+        <span class="c1">#         d = self._project(attack + self._gradient(X, Y, attack, label)) - attack</span>
+        <span class="c1">#     File &quot;/home/runner/work/poisoning/poisoning/poisoning/algorithm.py&quot;, line 544, in _gradient</span>
+        <span class="c1">#         return (((sum(result) / X.shape[0]) + last_term) - (self.phi * self._useable_partials(X, ax)))</span>
+        <span class="c1">#     File &quot;/home/runner/work/poisoning/poisoning/poisoning/algorithm.py&quot;, line 526, in _k_partial</span>
+        <span class="c1">#         partial_outlier = self.power * (outlier_term**(self.power - 2)) * (ax - X[indices[0, self.k_th - 1]])</span>
+        <span class="c1">#     IndexError: index 2201 is out of bounds for axis 0 with size 2201</span>
+        
         <span class="n">outlier_term</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k_nearest</span><span class="p">([</span><span class="n">ax</span><span class="p">])</span>
         <span class="n">partial_outlier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span> <span class="o">*</span> <span class="p">(</span><span class="n">outlier_term</span><span class="o">**</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">power</span> <span class="o">-</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">ax</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_th</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]])</span>
         
@@ -692,7 +715,6 @@
         <span class="n">result</span> <span class="o">=</span> <span class="p">[((</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="p">)</span> <span class="o">+</span> <span class="n">biases</span><span class="p">)</span> <span class="o">-</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">partial_weights</span><span class="p">)</span> <span class="o">+</span> <span class="n">partial_biases</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)]</span> 
 
         <span class="k">return</span> <span class="p">(((</span><span class="nb">sum</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">/</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">last_term</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_useable_partials</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">)))</span></div>
-  
 </pre></div>
 
            </div>
