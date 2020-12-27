@@ -1,5 +1,5 @@
-<h1 align="center">Dataset Poisoning</h2>
-<h4 align="center">Poisoning datasets using gradient ascent, targeting feature selection.</h2>
+<h1 align="center">Dataset Poisoning</h1>
+<h4 align="center">Poisoning datasets using gradient ascent, targeting feature selection.</h4>
 
 <p align="center">
 <a href="https://github.com/rpgolota/poisoning/actions?query=workflow%3A%22Code+Test%22"><img alt="Build Status" src="https://github.com/rpgolota/poisoning/workflows/Code%20Test/badge.svg"></a>
