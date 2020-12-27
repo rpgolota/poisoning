@@ -8,6 +8,7 @@
 | ----------- | ----------- |
 |![Code Test](https://github.com/rpgolota/poisoning/workflows/Code%20Test/badge.svg)|Tests regarding algorithm.|
 |![Pip Test](https://github.com/rpgolota/poisoning/workflows/Pip%20Test/badge.svg)|Tests regarding the ability to build and install with pip|
+|![Lint](https://github.com/rpgolota/poisoning/workflows/Lint/badge.svg)|Code linting checks.|
 
 ---
 
