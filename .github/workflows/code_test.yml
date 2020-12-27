@@ -6,10 +6,12 @@ on:
     paths:
       - 'poisoning/**'
       - 'tests/**'
+      - '.github/workflows/code_test.yml'
   pull_request:
     paths:
       - 'poisoning/**'
       - 'tests/**'
+      - '.github/workflows/code_test.yml'
 
 jobs:
   python:

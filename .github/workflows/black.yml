@@ -5,10 +5,12 @@ on:
     paths:
       - 'poisoning/**'
       - 'tests/**'
+      - '.github/workflows/black.yml'
   pull_request:
     paths:
       - 'poisoning/**'
       - 'tests/**'
+      - '.github/workflows/black.yml'
 
 jobs:
   python:
