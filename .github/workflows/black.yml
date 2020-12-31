@@ -3,13 +3,11 @@ name: Lint
 on:
   push:
     paths:
-      - 'poisoning/**'
-      - 'tests/**'
+      - '**.py'
       - '.github/workflows/black.yml'
   pull_request:
     paths:
-      - 'poisoning/**'
-      - 'tests/**'
+      - '**.py'
       - '.github/workflows/black.yml'
 
 jobs:
